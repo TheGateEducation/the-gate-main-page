@@ -190,7 +190,7 @@ const mockPrograms = [
     },
     {
       "id": 9,
-      "area": "Educacion y formacion profesional",
+      "area": "Licenciaturas",
       "name": "BSc in Engineering",
       "specialization": "Engineering",
       "country": "South Korea",
