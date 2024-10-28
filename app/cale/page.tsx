@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Programas - The Gate Education",
   description: "Conoce la oferta que tenemos para ti en educación internacional. ",
-  keywords: "campamentos, certificados y diplomas, cursos de idiomas, intercambios, maestrias, tours de estudio, estudios en el extranjero, secundaria, educación y formación profesional",
+  keywords: "campamentos, certificados y diplomas, cursos de idiomas, intercambios, maestrias, tours de estudio, secundaria, educación y formación profesional",
 };
 
 const mockPrograms = [
@@ -142,28 +142,6 @@ const mockPrograms = [
       "area": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/male.jpg",
       "country": "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg",
       "institution": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUilLsY6_HS7jJdET1WHOWuESs4umckJSTQ&s"
-    }
-  },
-  {
-    "id": 7,
-    "area": "Estudios en el extranjero",
-    "name": "Software Engineering and AI",
-    "specialization": "Computer Science",
-    "country": "Australia",
-    "institution": "University of Melbourne",
-    "location": "Melbourne",
-    "startDates": "February 2024",
-    "duration": "1 year",
-    "costPerYearUSD": "$22,000.00",
-    "costPerYearCurrency": "AUD33,000.00",
-    "currency": "AUD",
-    "scholarships": "YES",
-    "link": "https://www.unimelb.edu.au/",
-    "notes": "A comprehensive study abroad experience focused on software engineering and AI.",
-    "images": {
-      "area": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/school.jpg",
-      "country": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Flag_of_Australia.svg",
-      "institution": "https://upload.wikimedia.org/wikipedia/commons/2/29/Logo_university_of_melbourne.png"
     }
   },
   {
