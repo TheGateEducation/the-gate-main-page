@@ -29,7 +29,7 @@ export const Footer = () => {
                     <div>
                         <Link
                             rel="noreferrer noopener"
-                            href="https://x.com/TheGateEdux"
+                            href="https://x.com/TheGateEdu"
                             className="opacity-60 hover:opacity-100"
                         >
                             X
@@ -110,7 +110,7 @@ export const Footer = () => {
                         rel="noreferrer noopener"
                         target="_blank"
                         href="/"
-                        className="text-primary transition-all border-primary hover:border-b-2"
+                        className="text-primary transition-all border-primary hover:border-b-2 text-yellow-400"
                     >
                         The Gate Education
                     </Link>

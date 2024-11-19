@@ -19,7 +19,7 @@ const Content = () => {
                 <p className="text-textGray mt-4 md:mt-6 mb-4 md:mb-5">
                     Somos una empresa dedicada a brindar servicios de asesoría educativa para estudiantes que desean estudiar en el extranjero. Nuestro objetivo es ayudarte a encontrar la mejor opción de estudio para ti, de acuerdo a tus necesidades y expectativas. Contamos con un equipo de profesionales altamente capacitados y con amplia experiencia en el área de educación internacional. Estamos comprometidos en brindarte un servicio de calidad y en acompañarte en todo el proceso de postulación a la universidad de tus sueños. ¡Haz realidad tu sueño de estudiar en el extranjero con nosotros!
                 </p>
-                <Link href="/contactus" className="text-customPurple font-semibold text-lg underline">
+                <Link href="/contact" className="text-customPurple font-semibold text-lg underline">
                     Agenda una consulta gratis
                 </Link>
             </div>

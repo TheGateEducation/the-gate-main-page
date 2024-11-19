@@ -69,13 +69,16 @@ const ProgramFilter: React.FC<ProgramsProps> = ({ programsData }) => {
   
 
   const resetFilters = () => {
+    setSelectedProgram("");
+    setSelectedSpecialization("");
+    setSelectedCountry("");
+    setSelectedInstitution("");
+    setFilteredPrograms(programsData); // reset to the full list of programs
     setFilters({
       country: "",
       institution: "",
       specialization: "",
-      // reset other filters
     });
-    setFilteredPrograms(programsData); // reset to the full list of programs
   };
   return (
     <>
