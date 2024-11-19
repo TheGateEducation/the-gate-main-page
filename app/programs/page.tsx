@@ -256,6 +256,28 @@ const mockPrograms = [
         "institution": "https://www.harvard.edu/wp-content/uploads/2021/02/091520_Stock_KS_025.jpeg?resize=1200,630"
       }
     },
+    {
+      "id": 12,
+      "area": "Doctorados",
+      "name": "BSc in Biology",
+      "specialization": "Biology",
+      "country": "Canada",
+      "institution": "University of British Columbia",
+      "location": "Vancouver",
+      "startDates": "September 2024",
+      "duration": "3 years",
+      "costPerYearUSD": "$18,000.00",
+      "costPerYearCurrency": "CAD24,000.00",
+      "currency": "CAD",
+      "scholarships": "NO",
+      "link": "https://www.ubc.ca/",
+      "notes": "Focused on biology, genetics, and ecosystem research.",
+      "images": {
+        "area": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/school.jpg",
+        "country": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Canada_%28Pantone%29.svg",
+        "institution": "https://upload.wikimedia.org/wikipedia/en/5/5a/University_of_British_Columbia_seal.svg"
+      }
+    },
   ];
 
   

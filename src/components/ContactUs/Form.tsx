@@ -611,10 +611,15 @@ const ContactUsForm = () => {
                             focus:ring-2 focus:ring-customPurple"
                     >
                         <option value="">Selecciona tu programa de interés</option>
-                        <option value="Undergraduate">Undergraduate</option>
-                        <option value="High School">High School</option>
-                        <option value="Master">Master</option>
-                        <option value="Junior High School">Junior High School</option>
+                        <option value="Campamento">Campamento</option>
+                        <option value="Certificados y Diplomas">Certificados y Diplomas</option>
+                        <option value="Cursos de idiomas">Cursos de idiomas</option>
+                        <option value="Intercambios">Intercambios</option>
+                        <option value="Maestrias">Maestriasl</option>
+                        <option value="Tours de estudio">Tours de estudio</option>
+                        <option value="Secundaria">Secundaria</option>
+                        <option value="Licenciatura">Licenciatural</option>
+                        <option value="Doctorados">Doctorados</option>
                     </select>
                 </label>
 
