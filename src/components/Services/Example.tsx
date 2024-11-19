@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import React, { useState } from "react";
 
 type Tab = {
@@ -120,7 +120,7 @@ const TabsWithCarousel: React.FC = () => {
             <div className="overflow-x-auto flex space-x-4">
                 {currentTab.images.map((image, index) => (
                     <div key={index} className="flex-shrink-0 w-64">
-                        <img
+                        <Image
                             src={image.src}
                             alt={image.description}
                             className="w-64 h-48 object-cover rounded-lg shadow-lg" 
