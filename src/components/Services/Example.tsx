@@ -123,6 +123,8 @@ const TabsWithCarousel: React.FC = () => {
                         <Image
                             src={image.src}
                             alt={image.description}
+                            width={500}
+                            height={500}
                             className="w-64 h-48 object-cover rounded-lg shadow-lg" 
                         />
                         <p className="mt-2 text-justify	 text-lg text-gray-800 py-2">
