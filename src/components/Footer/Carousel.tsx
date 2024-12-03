@@ -6,6 +6,7 @@ const logos = {
     aiit: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/aiit.png",
     alc: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/alc.png",
     australian: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/asutralian.png",
+    bau: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/bau.png",
     cbs: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/cbs.png",
     ciencias: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/ciencias.png",
     ciss: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/ciss.png",
