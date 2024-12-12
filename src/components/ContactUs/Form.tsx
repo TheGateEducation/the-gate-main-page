@@ -9,7 +9,7 @@ import StudentsRecordsService from "@src/services/studentsRecords.service"
 
 
 const ContactUsForm = () => {
-    const [area, setarea] = React.useState("");
+    const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [phone, setPhone] = React.useState("");
     const [country, setCountry] = React.useState("");
@@ -24,7 +24,7 @@ const ContactUsForm = () => {
         const data = {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-            area,
+            name,
             email,
             phone,
             country,
@@ -82,7 +82,7 @@ const ContactUsForm = () => {
                 )}
 
                 <InputField
-                    onChange={(e) => setarea(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                     type="text" placeholder="Escribe tu nombre completo">Nombre completo</InputField>
                 <InputField
                     onChange={(e) => setEmail(e.target.value)}
