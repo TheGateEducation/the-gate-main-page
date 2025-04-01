@@ -1,86 +1,85 @@
 [
     {
-      "programaId": "CAMP001",
-      "tipo": "campamento",
-      "nombre": "Campamento de verano en la naturaleza",
-      "descripcion": "Disfruta de una aventura inolvidable en el bosque, aprendiendo sobre la naturaleza y haciendo nuevos amigos.",
-      "edadMinima": 8,
-      "edadMaxima": 12,
-      "duracion": "2 semanas",
-      "actividades": [
-        "Senderismo",
-        "Campamentos",
-        "Juegos al aire libre",
-        "Observación de aves",
-        "Talleres de manualidades"
-      ],
-      "costos": {
-        "programaCompleto": 1500,
-        "alojamiento": 800 
-      },
-      "ubicacion": "Bosque Nacional El Tepozteco, Morelos, México",
-      "fechaInicio": "2024-07-15",
-      "fechaFin": "2024-07-28",
-      "cuposDisponibles": 15,
-      "imagen": "https://example.com/campamento-naturaleza.jpg"
+        "programaId": "CAMP001",
+        "tipo": "campamento",
+        "nombre": "Campamento de verano en la naturaleza",
+        "descripcion": "Disfruta de una aventura inolvidable en el bosque, aprendiendo sobre la naturaleza y haciendo nuevos amigos.",
+        "edadMinima": 8,
+        "edadMaxima": 12,
+        "duracion": "2 semanas",
+        "actividades": [
+            "Senderismo",
+            "Campamentos",
+            "Juegos al aire libre",
+            "Observación de aves",
+            "Talleres de manualidades"
+        ],
+        "costos": {
+            "programaCompleto": 1500,
+            "alojamiento": 800
+        },
+        "ubicacion": "Bosque Nacional El Tepozteco, Morelos, México",
+        "fechaInicio": "2024-07-15",
+        "fechaFin": "2024-07-28",
+        "cuposDisponibles": 15,
+        "imagen": "https://example.com/campamento-naturaleza.jpg"
     },
     {
-      "programaId": "CURS001",
-      "tipo": "curso",
-      "nombre": "Curso de inglés intensivo",
-      "idioma": "inglés",
-      "nivel": "principiante",
-      "duracion": "8 semanas",
-      "modalidad": "presencial",
-      "horario": [
-        "Lunes a viernes",
-        "De 16:00 a 18:00"
-      ],
-      "materialesIncluidos": true,
-      "profesor": {
-        "nombre": "John Smith",
-        "experiencia": "5 años enseñando inglés"
-      },
-      "costos": {
-        "cursoCompleto": 4000,
-        "descuentoEstudiante": "10%"
-      },
-      "institucion": "Academia de Idiomas ABC",
-      "ubicacion": "Ciudad de México, México",
-      "fechaInicio": "2024-08-05",
-      "fechaFin": "2024-09-30",
-      "cuposDisponibles": 10,
-      "imagen": "https://example.com/curso-ingles.jpg"
+        "programaId": "CURS001",
+        "tipo": "curso",
+        "nombre": "Curso de inglés intensivo",
+        "idioma": "inglés",
+        "nivel": "principiante",
+        "duracion": "8 semanas",
+        "modalidad": "presencial",
+        "horario": [
+            "Lunes a viernes",
+            "De 16:00 a 18:00"
+        ],
+        "materialesIncluidos": true,
+        "profesor": {
+            "nombre": "John Smith",
+            "experiencia": "5 años enseñando inglés"
+        },
+        "costos": {
+            "cursoCompleto": 4000,
+            "descuentoEstudiante": "10%"
+        },
+        "institucion": "Academia de Idiomas ABC",
+        "ubicacion": "Ciudad de México, México",
+        "fechaInicio": "2024-08-05",
+        "fechaFin": "2024-09-30",
+        "cuposDisponibles": 10,
+        "imagen": "https://example.com/curso-ingles.jpg"
     },
     {
-      "programaId": "MAES001",
-      "tipo": "maestria",
-      "nombre": "Maestría en Administración de Empresas",
-      "area": "administracion",
-      "modalidad": "semipresencial",
-      "duracion": "2 años",
-      "planEstudios": [
-        "Módulo 1: Fundamentos de la Administración",
-        "Módulo 2: Finanzas Corporativas",
-        "Módulo 3: Marketing Estratégico",
-        "Módulo 4: Recursos Humanos",
-        "Módulo 5: Dirección Estratégica"
-      ],
-      "requisitos": [
-        "Título universitario en áreas afines",
-        "Promedio mínimo de 8.0",
-        "Examen de admisión"
-      ],
-      "costos": {
-        "cuota semestral": 12000,
-        "becaExcelencia": "20%"
-      },
-      "institucion": "Universidad Nacional Autónoma de México",
-      "ubicacion": "Ciudad de México, México",
-      "fechaInicio": "2024-09-01",
-      "fechaFin": "2026-08-31",
-      "cuposDisponibles": 20,
-      "imagen": "https://example.com/maestria-administracion.jpg"
+        "programaId": "MAES001",
+        "tipo": "maestria",
+        "nombre": "Maestría en Administración de Empresas",
+        "area": "administracion",
+        "modalidad": "semipresencial",
+        "duracion": "2 años",
+        "planEstudios": [
+            "Módulo 1: Fundamentos de la Administración",
+            "Módulo 2: Finanzas Corporativas",
+            "Módulo 3: Marketing Estratégico",
+            "Módulo 4: Recursos Humanos",
+            "Módulo 5: Dirección Estratégica"
+        ],
+        "requisitos": [
+            "Título universitario en áreas afines",
+            "Promedio mínimo de 8.0",
+            "Examen de admisión"
+        ],
+        "costos": {
+            "cuota semestral": 12000,
+            "becaExcelencia": "20%"
+        },
+        "institucion": "Universidad Nacional Autónoma de México",
+        "ubicacion": "Ciudad de México, México",
+        "fechaInicio": "2024-09-01",
+        "fechaFin": "2026-08-31",
+        "cuposDisponibles": 20,
+        "imagen": "https://example.com/maestria-administracion.jpg"
     }
-  ]
-  
+]

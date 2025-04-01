@@ -1,121 +1,125 @@
 import Link from "next/link";
+import {
+    FaInstagram,
+    FaXTwitter,
+    FaFacebookF,
+    FaLinkedinIn,
+    FaTiktok,
+    FaWhatsapp,
+} from "react-icons/fa6";
 import React from "react";
 
+type FooterLink = {
+    label: string;
+    href: string;
+    icon?: React.ReactNode;
+};
+
+type FooterSection = {
+    title: string;
+    links: FooterLink[];
+};
+
+// Datos
+const footerData: {
+    brand: { name: string; href: string };
+    sections: FooterSection[];
+} = {
+    brand: {
+        name: "The Gate Education",
+        href: "/",
+    },
+    sections: [
+        {
+            title: "Redes sociales",
+            links: [
+                {
+                    label: "Instagram",
+                    href: "https://www.instagram.com/the_gate_education/",
+                    icon: <FaInstagram />,
+                },
+                { label: "X", href: "https://x.com/TheGateEdu", icon: <FaXTwitter /> },
+                { label: "Facebook", href: "#", icon: <FaFacebookF /> },
+                {
+                    label: "LinkedIn",
+                    href: "https://www.linkedin.com/company/thegate-education/",
+                    icon: <FaLinkedinIn />,
+                },
+                { label: "TikTok", href: "#", icon: <FaTiktok /> },
+                {
+                    label: "+52 ...",
+                    href: "https://wa.me/5210000000000",
+                    icon: <FaWhatsapp />,
+                },
+            ],
+        },
+        {
+            title: "Nosotros",
+            links: [
+                { label: "Servicios", href: "/services" },
+                { label: "Programas", href: "/programs" },
+                { label: "Partners", href: "#" },
+            ],
+        },
+        {
+            title: "Políticas de privacidad",
+            links: [
+                {
+                    label: "info@thegate-education.com",
+                    href: "mailto:info@thegate-education.com",
+                },
+            ],
+        },
+        {
+            title: "Oficinas",
+            links: [
+                { label: "Estado de México", href: "#" },
+                { label: "Monterrey", href: "#" },
+                { label: "Saltillo", href: "#" },
+                { label: "Panamá", href: "#" },
+            ],
+        },
+    ],
+};
+
+// Componente
 export const Footer = () => {
     return (
-        <footer id="footer" className="bg-gray-100">
-            <hr className="w-11/12 mx-auto" />
-            <section className="container mx-auto py-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-x-12 gap-y-8 px-4">
-                <div className="col-span-full xl:col-span-2">
+        <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 text-sm">
+            <div className="max-w-screen-xl mx-auto px-6 py-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                    {footerData.sections.map((section) => (
+                        <div key={section.title} className="flex flex-col gap-3">
+                            <h3 className="text-base font-semibold text-gray-900 mb-1">
+                                {section.title}
+                            </h3>
+                            {section.links.map(({ label, href, icon }) => (
+                                <Link
+                                    key={label}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 text-gray-600 hover:text-customPurple transition-colors"
+                                >
+                                    {icon && <span className="text-base">{icon}</span>}
+                                    <span>{label}</span>
+                                </Link>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-gray-200 text-center text-xs text-gray-500">
+                    &copy; 2024{" "}
                     <Link
-                        rel="noreferrer noopener"
-                        href="/"
-                        className="font-bold text-xl flex"
+                        href={footerData.brand.href}
+                        className="text-yellow-500 hover:underline"
                     >
-                        The Gate Education
+                        {footerData.brand.name}
                     </Link>
+                    . Todos los derechos reservados.
                 </div>
-                <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">Follow Us</h3>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="https://www.instagram.com/the_gate_education/"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Instagram
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="https://x.com/TheGateEdu"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            X
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Facebook
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="https://www.linkedin.com/company/thegate-education/"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Linkedin
-                        </Link>
-                    </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                    <h3 className="font-bold text-lg">About</h3>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="#"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Features
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="/programs"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Programas
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="/services"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Servicios
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="/news"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Noticias
-                        </Link>
-                    </div>
-                    <div>
-                        <Link
-                            rel="noreferrer noopener"
-                            href="/contact"
-                            className="opacity-60 hover:opacity-100"
-                        >
-                            Contacto
-                        </Link>
-                    </div>
-                </div>
-            </section>
-            <section className="container mx-auto pb-14 text-center px-4">
-                <h3>
-                    &copy; 2024 Copyright {" "}
-                    <Link
-                        rel="noreferrer noopener"
-                        target="_blank"
-                        href="/"
-                        className="text-primary transition-all border-primary hover:border-b-2 text-yellow-400"
-                    >
-                        The Gate Education
-                    </Link>
-                </h3>
-            </section>
+            </div>
         </footer>
     );
 };

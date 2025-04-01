@@ -4,15 +4,15 @@ import Link from "next/link";
 
 const About = () => {
     return (
-        <section id="aboutus" className="relative w-full py-20">
+        <section id="aboutus" className="relative w-full py-32">
             <div className="flex flex-col md:flex-row items-center justify-center px-14 md:px-6 lg:px-12 xl:px-40">
                 <div className="md:w-1/2 ">
-                <Image 
+                    <Image
                         className="rounded-3xl shadow-lg w-full h-full object-cover"
                         src="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/working.jpg"
                         alt="working"
-                        width={500} // replace with actual image width
-                        height={475} // replace with actual image height
+                        width={500}
+                        height={475}
                     />
                 </div>
                 <div className="md:w-1/2 mt-0 md:mt-0 md:ml-10 flex flex-col items-start justify-center text-justify md:text-left pt-4">

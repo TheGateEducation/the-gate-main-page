@@ -1,0 +1,74 @@
+{
+    "heroContent": {
+        "title": "Tu Puerta a la Educación Internacional.",
+        "subtitle": "Haz realidad tu sueño de estudiar en el extranjero.",
+        "image": "https://images.pexels.com/photos/11286168/pexels-photo-11286168.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    },
+    "stats": [
+        {
+            "end": 15,
+            "label": "Países",
+            "prefix": "+",
+            "isPercentage": false
+        },
+        {
+            "end": 300,
+            "label": "Instituciones educacionales",
+            "prefix": "+",
+            "isPercentage": false
+        },
+        {
+            "end": 1000,
+            "label": "Programas",
+            "prefix": "+",
+            "isPercentage": false
+        },
+        {
+            "end": 98,
+            "label": "de aceptación",
+            "prefix": "",
+            "suffix": "%",
+            "isPercentage": true
+        }
+    ],
+    "safewaySteps": {
+        "title": "La forma más segura y fácil de estudiar en el extranjero",
+        "subtitle": "¡Expande tus conocimientos, habilidades y cultura en el extranjero y obtén una experiencia de vida inolvidable!",
+        "steps": [
+            {
+                "h2": "01.",
+                "p": "Contactanos",
+                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/telecommuting.png",
+                "alt": "telecommuting"
+            },
+            {
+                "h2": "02.",
+                "p": "Encuentra todas las opciones para tus estudios",
+                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/options.png",
+                "alt": "options"
+            },
+            {
+                "h2": "03.",
+                "p": "Selecciona tu programa y aplica",
+                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/flags.png",
+                "alt": "flags"
+            },
+            {
+                "h2": "04.",
+                "p": "¡Viaja!",
+                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/fly.png",
+                "alt": "fly"
+            }
+        ]
+    },
+    "alliances": {
+        "title": "Alianzas",
+        "paragraph": "Somos una empresa dedicada a brindar servicios de asesoría educativa para estudiantes que desean estudiar en el extranjero. Nuestro objetivo es ayudarte a encontrar la mejor opción de estudio para ti, de acuerdo a tus necesidades y expectativas. Contamos con un equipo de profesionales altamente capacitados y con amplia experiencia en el área de educación internacional. Estamos comprometidos en brindarte un servicio de calidad y en acompañarte en todo el proceso de postulación a la universidad de tus sueños. ¡Haz realidad tu sueño de estudiar en el extranjero con nosotros!",
+        "ctaLabel": "Agenda una consulta gratis",
+        "ctaHref": "/contact",
+        "image": {
+            "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/woman.jpg",
+            "alt": "working"
+        }
+    }
+}
