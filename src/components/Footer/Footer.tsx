@@ -20,7 +20,6 @@ type FooterSection = {
     links: FooterLink[];
 };
 
-// Datos
 const footerData: {
     brand: { name: string; href: string };
     sections: FooterSection[];
