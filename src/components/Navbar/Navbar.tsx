@@ -73,8 +73,8 @@ const navbarData = {
             "iconPath": <IoLogoTiktok />
         },
         {
-            "label": "+52...",
-            "href": "https://wa.me/5210000000000",
+            "label": "+52 528443510141",
+            "href": "http://wa.me/528443510141",
             "iconPath": <FaWhatsapp />
         },
         {

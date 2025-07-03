@@ -60,8 +60,8 @@ const footerData: {
                     icon: <FaTiktok />
                 },
                 {
-                    label: "+52...",
-                    href: "https://wa.me/5210000000000",
+                    label: "+52 8443510141",
+                    href: "http://wa.me/528443510141",
                     icon: <FaWhatsapp />,
                 },
                 {
@@ -94,7 +94,6 @@ const footerData: {
                 { label: "Estado de México", href: "#" },
                 { label: "Monterrey", href: "#" },
                 { label: "Saltillo", href: "#" },
-                { label: "Panamá", href: "#" },
             ],
         },
     ],
