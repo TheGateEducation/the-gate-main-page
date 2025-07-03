@@ -6,6 +6,7 @@ import {
     FaLinkedinIn,
     FaTiktok,
     FaWhatsapp,
+    FaYoutube,
 } from "react-icons/fa6";
 import React from "react";
 
@@ -31,32 +32,50 @@ const footerData: {
     sections: [
         {
             title: "Redes sociales",
-            links: [
+            links:
+            [
                 {
                     label: "Instagram",
-                    href: "https://www.instagram.com/the_gate_education/",
+                    href: "https://www.instagram.com/tge.studyabroad/",
                     icon: <FaInstagram />,
                 },
-                { label: "X", href: "https://x.com/TheGateEdu", icon: <FaXTwitter /> },
-                { label: "Facebook", href: "#", icon: <FaFacebookF /> },
+                {
+                    label: "X",
+                    href: "https://x.com/TheGateEdu",
+                    icon: <FaXTwitter />
+                },
+                {
+                    label: "Facebook",
+                    href: "https://www.facebook.com/TheGateEducation/",
+                    icon: <FaFacebookF />
+                },
                 {
                     label: "LinkedIn",
                     href: "https://www.linkedin.com/company/thegate-education/",
                     icon: <FaLinkedinIn />,
                 },
-                { label: "TikTok", href: "#", icon: <FaTiktok /> },
                 {
-                    label: "+52 ...",
+                    label: "TikTok",
+                    href: "https://www.tiktok.com/@tge_international_edu?_t=ZS-8voNfmYVRFS&_r=1",
+                    icon: <FaTiktok />
+                },
+                {
+                    label: "+52...",
                     href: "https://wa.me/5210000000000",
                     icon: <FaWhatsapp />,
                 },
+                {
+                    label: "YouTube",
+                    href: "http://www.youtube.com/@TheGateEducation",
+                    icon: <FaYoutube/>,
+                }
             ],
         },
         {
             title: "Nosotros",
             links: [
-                { label: "Servicios", href: "/services" },
                 { label: "Programas", href: "/programs" },
+                { label: "Servicios", href: "/services" },
                 { label: "Partners", href: "#" },
             ],
         },

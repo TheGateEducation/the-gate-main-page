@@ -19,17 +19,19 @@ import { buttonVariants } from "@src/components/Navbar/components/button";
 import { ModeToggle } from "@src/components/Navbar/components/mode-toggle";
 import Logo from "@src/components/Navbar/components/Logo";
 
-import { FaInstagram, FaXTwitter, FaLinkedin, FaFacebook } from "react-icons/fa6";
+import { FaInstagram, FaXTwitter, FaLinkedin, FaFacebook, FaYoutube, FaWhatsapp } from "react-icons/fa6";
 import { IoLogoTiktok } from "react-icons/io5";
 
 
 
 const navbarData = {
-    "brand": {
+    "brand":
+    {
         "name": "The Gate Education",
         "href": "/"
     },
-    "routes": [
+    "routes":
+    [
         {
             "label": "Programas",
             "href": "/programs"
@@ -43,31 +45,42 @@ const navbarData = {
             "href": "/contact"
         }
     ],
-    "social": [
+    "social":
+    [
         {
-            "label": "instagram",
-            "href": "https://www.instagram.com/the_gate_education/",
+            "label": "Instagram",
+            "href": "https://www.instagram.com/tge.studyabroad/",
             "iconPath": <FaInstagram />
         },
         {
-            "label": "x",
+            "label": "X",
             "href": "https://x.com/TheGateEdu",
             "iconPath": <FaXTwitter />
         },
         {
-            "label": "linkedin",
+            "label": "Facebook",
+            "href": "https://www.facebook.com/TheGateEducation/",
+            "iconPath": <FaFacebook />
+        },
+        {
+            "label": "Linkedin",
             "href": "https://www.linkedin.com/company/thegate-education/",
             "iconPath": <FaLinkedin />
         },
         {
-            "label": "Facebook",
-            "href": "https://api.whatsapp.com/send?phone=573053724264&text=Hola%20The%20Gate%20Education",
-            "iconPath": <FaFacebook />
+            "label": "TikTok",
+            "href": "https://www.tiktok.com/@tge_international_edu?_t=ZS-8voNfmYVRFS&_r=1",
+            "iconPath": <IoLogoTiktok />
         },
         {
-            "label": "TikTok",
-            "href": "https://api.whatsapp.com/send?phone=573053724264&text=Hola%20The%20Gate%20Education",
-            "iconPath": <IoLogoTiktok />
+            "label": "+52...",
+            "href": "https://wa.me/5210000000000",
+            "iconPath": <FaWhatsapp />
+        },
+        {
+            "label": "YouTube",
+            "href": "http://www.youtube.com/@TheGateEducation",
+            "iconPath": <FaYoutube />
         }
     ]
 }
