@@ -18,7 +18,7 @@ export default function ContactUs() {
             <Hero
                 url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/contactus.png"
                 title="Contáctanos"
-                subitle="¿Quieres ponerte en contacto? Nos encantaría saber de ti." />
+                subtitle="¿Quieres ponerte en contacto? Nos encantaría saber de ti." />
             <ContactUsForm />
         </main>
     );

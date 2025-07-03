@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import ProgramGrid from '@src/components/cale/ProgramGrid';
 import Hero from '@src/components/Hero/Hero';
+import rawConvenios from '@src/data/mockPrograms.json'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -9,7 +10,31 @@ export const metadata = {
     keywords: "campamentos, certificados y diplomas, cursos de idiomas, intercambios, maestrias, tours de estudio,  secundaria, educación y formación profesional",
 };
 
-const mockPrograms = [
+const adaptedPrograms = rawConvenios.map((c) => ({
+  id: c.id,
+  area: c.Tipo,
+  name: c.Programas_disponibles,
+  specialization: "", // sin dato real
+  country: c.Pais,
+  institution: c.Institucion,
+  location: c.Ciudad,
+  startDates: "",
+  duration: "",
+  costPerYearUSD: "",
+  costPerYearCurrency: "",
+  currency: "",
+  scholarships: "",
+  link: c.Link,
+  notes: "",
+  images: {
+    area: "",        // sin imagen
+    country: "",
+    institution: ""
+  }
+}));
+
+
+/*const mockPrograms = [
     {
       "id": 1,
       "area": "Campamentos",
@@ -126,7 +151,7 @@ const mockPrograms = [
       "id": 6,
       "area": "Tours de Estudio",
       "name": "Renaissance Art Tour",
-      "specialization": "Art History",
+      "specialization": "Otra prueba",
       "country": "Italy",
       "institution": "University of Florence",
       "location": "Florence",
@@ -147,7 +172,7 @@ const mockPrograms = [
     
     {
       "id": 8,
-      "area": "Secundaria",
+      "area": "Emiliano",
       "name": "BSc in Biology",
       "specialization": "Biology",
       "country": "Canada",
@@ -257,7 +282,7 @@ const mockPrograms = [
       }
     },
     {
-      "id": 12,
+      "id": 13,
       "area": "Doctorados",
       "name": "BSc in Biology",
       "specialization": "Biology",
@@ -278,14 +303,17 @@ const mockPrograms = [
         "institution": "https://upload.wikimedia.org/wikipedia/en/5/5a/University_of_British_Columbia_seal.svg"
       }
     },
-  ];
+  ];**/
 
   
 export default function Programs() {
     return (
         <main>
-            <Hero url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/programs.jpg" title="Programas" />
-            <ProgramGrid  programsData={mockPrograms}/>
+            <Hero 
+            url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/programs.jpg" 
+            title="Programas" 
+            subtitle="Mucho gusto esto es una prueba"/>
+            <ProgramGrid  programsData={adaptedPrograms}/>
         </main>
     );
 }
