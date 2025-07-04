@@ -91,9 +91,18 @@ const footerData: {
         {
             title: "Oficinas",
             links: [
-                { label: "Estado de México", href: "#" },
-                { label: "Monterrey", href: "#" },
-                { label: "Saltillo", href: "#" },
+                {
+                    label: "Estado de México",
+                    href: "https://www.google.com/maps/place/Ignacio+Comonfort+3-c+103,+Atizapan+Centro,+52900+Cdad.+L%C3%B3pez+Mateos,+M%C3%A9x./@19.561066,-99.246263,19z/data=!3m1!4b1!4m5!3m4!1s0x85d21cf09caeeef3:0xb991486de7446bf7!8m2!3d19.5610647!4d-99.2456193?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D"
+                },
+                {
+                    label: "Monterrey",
+                    href: "#"
+                },
+                {
+                    label: "Saltillo",
+                    href: "#"
+                },
             ],
         },
     ],
