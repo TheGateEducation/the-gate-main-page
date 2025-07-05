@@ -79,11 +79,11 @@ const footerData: {
             ],
         },
         {
-            title: "Políticas de privacidad",
+            title: "Soporte",
             links: [
                 {
-                    label: "info@thegate-education.com",
-                    href: "mailto:info@thegate-education.com",
+                    label: "Políticas de privacidad",
+                    href: "https://drive.google.com/file/d/1qlotGUdbs3FBZZKrQ_SJ841j_gnZNIBb/view?usp=drive_link",
                 },
             ],
         },
