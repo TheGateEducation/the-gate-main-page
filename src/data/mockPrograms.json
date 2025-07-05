@@ -7,7 +7,9 @@
     "Ciudad": "Koblenz",
     "Campus": "Koblenz",
     "Link": "https://www.isl-sprachschule.de/",
-    "id": 1
+    "id": 1,
+    "edad": "14-17 años",
+    "categoria": "Maestrías"
   },
   {
     "Tipo": "Universidad / Studienkolleg",
@@ -17,7 +19,9 @@
     "Ciudad": "Cologne y otras",
     "Campus": "Cologne y otras",
     "Link": "https://www.cbs.de/en/",
-    "id": 2
+    "id": 2,
+    "edad": "25+ años",
+    "categoria": "Maestrías"
   },
   {
     "Tipo": "Universidad",
@@ -27,7 +31,9 @@
     "Ciudad": "Berlin y otras",
     "Campus": "Berlin y otras",
     "Link": "https://www.srh-berlin.de/en/",
-    "id": 3
+    "id": 3,
+    "edad": "25+ años",
+    "categoria": "Campamentos"
   },
   {
     "Tipo": "Universidad",
@@ -37,7 +43,9 @@
     "Ciudad": "Bremen",
     "Campus": "Bremen",
     "Link": "https://constructor.university/",
-    "id": 4
+    "id": 4,
+    "edad": "7-13 años",
+    "categoria": "Maestrías"
   },
   {
     "Tipo": "Universidad",
@@ -47,7 +55,9 @@
     "Ciudad": "Berlín",
     "Campus": "Berlín, Hamburgo, Barcelona, París",
     "Link": "https://www.berlinsbi.com/es",
-    "id": 5
+    "id": 5,
+    "edad": "14-17 años",
+    "categoria": "Secundaria"
   },
   {
     "Tipo": "Foundation y pathways",
@@ -57,7 +67,9 @@
     "Ciudad": "Jülich",
     "Campus": "Jülich",
     "Link": "https://www.fh-aachen.de/en/freshman?l=1&cHash=e877ffb871f51a1f1dacd9178ca4bd22",
-    "id": 6
+    "id": 6,
+    "edad": "14-17 años",
+    "categoria": "Doctorados"
   },
   {
     "Tipo": "Idioma y pathway",
@@ -67,7 +79,9 @@
     "Ciudad": "Berlin  ",
     "Campus": "Berlin  ",
     "Link": "https://www.eurasia-institute.com/en/",
-    "id": 7
+    "id": 7,
+    "edad": "18-25 años",
+    "categoria": "Doctorados"
   },
   {
     "Tipo": "Partner High Schools",
@@ -77,7 +91,9 @@
     "Ciudad": "Brisbane",
     "Campus": "High Schools en varias ciudades de Australia",
     "Link": "https://www.australianinternationalstudenttours.com.au/",
-    "id": 8
+    "id": 8,
+    "edad": "7-13 años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad",
@@ -87,7 +103,9 @@
     "Ciudad": "Melbourne",
     "Campus": "Melbourne (Burwood), Geelong (Waurn Ponds & Waterfront), Warrnambool",
     "Link": "https://www.deakin.edu.au/",
-    "id": 9
+    "id": 9,
+    "edad": "18-25 años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad",
@@ -97,7 +115,9 @@
     "Ciudad": "Sydney, Melbourne, Brisbane",
     "Campus": "Sydney, Melbourne, Brisbane",
     "Link": "https://www.jmcacademy.edu.au/",
-    "id": 10
+    "id": 10,
+    "edad": "18-25 años",
+    "categoria": "Cursos de Idiomas"
   },
   {
     "Tipo": "Universidad",
@@ -107,7 +127,9 @@
     "Ciudad": "Brisbane",
     "Campus": "Brisbane",
     "Link": "https://apac.edu.au/",
-    "id": 11
+    "id": 11,
+    "edad": "25+ años",
+    "categoria": "Tours de Estudio"
   },
   {
     "Tipo": "Universidad",
@@ -117,7 +139,9 @@
     "Ciudad": "Melbourne",
     "Campus": "Melbourne (Bundoora, City Center), Bendigo, Shepparton, Albury-Wodonga, Mildura, Sydney (City)",
     "Link": "https://www.latrobe.edu.au/",
-    "id": 12
+    "id": 12,
+    "edad": "25+ años",
+    "categoria": "Cursos de Idiomas"
   },
   {
     "Tipo": "Universidad",
@@ -127,7 +151,9 @@
     "Ciudad": "Sydney",
     "Campus": "Macquarie Park (North Ryde), Sydney (City)",
     "Link": "https://www.mq.edu.au/",
-    "id": 13
+    "id": 13,
+    "edad": "25+ años",
+    "categoria": "Campamentos"
   },
   {
     "Tipo": "Universidad",
@@ -137,7 +163,9 @@
     "Ciudad": "Melbourne",
     "Campus": "Melbourne",
     "Link": "https://www.rmit.edu.au/",
-    "id": 14
+    "id": 14,
+    "edad": "25+ años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad y VET",
@@ -147,7 +175,9 @@
     "Ciudad": "Perth",
     "Campus": "Perth",
     "Link": "https://www.stanleycollege.edu.au/",
-    "id": 15
+    "id": 15,
+    "edad": "25+ años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad",
@@ -157,7 +187,9 @@
     "Ciudad": "Perth",
     "Campus": "Perth, Albany",
     "Link": "https://www.uwa.edu.au/",
-    "id": 16
+    "id": 16,
+    "edad": "18-25 años",
+    "categoria": "Secundaria"
   },
   {
     "Tipo": "Universidad y VET",
@@ -167,7 +199,9 @@
     "Ciudad": "Melbourne",
     "Campus": "Melbourne, Sydney",
     "Link": "https://www.angliss.edu.au/",
-    "id": 17
+    "id": 17,
+    "edad": "25+ años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Internships",
@@ -177,7 +211,9 @@
     "Ciudad": "Sydney",
     "Campus": "Varias",
     "Link": "https://internships.com.au/",
-    "id": 18
+    "id": 18,
+    "edad": "18-25 años",
+    "categoria": "Doctorados"
   },
   {
     "Tipo": "VET",
@@ -187,7 +223,9 @@
     "Ciudad": "Brisbane",
     "Campus": "Brisbane",
     "Link": "https://outsourceinstitute.edu.au/",
-    "id": 19
+    "id": 19,
+    "edad": "25+ años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "VET",
@@ -197,7 +235,9 @@
     "Ciudad": "Melbourne / Sydney",
     "Campus": "Melbourne / Sydney",
     "Link": "https://www.holmeseducationgroup.com/",
-    "id": 20
+    "id": 20,
+    "edad": "7-13 años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad",
@@ -207,7 +247,9 @@
     "Ciudad": "Queensland",
     "Campus": "Brisbane",
     "Link": "https://www.jcu.edu.au/brisbane",
-    "id": 21
+    "id": 21,
+    "edad": "14-17 años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Inglés y VET",
@@ -217,7 +259,9 @@
     "Ciudad": "Queensland",
     "Campus": "Brisbane",
     "Link": "https://www.sri.edu.au/",
-    "id": 22
+    "id": 22,
+    "edad": "25+ años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Universidad",
@@ -227,7 +271,9 @@
     "Ciudad": "Perth",
     "Campus": "Perth",
     "Link": "https://www.curtin.edu.au/",
-    "id": 23
+    "id": 23,
+    "edad": "7-13 años",
+    "categoria": "Doctorados"
   },
   {
     "Tipo": "Universidad",
@@ -237,7 +283,9 @@
     "Ciudad": "Queensland",
     "Campus": "Toowoomba, Springfield, Ipswich, Brisbane, Hub Stanthorpe",
     "Link": "https://usq.edu.au/",
-    "id": 24
+    "id": 24,
+    "edad": "7-13 años",
+    "categoria": "Doctorados"
   },
   {
     "Tipo": "Inglés y VET",
@@ -247,7 +295,9 @@
     "Ciudad": "Melbourne",
     "Campus": "Melbourne",
     "Link": "https://www.aiit.vic.edu.au/",
-    "id": 25
+    "id": 25,
+    "edad": "14-17 años",
+    "categoria": "Maestrías"
   },
   {
     "Tipo": "Universidad",
@@ -257,7 +307,9 @@
     "Ciudad": "Adelaide",
     "Campus": "Adelaide",
     "Link": "https://www.adelaide.edu.au/",
-    "id": 26
+    "id": 26,
+    "edad": "18-25 años",
+    "categoria": "Campamentos"
   },
   {
     "Tipo": "High School",
@@ -267,7 +319,9 @@
     "Ciudad": "Vancouver",
     "Campus": "Vancouver",
     "Link": "https://www.alexanderacademy.ca/",
-    "id": 27
+    "id": 27,
+    "edad": "14-17 años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Summer Camps / High Schools",
@@ -277,7 +331,9 @@
     "Ciudad": "Toronto, Vancouver",
     "Campus": "Toronto, Vancouver",
     "Link": "https://www.cisscanada.com/",
-    "id": 28
+    "id": 28,
+    "edad": "18-25 años",
+    "categoria": "Maestrías"
   },
   {
     "Tipo": "Idiomas Francés e Inglés, summer camp",
@@ -287,7 +343,9 @@
     "Ciudad": "Quebec",
     "Campus": "Quebec",
     "Link": "https://learningfrenchinquebec.com/",
-    "id": 29
+    "id": 29,
+    "edad": "7-13 años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad",
@@ -297,7 +355,9 @@
     "Ciudad": "Ontario",
     "Campus": "Thunderbay, Orillia, Georgian Barrie",
     "Link": "https://www.lakeheadu.ca/",
-    "id": 30
+    "id": 30,
+    "edad": "18-25 años",
+    "categoria": "Tours de Estudio"
   },
   {
     "Tipo": "Inglés",
@@ -307,7 +367,9 @@
     "Ciudad": "Toronto, Vancouver, Montreal",
     "Campus": "Canadá, Irlanda, Malta, UK, USA, Sudáfrica, online",
     "Link": "https://www.ecenglish.com/en",
-    "id": 31
+    "id": 31,
+    "edad": "7-13 años",
+    "categoria": "Tours de Estudio"
   },
   {
     "Tipo": "Universidad",
@@ -317,7 +379,9 @@
     "Ciudad": "Barcelona",
     "Campus": "Barcelona",
     "Link": "https://www.csss.es/",
-    "id": 32
+    "id": 32,
+    "edad": "14-17 años",
+    "categoria": "Secundaria"
   },
   {
     "Tipo": "Inglés",
@@ -327,7 +391,9 @@
     "Ciudad": "Bray",
     "Campus": "Bray, Dublín",
     "Link": "https://atclanguageschools.com/",
-    "id": 33
+    "id": 33,
+    "edad": "25+ años",
+    "categoria": "Cursos de Idiomas"
   },
   {
     "Tipo": "College / Universidad",
@@ -337,7 +403,9 @@
     "Ciudad": "Dublin",
     "Campus": "Dublin",
     "Link": "https://www.ncirl.ie/",
-    "id": 34
+    "id": 34,
+    "edad": "14-17 años",
+    "categoria": "Secundaria"
   },
   {
     "Tipo": "Financiera Privada",
@@ -347,7 +415,9 @@
     "Ciudad": "México",
     "Campus": "México",
     "Link": "https://www.preparatemx.com/",
-    "id": 35
+    "id": 35,
+    "edad": "14-17 años",
+    "categoria": "Tours de Estudio"
   },
   {
     "Tipo": "Financiera Privada",
@@ -357,7 +427,9 @@
     "Ciudad": "México",
     "Campus": "México",
     "Link": "https://tem.mx/",
-    "id": 36
+    "id": 36,
+    "edad": "7-13 años",
+    "categoria": "Campamentos"
   },
   {
     "Tipo": "Inglés",
@@ -367,7 +439,9 @@
     "Ciudad": "Dubai / St. Paul",
     "Campus": "Londres, Dublín, Malta, Canadá",
     "Link": "https://www.englishpath.com/",
-    "id": 37
+    "id": 37,
+    "edad": "18-25 años",
+    "categoria": "Cursos de Idiomas"
   },
   {
     "Tipo": "Universidad / College",
@@ -377,7 +451,9 @@
     "Ciudad": "Dubai / Malta",
     "Campus": "Dubai, Malta, online",
     "Link": "https://gbs.ac.ae/ ; https://gbs.edu.mt/",
-    "id": 38
+    "id": 38,
+    "edad": "25+ años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Inglés",
@@ -387,7 +463,9 @@
     "Ciudad": "Miami",
     "Campus": "Australia, Canadá, Irlanda, UK, USA",
     "Link": "https://www.ohcenglish.com/",
-    "id": 39
+    "id": 39,
+    "edad": "25+ años",
+    "categoria": "Tours de Estudio"
   },
   {
     "Tipo": "Summer Camps",
@@ -397,7 +475,9 @@
     "Ciudad": "Miami",
     "Campus": "Canadá, UK, USA",
     "Link": "https://solcamps.com/",
-    "id": 40
+    "id": 40,
+    "edad": "14-17 años",
+    "categoria": "Campamentos"
   },
   {
     "Tipo": "Universidad",
@@ -407,7 +487,9 @@
     "Ciudad": "Tampa",
     "Campus": "Tampa, Madrid, Paris, Heidelberg, online",
     "Link": "https://schiller.edu/",
-    "id": 41
+    "id": 41,
+    "edad": "25+ años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Universidad",
@@ -417,7 +499,9 @@
     "Ciudad": "Jonköping",
     "Campus": "Jonköping",
     "Link": "https://ju.se/en.html",
-    "id": 42
+    "id": 42,
+    "edad": "7-13 años",
+    "categoria": "Secundaria"
   },
   {
     "Tipo": "Universidad",
@@ -427,7 +511,9 @@
     "Ciudad": "Sydney",
     "Campus": "Manly y Sydney",
     "Link": "https://www.icms.edu.au/",
-    "id": 43
+    "id": 43,
+    "edad": "25+ años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Universidad",
@@ -437,7 +523,9 @@
     "Ciudad": "Sydney",
     "Campus": "Sydney, Melbourne, Brisbane, Hayman Island",
     "Link": "https://hotelschool.scu.edu.au/",
-    "id": 44
+    "id": 44,
+    "edad": "18-25 años",
+    "categoria": "Cursos de Idiomas"
   },
   {
     "Tipo": "Inglés, VET y un BA Business",
@@ -447,7 +535,9 @@
     "Ciudad": "Sydney",
     "Campus": "Sydney, Bondi, Melbourne, Gold Coast, Darwin, Adelaide",
     "Link": "https://ihsydney.com.au/",
-    "id": 45
+    "id": 45,
+    "edad": "18-25 años",
+    "categoria": "Intercambios"
   },
   {
     "Tipo": "Universidad y VET",
@@ -457,7 +547,9 @@
     "Ciudad": "Melbourne",
     "Campus": "Melbourne",
     "Link": "https://insightacademy.edu.au/",
-    "id": 46
+    "id": 46,
+    "edad": "18-25 años",
+    "categoria": "Cursos de Idiomas"
   },
   {
     "Tipo": "VET",
@@ -467,7 +559,9 @@
     "Ciudad": "Sydney",
     "Campus": "Sydney, Melbourne, Brisbane, Adelaide",
     "Link": "https://alg.edu.au/",
-    "id": 47
+    "id": 47,
+    "edad": "18-25 años",
+    "categoria": "Licenciaturas"
   },
   {
     "Tipo": "Summer Camps",
@@ -477,7 +571,9 @@
     "Ciudad": "Malta",
     "Campus": "Malta, Gozo",
     "Link": "https://belsmalta.com/es/",
-    "id": 48
+    "id": 48,
+    "edad": "7-13 años",
+    "categoria": "Campamentos"
   },
   {
     "Tipo": "Universidad Boutique",
@@ -487,7 +583,9 @@
     "Ciudad": "Madrid",
     "Campus": "Madrid",
     "Link": "https://www.dmad.es/",
-    "id": 49
+    "id": 49,
+    "edad": "7-13 años",
+    "categoria": "Doctorados"
   },
   {
     "Tipo": "Universidad",
@@ -497,7 +595,9 @@
     "Ciudad": "Milán, Roma, Florencia, Cagliari, Turin\nBarcelona, Madrid, Bilbao",
     "Campus": "Milán, Roma, Florencia, Cagliari, Turin\nBarcelona, Madrid, Bilbao",
     "Link": "https://www.ied.edu/",
-    "id": 50
+    "id": 50,
+    "edad": "18-25 años",
+    "categoria": "Maestrías"
   },
   {
     "Tipo": "B2B Partner",
@@ -507,6 +607,8 @@
     "Ciudad": "París",
     "Campus": "Varios",
     "Link": "NaN",
-    "id": 51
+    "id": 51,
+    "edad": "14-17 años",
+    "categoria": "Licenciaturas"
   }
 ]

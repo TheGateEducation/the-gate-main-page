@@ -80,6 +80,7 @@ const ProgramFilter: React.FC<ProgramsProps> = ({ programsData }) => {
       specialization: "",
     });
   };
+  
   return (
     <>
       <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 p-20">
