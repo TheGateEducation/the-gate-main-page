@@ -11,7 +11,7 @@ const ProgramPage: React.FC = () => {
   const [edadSeleccionada, setEdadSeleccionada] = useState<string | null>(null);
 
   // Paso 1: Mostrar categorías únicas
-const ordenDeCategorias = ["Campamentos", "Cursos de Idiomas", "Intercambios", "Tours de Estudio","Secundaria", "Licenciaturas","Maestrías", "Doctorados", ]
+  const ordenDeCategorias = ["Cursos de Idiomas", "Campamentos", "Intercambios", "Secundaria", "Certificados y Diplomas", "Licenciaturas","Maestrías", "Doctorados", "Tours de Estudio"]
 
   const categoriasUnicas = Array.from(new Set(mockPrograms.map((p) => p.categoria))).sort((a, b) => ordenDeCategorias.indexOf(a) - ordenDeCategorias.indexOf(b));
 

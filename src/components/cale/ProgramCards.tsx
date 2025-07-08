@@ -1,5 +1,10 @@
 "use client";
 import React from "react";
+import Link from "next/link";
+
+import {
+  FaWhatsapp
+} from "react-icons/fa6";
 
 interface Program {
   id: number;
@@ -45,14 +50,28 @@ const ProgramCards: React.FC<ProgramCardsProps> = ({ programs }) => {
           <p>
             <strong>Categoría:</strong> {program.categoria}
           </p>
-          <a
-            href={program.Link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:underline mt-2 block"
-          >
-            Ver más información
-          </a>
+
+          <div className="mt-4 flex flex-row gap-3">
+            <a
+              href="/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-center hover:bg-blue-700 transition"
+            >
+              Contáctanos
+            </a>
+            <a
+              href="http://wa.me/528443510141"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600 transition"
+            >
+              <FaWhatsapp className="text-lg" />
+              WhatsApp
+            </a>
+          </div>
+
+
         </div>
       ))}
     </div>

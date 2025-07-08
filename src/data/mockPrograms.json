@@ -21,7 +21,7 @@
     "Link": "https://www.cbs.de/en/",
     "id": 2,
     "edad": "25+ años",
-    "categoria": "Maestrías"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Universidad",
@@ -45,7 +45,7 @@
     "Link": "https://constructor.university/",
     "id": 4,
     "edad": "7-13 años",
-    "categoria": "Maestrías"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Universidad",
@@ -129,7 +129,7 @@
     "Link": "https://apac.edu.au/",
     "id": 11,
     "edad": "25+ años",
-    "categoria": "Tours de Estudio"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Universidad",
@@ -309,7 +309,7 @@
     "Link": "https://www.adelaide.edu.au/",
     "id": 26,
     "edad": "18-25 años",
-    "categoria": "Campamentos"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "High School",
@@ -417,7 +417,7 @@
     "Link": "https://www.preparatemx.com/",
     "id": 35,
     "edad": "14-17 años",
-    "categoria": "Tours de Estudio"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Financiera Privada",
@@ -441,7 +441,7 @@
     "Link": "https://www.englishpath.com/",
     "id": 37,
     "edad": "18-25 años",
-    "categoria": "Cursos de Idiomas"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Universidad / College",
@@ -465,7 +465,7 @@
     "Link": "https://www.ohcenglish.com/",
     "id": 39,
     "edad": "25+ años",
-    "categoria": "Tours de Estudio"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Summer Camps",
@@ -525,7 +525,7 @@
     "Link": "https://hotelschool.scu.edu.au/",
     "id": 44,
     "edad": "18-25 años",
-    "categoria": "Cursos de Idiomas"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Inglés, VET y un BA Business",
@@ -573,7 +573,7 @@
     "Link": "https://belsmalta.com/es/",
     "id": 48,
     "edad": "7-13 años",
-    "categoria": "Campamentos"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "Universidad Boutique",
@@ -597,7 +597,7 @@
     "Link": "https://www.ied.edu/",
     "id": 50,
     "edad": "18-25 años",
-    "categoria": "Maestrías"
+    "categoria": "Certificados y Diplomas"
   },
   {
     "Tipo": "B2B Partner",
