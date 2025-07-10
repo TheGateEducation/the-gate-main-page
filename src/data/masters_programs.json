@@ -1,0 +1,38 @@
+[
+  {
+    "id":1,
+    "País":"Alemania",
+    "Institucion":"CBS International Business School",
+    "area":"Business",
+    "Nombre del programa":"Master of Science in Business Psychology and Management",
+    "Professions":"A Master’s degree in Business Psychology and Management qualifies you for high-level management positions in marketing, advertising and strategy as well as in leadership and human resources.",
+    "Ubicación":"Cologne",
+    "Fechas de inicio":"-",
+    "Duración ":"2 years full time",
+    "Costo p/año USD":17424,
+    "Costo p/año":15840,
+    "Moneda":"EUR",
+    "Becas":"SI",
+    "Link":"https://www.cbs.de/en/masters-degree-germany/business-psychology/",
+    "Notas":"The Master of Research (Business) degree is a two-year course that will develop your research capabilities, expose you to the latest thinking in your chosen field or discipline, and immerse you in a research project of your own.",
+    "edad": "18+"
+  },
+  {
+    "id":2,
+    "País":"Alemania",
+    "Institucion":"CBS International Business School",
+    "area":"Engineering",
+    "Nombre del programa":"Master in Digital Marketing",
+    "Professions":"Costumer Conversion and Retention/ Monetization and Pricing in Digital Marketing/ Omni-Channel Commerce/ Date-driven and AI-based Marketing Approaches/ Advanced Digital Marketing Techniques and Tools",
+    "Ubicación":"Cologne",
+    "Fechas de inicio":"Winter:  September",
+    "Duración ":"2 years full time",
+    "Costo p/año USD":17424,
+    "Costo p/año":15840,
+    "Moneda":"EUR",
+    "Becas":"SI",
+    "Link":"https://www.cbs.de/en/masters-degree-germany/digital-online-marketing/",
+    "Notas":" Deakin's Master of Professional Accounting allows you to graduate with the skills to practise as an accountant, specialising in your chosen field of business.",
+    "edad": "18+"
+  }
+]

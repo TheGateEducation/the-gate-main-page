@@ -16,7 +16,7 @@ export default function Programs() {
             <Hero 
             url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/programs.jpg" 
             title="Programas" 
-            subtitle="Mucho gusto esto es una prueba"/>
+            />
             <ProgramPage />
         </main>
     );

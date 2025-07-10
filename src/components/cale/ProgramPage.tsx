@@ -1,41 +1,111 @@
 "use client";
-import React, { useState } from "react";
-import CategoriaGrid from "@src/components/cale/CategoriaGrid";
-import EdadFilter from "@src/components/cale/EdadFilter";
-import ProgramCards from "@src/components/cale/ProgramCards";
-import mockPrograms from "@src/data/mockPrograms.json";
+import React, { useState, useEffect } from "react";
+import CategoriaGrid from "./CategoriaGrid";
+import EdadFilter from "./EdadFilter";
+import AreaFilter from "./AreaFilter";
+import ProgramCards from "./ProgramCards";
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
+
+// Mapeo de archivos JSON según la categoría
+const dataSource: Record<string, () => Promise<any>> = {
+  "Campamentos": () => import("@src/data/summer_camps_programs.json").then((m) => m.default),
+  "Maestrias": () => import("@src/data/masters_programs.json").then((m) => m.default),
+};
 
 const ProgramPage: React.FC = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string | null>(null);
   const [edadSeleccionada, setEdadSeleccionada] = useState<string | null>(null);
+  const [areaSeleccionada, setAreaSelecionada] = useState<string | null>(null);
+  const [programas, setProgramas] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  // Paso 1: Mostrar categorías únicas
-  const ordenDeCategorias = ["Cursos de Idiomas", "Campamentos", "Intercambios", "Secundaria", "Certificados y Diplomas", "Licenciaturas","Maestrías", "Doctorados", "Tours de Estudio"]
 
-  const categoriasUnicas = Array.from(new Set(mockPrograms.map((p) => p.categoria))).sort((a, b) => ordenDeCategorias.indexOf(a) - ordenDeCategorias.indexOf(b));
 
-  // Paso 2: Filtrar por categoría
-  const programasFiltradosPorCategoria = categoriaSeleccionada
-    ? mockPrograms.filter((p) => p.categoria === categoriaSeleccionada)
-    : [];
+  // Cuando se elige una categoría, se carga su JSON correspondiente
+  useEffect(() => {
+    if (categoriaSeleccionada && dataSource[categoriaSeleccionada]) {
+      setLoading(true);
+      dataSource[categoriaSeleccionada]()
+        .then((data) => {
+          setProgramas(data);
+          setEdadSeleccionada(null);
+          setAreaSelecionada(null);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [categoriaSeleccionada]);
 
-  // Paso 3: Sacar edades únicas por categoría
-  const edadesUnicas = Array.from(new Set(programasFiltradosPorCategoria.map((p) => p.edad))).sort((a, b) => {
+
+
+  const ordenDeCategorias = [
+    "Cursos de Idiomas", 
+    "Campamentos", 
+    "Intercambios", 
+    "Secundaria",
+    "Certificados y Diplomas", 
+    "Licenciaturas", 
+    "Maestrías", 
+    "Doctorados", 
+    "Tours de Estudio"
+  ];
+
+  //Acomoda las categorias conforme a la lista que aparece arriba
+  const categoriasUnicas = Object.keys(dataSource).sort(
+    (a, b) => ordenDeCategorias.indexOf(a) - ordenDeCategorias.indexOf(b)
+  );
+
+ //Ordena las edades conforme al valor que aparece al principio de cada valor de edad
+  const edadesUnicas = Array.from(
+    new Set(programas.map((p) => p.edad))
+  ).sort((a, b) => {
     const inicioA = parseInt(a.split("-")[0]) || parseInt(a);
-    const inicoB = parseInt(b.split("-")[0]) || parseInt(b);
-    return inicioA - inicoB;
+    const inicioB = parseInt(b.split("-")[0]) || parseInt(b);
+    return inicioA - inicioB;
   });
 
-  // Paso 4: Filtrar por edad
-  const programasFinales = edadSeleccionada
-    ? programasFiltradosPorCategoria.filter((p) => p.edad === edadSeleccionada)
-    : programasFiltradosPorCategoria;
+  const areasUnicas = Array.from(new Set(programas.map((p) => p.area))).sort()
+
+  const programasFiltrados =
+    categoriaSeleccionada === "Campamentos" && edadSeleccionada
+      ? programas.filter((p) => p.edad === edadSeleccionada)
+      : categoriaSeleccionada === "Maestrias" && areaSeleccionada
+      ? programas.filter((p) => p.area === areaSeleccionada)
+      : [];
 
   const reset = () => {
     setCategoriaSeleccionada(null);
     setEdadSeleccionada(null);
+    setAreaSelecionada(null)
   };
+
+  const renderFiltroPorCategoria = () =>{
+    if(categoriaSeleccionada == "Campamentos" && !edadSeleccionada){
+      return(
+        <EdadFilter
+          edades={edadesUnicas}
+          onEdadSelect={setEdadSeleccionada}
+          onBack={() => setCategoriaSeleccionada(null)}
+        />
+      );
+    }
+
+    if(categoriaSeleccionada == "Maestrias" && !areaSeleccionada){
+      return(
+        <AreaFilter
+        areas={areasUnicas}
+        onAreaSelect={setAreaSelecionada}
+        onBack={() => setCategoriaSeleccionada(null)}
+        />
+      )
+    }
+
+    return(
+      <ProgramCards
+      programs={programasFiltrados}
+      onReset={reset}
+      />
+    )
+  }
 
   return (
     <main className="p-8">
@@ -45,18 +115,12 @@ const ProgramPage: React.FC = () => {
           onCategoriaSelect={setCategoriaSeleccionada}
           imagenesPorCategoria={imagenesPorCategoria}
         />
-      ) : !edadSeleccionada ? (
-        <EdadFilter edades={edadesUnicas} onEdadSelect={setEdadSeleccionada} onBack={() => setCategoriaSeleccionada(null)} />
+      ) : loading ? (
+        <div className="flex justify-center items-center h-64">
+          Cargando...
+        </div>
       ) : (
-        <>
-          <ProgramCards programs={programasFinales} />
-          <button
-            className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded"
-            onClick={reset}
-          >
-            Reiniciar Filtros
-          </button>
-        </>
+        renderFiltroPorCategoria()
       )}
     </main>
   );

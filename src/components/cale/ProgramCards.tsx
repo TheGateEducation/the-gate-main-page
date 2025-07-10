@@ -22,9 +22,11 @@ interface Program {
 
 interface ProgramCardsProps {
   programs: Program[];
+  onReset: () => void; 
+  
 }
 
-const ProgramCards: React.FC<ProgramCardsProps> = ({ programs }) => {
+const ProgramCards: React.FC<ProgramCardsProps> = ({ programs, onReset }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
       {programs.map((program) => (
@@ -70,10 +72,17 @@ const ProgramCards: React.FC<ProgramCardsProps> = ({ programs }) => {
               WhatsApp
             </a>
           </div>
-
-
         </div>
       ))}
+
+      <div className="col-span-full flex justify-start px-6">
+        <button
+          onClick={onReset}
+          className="text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"
+        >
+          Volver a categorías
+        </button>
+      </div>
     </div>
   );
 };

@@ -21,8 +21,7 @@ const EdadFilter: React.FC<EdadFilterPromp> = ({
                     <button
                     key={edad}
                     onClick={() => onEdadSelect(edad)}
-                    className={`px-6 py-2 rounded-full font-semibold border transition ${edad === edadSeleccionada? "bg-blue-600 text-white border-blue-600": "bg-white text-blue-600 border-blue-600 hover:bg-blue-100"
-                }`}>
+                    className={`px-6 py-2 rounded-full font-semibold border transition ${edad === edadSeleccionada? "bg-blue-600 text-white border-blue-600": "bg-white text-blue-600 border-blue-600 hover:bg-blue-100"}`}>
                     {edad}
                 </button>
                 ))}
