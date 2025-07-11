@@ -7,15 +7,12 @@ import {
 
 interface Program {
   id: number;
-  Tipo: string;
-  Programas_disponibles: string;
-  Institucion: string;
-  Pais: string;
-  Ciudad: string;
-  Campus: string;
-  Link: string;
-  edad: string;
-  categoria: string;
+  nombre: string,
+  area: string,
+  pais: string, 
+  ciudad: string,
+  institucion: string,
+  link: string
 }
 
 
@@ -33,24 +30,23 @@ const ProgramCards: React.FC<ProgramCardsProps> = ({ programs, onReset }) => {
           key={program.id}
           className="rounded-xl overflow-hidden shadow-md bg-white p-4"
         >
-          <h2 className="text-xl font-bold mb-2">
-            {program.Programas_disponibles}
-          </h2>
           <p>
-            <strong>Institución:</strong> {program.Institucion}
+            <strong>Nombre: </strong> {program.nombre}
           </p>
           <p>
-            <strong>País:</strong> {program.Pais}
+            <strong>Área de estudio: </strong> {program.area}
           </p>
           <p>
-            <strong>Ciudad:</strong> {program.Ciudad}
+            <strong>País:</strong> {program.pais}
           </p>
           <p>
-            <strong>Edad recomendada:</strong> {program.edad}
+            <strong>Ciudad:</strong> {program.ciudad}
           </p>
           <p>
-            <strong>Categoría:</strong> {program.categoria}
+            <strong>Institución:</strong> {program.institucion}
           </p>
+            <a href="https://www.cbs.de/en/masters-degree-germany/business-psychology/"> Link de la Institución</a>
+          
 
           <div className="mt-4 flex flex-row gap-3">
             <a

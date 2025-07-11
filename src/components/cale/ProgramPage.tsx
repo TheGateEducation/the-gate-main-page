@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import CategoriaGrid from "./CategoriaGrid";
 import EdadFilter from "./EdadFilter";
 import AreaFilter from "./AreaFilter";
-import ProgramCards from "./ProgramCards";
 import TextoInformativo from "./textoInformativo";
+import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
+import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
 
 
@@ -136,12 +137,23 @@ const ProgramPage: React.FC = () => {
       )
     }
 
-    return(
-      <ProgramCards
-      programs={programasFiltrados}
-      onReset={reset}
-      />
-    )
+    if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada) {
+      return (
+        <ProgramCardsPorEdad
+          programs={programasFiltrados}
+          onReset={reset}
+        />
+      );
+    }
+
+    if(categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada){
+      return(
+        <ProgramCardsPorArea
+          programs={programasFiltrados}
+          onReset={reset}
+          />
+      );
+    }
   }
 
   return (

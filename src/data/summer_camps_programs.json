@@ -1,72 +1,21 @@
 [
   {
     "id":1,
-    "Origen":"CAN",
-    "Institucion":"CISS",
-    "UBICACIÓN":"Toronto",
+    "pais":"CAN",
+    "proveedor":"CISS",
+    "ciudad":"Toronto",
     "edad":"12-16 años",
-    "Nombre del Camp":"General English",
-    "INCLUYE":"• 20 hours of instruction per week\n• Accommodation in University of Toronto (downtown campus)\n• 3 meals daily (brunch and dinner on Sunday)\n• 1 Full Day, 3 Half Day excursions per week\n• Afternoon sports and on-campus activities\n• Full supervision\n• Toronto airport meet and greet + transfer to/from campus\n• Emergency medical and dental insurance\nup to $100,000 CAD\n• WiFi on campus\n• Bed linen changed weekly\n• CISS T-Shirt upon arrival\n• CISS Certificate upon completion of course study",
-    "DURACIÓNES":[
-      {
-        "duracion": "2 semanas",
-        "COSTO CAD": "4775",
-        "SEMANA EXTRA":null,
-        "CAMP MXN":"60412"
-      },
-      {
-        "duracion": "3 semanas",
-        "COSTO CAD": "6625",
-        "SEMANA EXTRA":null,
-        "CAMP MXN":"83817"
-      },
-      {
-        "duracion": "4 semanas",
-        "COSTO CAD": "8500",
-        "SEMANA EXTRA":null,
-        "CAMP MXN":"107538"
-      }
-    ],
-    "NOTAS":"Considerar gastos adicionales como permiso ETA, avión, gastos por custodia en caso de ser menor de edad",
-    "FECHAS":"30 de junio hasta 10 de agosto",
-    "DÍA DE ENTRADA/SALIDA":null,
-    "COSTO DÍA/NOCHE EXTRA":null,
-    "LINK":null,
-    "VIDEO":"https://www.youtube.com/watch?v=6-1Q93SU0H8"
+    "nombre":"General English",
+    "duracion": "2-4 semanas"
   },
   {
     "id":2,
-    "Origen":"CAN",
-    "Institucion":"CISS",
-    "UBICACIÓN":"At Trinity (Toronto)",
+    "pais":"CAN",
+    "proveedor":"CISS",
+    "ciudad":"At Trinity (Toronto)",
     "edad":"14-18 años",
-    "Nombre del Camp": "General English",
+    "nombre": "General English",
     "INCLUYE":"• 25 hours of instruction per week \n• Shared accommodation in University of Toronto (downtown campus) \n•3 meals daily (brunch and dinner on Sunday) \n• 1 Full Day, 3 Half Day excursions per week \n•Afternoon sports and on-campus activities \n• Full supervision \n•Athletic Centre membership \n• Toronto airport meet and greet + transfer to/from campus \n• Emergency medical and dental insurance up to $100,000 CAD \n• WiFi on campus \n• Bed linen changed weekly \n• CISS T-Shirt upon arrival \n• CISS Certificate upon completion of course study",
-    "DURACIÓNES":[
-      {
-        "duracion": "2 semanas",
-        "COSTO": "4950",
-        "SEMANA EXTRA":null,
-        "CAMP MXN":"60412"
-      },
-      {
-        "duracion": "3 semanas",
-        "COSTO CAD": "6850",
-        "SEMANA EXTRA":null,
-        "CAMP MXN":"83817"
-      },
-      {
-        "duracion": "4 semanas",
-        "COSTO CAD": "8800",
-        "SEMANA EXTRA":null,
-        "CAMP MXN":"107538"
-      }
-    ],
-    "NOTAS":"Considerar gastos adicionales como permiso ETA, avión, gastos por custodia en caso de ser menor de edad",
-    "FECHAS":"30 de junio hasta 17 de agosto",
-    "DÍA DE ENTRADA/SALIDA":null,
-    "COSTO DÍA/NOCHE EXTRA":null,
-    "LINK":null,
-    "VIDEO":"https://www.youtube.com/watch?v=6-1Q93SU0H8"
+    "duracion" :"2-4 semanas"
   }
 ]
