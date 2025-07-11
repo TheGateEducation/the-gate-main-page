@@ -4,18 +4,29 @@ import CategoriaGrid from "./CategoriaGrid";
 import EdadFilter from "./EdadFilter";
 import AreaFilter from "./AreaFilter";
 import ProgramCards from "./ProgramCards";
+import TextoInformativo from "./textoInformativo";
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
+
+
+const categoriasPorEdad = ["Campamento de Verano"]
+
+const categoriasPorArea = ["Licenciatura", "Maestria", "EFP (Educación y Formación Profesional)" ]
+
+const categoriaPorTexto = ["Tours de Estudio", "Año de fundación", "Consejero del campamento de verano", "Programa de estudio y trabajo","Año Sabatico"]
 
 // Mapeo de archivos JSON según la categoría
 const dataSource: Record<string, () => Promise<any>> = {
-  "Campamentos": () => import("@src/data/summer_camps_programs.json").then((m) => m.default),
-  "Maestrias": () => import("@src/data/masters_programs.json").then((m) => m.default),
+  "Campamento de Verano": () => import("@src/data/summer_camps_programs.json").then((m) => m.default),
+  "Maestria": () => import("@src/data/masters_programs.json").then((m) => m.default),
+  "Licenciatura": () => import("@src/data/licenciaturas_programs.json").then((m) => m.default),
+  "Tours de Estudio": () => import("@src/data/categorias_texto.json").then((m)=>m.default)
 };
 
 const ProgramPage: React.FC = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string | null>(null);
   const [edadSeleccionada, setEdadSeleccionada] = useState<string | null>(null);
   const [areaSeleccionada, setAreaSelecionada] = useState<string | null>(null);
+  const [textoCategoria, setTextoCategoria] = useState<string | null>(null);
   const [programas, setProgramas] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -23,30 +34,44 @@ const ProgramPage: React.FC = () => {
 
   // Cuando se elige una categoría, se carga su JSON correspondiente
   useEffect(() => {
-    if (categoriaSeleccionada && dataSource[categoriaSeleccionada]) {
-      setLoading(true);
-      dataSource[categoriaSeleccionada]()
-        .then((data) => {
-          setProgramas(data);
-          setEdadSeleccionada(null);
-          setAreaSelecionada(null);
-        })
-        .finally(() => setLoading(false));
-    }
+    if (!categoriaSeleccionada || !dataSource[categoriaSeleccionada]) return;
+
+    setLoading(true);
+
+    dataSource[categoriaSeleccionada]()
+      .then((data) => {
+        if (categoriaPorTexto.includes(categoriaSeleccionada)) {
+          setTextoCategoria(data[categoriaSeleccionada] || "Información no disponible");
+          setProgramas([]); // Limpia programas para evitar errores de .map
+        } else {
+          const listaProgramas = Array.isArray(data) ? data : Object.values(data);
+          setProgramas(listaProgramas);
+          setTextoCategoria(null);
+        }
+
+        setEdadSeleccionada(null);
+        setAreaSelecionada(null);
+      })
+      .finally(() => setLoading(false));
   }, [categoriaSeleccionada]);
 
 
 
   const ordenDeCategorias = [
     "Cursos de Idiomas", 
-    "Campamentos", 
+    "Campamento de Verano", 
     "Intercambios", 
     "Secundaria",
     "Certificados y Diplomas", 
-    "Licenciaturas", 
+    "Licenciatura", 
     "Maestrías", 
     "Doctorados", 
-    "Tours de Estudio"
+    "Tours de Estudio", 
+    "EFP (Educación y Formación Profesional)",
+    "Año de fundación",
+    "Consejero del campamento de verano", 
+    "Programa de estudio y trabajo",
+    "Año Sabatico"
   ];
 
   //Acomoda las categorias conforme a la lista que aparece arriba
@@ -66,9 +91,9 @@ const ProgramPage: React.FC = () => {
   const areasUnicas = Array.from(new Set(programas.map((p) => p.area))).sort()
 
   const programasFiltrados =
-    categoriaSeleccionada === "Campamentos" && edadSeleccionada
+    categoriaSeleccionada &&categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada
       ? programas.filter((p) => p.edad === edadSeleccionada)
-      : categoriaSeleccionada === "Maestrias" && areaSeleccionada
+      : categoriaSeleccionada&& categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada
       ? programas.filter((p) => p.area === areaSeleccionada)
       : [];
 
@@ -79,7 +104,7 @@ const ProgramPage: React.FC = () => {
   };
 
   const renderFiltroPorCategoria = () =>{
-    if(categoriaSeleccionada == "Campamentos" && !edadSeleccionada){
+    if(categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && !edadSeleccionada){
       return(
         <EdadFilter
           edades={edadesUnicas}
@@ -89,12 +114,24 @@ const ProgramPage: React.FC = () => {
       );
     }
 
-    if(categoriaSeleccionada == "Maestrias" && !areaSeleccionada){
+    if(categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && !areaSeleccionada){
       return(
         <AreaFilter
         areas={areasUnicas}
         onAreaSelect={setAreaSelecionada}
         onBack={() => setCategoriaSeleccionada(null)}
+        />
+      )
+    }
+
+    if(categoriaSeleccionada && categoriaPorTexto.includes(categoriaSeleccionada) && textoCategoria){
+      return(
+        <TextoInformativo
+        texto = {textoCategoria}
+        onBack={()=>{
+          setCategoriaSeleccionada(null);
+          setTextoCategoria(null);
+        }}
         />
       )
     }
