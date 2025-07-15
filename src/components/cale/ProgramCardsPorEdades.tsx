@@ -22,7 +22,7 @@ interface ProgramCardsProps {
   
 }
 
-const ProgramCards: React.FC<ProgramCardsProps> = ({ programs, onReset }) => {
+const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({ programs, onReset }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
       {programs.map((program) => (
@@ -83,4 +83,4 @@ const ProgramCards: React.FC<ProgramCardsProps> = ({ programs, onReset }) => {
   );
 };
 
-export default ProgramCards;
+export default ProgramCardsPorEdad;

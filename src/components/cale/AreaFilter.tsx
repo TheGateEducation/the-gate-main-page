@@ -3,15 +3,13 @@ import React from "react";
 
 interface AreaFilterPromp{
     areas: string[];
-    onAreaSelect: (edad: string) => void;
-    onBack: () => void;
+    onAreaSelect: (area: string) => void;
     areaSeleccionada?: string;
 }
 
 const AreaFilter: React.FC<AreaFilterPromp> = ({
     areas,
     onAreaSelect,
-    onBack,
     areaSeleccionada
 }) => {
     return(
@@ -26,15 +24,6 @@ const AreaFilter: React.FC<AreaFilterPromp> = ({
                         {area}
                     </button>
                 ))}
-            </div>
-
-            <div className="felx justify-start">
-                <button
-                    onClick={onBack}
-                    className="mt-4 px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"
-                >
-                    Volver a categorías
-                </button>
             </div>
         </div>
     );

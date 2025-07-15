@@ -7,14 +7,14 @@ import {
 
 interface TextoInformativoProps {
   texto: string;
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 
 const TextoInformativo: React.FC<TextoInformativoProps> = ({ texto, onBack }) => {
   return (
     <div className="flex flex-col items-center p-6">
-        <p className="text-3xl max-w-3xl text-center"><strong>{texto}</strong></p>
+        <p className="text-3xl max-w-3xl text-center whitespace-pre-line mb-6"><strong>{texto}</strong></p>
         <div className="flex">
                 <button
           onClick={onBack}
