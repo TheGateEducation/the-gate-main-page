@@ -4,12 +4,14 @@ import React from "react";
 interface AreaFilterPromp{
     areas: string[];
     onAreaSelect: (area: string) => void;
+    onBack: () => void;
     areaSeleccionada?: string;
 }
 
 const AreaFilter: React.FC<AreaFilterPromp> = ({
     areas,
     onAreaSelect,
+    onBack,
     areaSeleccionada
 }) => {
     return(
@@ -25,6 +27,13 @@ const AreaFilter: React.FC<AreaFilterPromp> = ({
                     </button>
                 ))}
             </div>
+            <button
+            onClick={onBack}
+            className="mt-20 text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"
+            >
+            Volver a categorías
+            </button>
+
         </div>
     );
 };

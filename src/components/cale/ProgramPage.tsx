@@ -7,33 +7,33 @@ import TextoInformativo from "./textoInformativo";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import textosGeneralesJson from "@src/data/textoPorCategoria.json" assert { type: "json" };
-import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
+import imagenesPorCategoria from "@src/data/imagenesPorCategoria"; 
+
 
 const categoriasPorEdad = ["Campamento de Verano"];
-const categoriasPorArea = ["Licenciatura", "Maestría", "EFP (Educación y Formación Profesional)"];
+
+const categoriasPorArea = ["Licenciatura", "Maestría", "EFP (Educación y Formación Profesional)", "Programa de Idiomas"];
+
 const categoriaPorTexto = [
   "Tours de Estudio",
-  "Año de fundación",
-  "Consejero del campamento de verano",
+  "A\u00F1o de fundaci\u00F3n",
+  "Consejero de campamento de verano",
   "Programa de estudio y trabajo",
-  "Año Sabatico"
+  "A\u00F1o Sabatico"
 ];
 
 const ordenDeCategorias = [
-  "Cursos de Idiomas", 
-  "Campamento de Verano", 
-  "Intercambios", 
-  "Secundaria",
-  "Certificados y Diplomas", 
-  "Licenciatura", 
-  "Maestría", 
-  "Doctorados", 
-  "Tours de Estudio", 
+  "Campamento de Verano",
+  "Tours de Estudio",
+  "A\u00F1o de fundaci\u00F3n",
   "EFP (Educación y Formación Profesional)",
-  "Año de fundación",
-  "Consejero del campamento de verano", 
+  "Licenciatura",
+  "Maestría",
+  "Consejero de campamento de verano",
   "Programa de estudio y trabajo",
-  "Año Sabatico"
+  "A\u00F1o Sabatico",
+  "Programas para Deportistas de Alto Rendimiento", 
+  "Programa de Idiomas"
 ];
 
 const fetchPrograms = async (
@@ -46,6 +46,14 @@ const fetchPrograms = async (
   if (!res.ok) throw new Error("Error al cargar programas");
   return res.json();
 };
+
+const dataSourceTexto: Record<string, () => Promise<any>> = {
+  "Tours de Estudio": () => import("@src/data/categorias_texto.json").then((m)=>m.default),
+  "A\u00F1o de fundaci\u00F3n": () => import("@src/data/categorias_texto.json").then((m) => m.default),
+  "A\u00F1o Sabatico": () => import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Consejero del campamento de verano": () => import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Programa de estudio y trabajo": () => import("@src/data/categorias_texto.json").then((m) => m.default)
+}
 
 const ProgramPage: React.FC = () => {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string | null>(null);
@@ -127,6 +135,23 @@ const ProgramPage: React.FC = () => {
       .finally(() => setIsFetchingMore(false));
   };
 
+  useEffect(() =>{
+    if(!categoriaSeleccionada || !dataSourceTexto[categoriaSeleccionada]) return; 
+
+    setLoading(true);
+
+    dataSourceTexto[categoriaSeleccionada]()
+      .then((data)=> {
+        if (categoriaPorTexto.includes(categoriaSeleccionada)){
+          setTextoCategoria(data[categoriaSeleccionada] || "Información no disponible");
+          setProgramas([]);
+        }
+        setEdadSeleccionada(null);
+        setAreaSeleccionada(null);
+      })
+      .finally(() => setLoading(false));
+  }, [categoriaSeleccionada]);
+
   const edadesUnicas = Array.from(
     new Set(programas.map((p) => p.edad))
   ).sort((a, b) => {
@@ -153,12 +178,14 @@ const ProgramPage: React.FC = () => {
     if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && !edadSeleccionada) {
       return (
         <>
+          {edadesUnicas.length === 0 && (
+            <p className="text-center text-red-500 mt-4">No se encontraron edades disponibles.</p>
+          )}
           <EdadFilter
             edades={edadesUnicas}
             onEdadSelect={setEdadSeleccionada}
             onBack={reset}
           />
-          {textoCategoria && <TextoInformativo texto={textoCategoria} onBack={reset} />}
         </>
       );
     }
@@ -172,14 +199,17 @@ const ProgramPage: React.FC = () => {
           <AreaFilter
             areas={areasUnicas}
             onAreaSelect={setAreaSeleccionada}
+            onBack={reset}
           />
-          {textoCategoria && <TextoInformativo texto={textoCategoria} onBack={reset} />}
         </>
       );
     }
 
     if (categoriaSeleccionada && categoriaPorTexto.includes(categoriaSeleccionada) && textoCategoria) {
-      return <TextoInformativo texto={textoCategoria} onBack={reset} />;
+      return <TextoInformativo 
+                texto={textoCategoria} 
+                onBack={reset} 
+              />;
     }
 
     if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada) {
@@ -229,13 +259,12 @@ const ProgramPage: React.FC = () => {
           onCategoriaSelect={setCategoriaSeleccionada}
           imagenesPorCategoria={imagenesPorCategoria}
         />
-      ) : loading ? (
-        <div className="flex justify-center items-center h-64">Cargando...</div>
       ) : (
         renderFiltroPorCategoria()
       )}
     </main>
   );
+  
 };
 
 export default ProgramPage;

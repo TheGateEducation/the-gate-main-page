@@ -26,6 +26,13 @@ const EdadFilter: React.FC<EdadFilterPromp> = ({
                 </button>
                 ))}
             </div>
+
+            <button
+            onClick={onBack}
+            className="mt-20 text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"
+            >
+            Volver a categorías
+            </button>
         </div>
     );
 };
