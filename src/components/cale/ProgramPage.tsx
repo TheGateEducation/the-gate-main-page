@@ -142,10 +142,8 @@ const ProgramPage: React.FC = () => {
 
     dataSourceTexto[categoriaSeleccionada]()
       .then((data)=> {
-        if (categoriaPorTexto.includes(categoriaSeleccionada)){
-          setTextoCategoria(data[categoriaSeleccionada] || "Información no disponible");
-          setProgramas([]);
-        }
+        setTextoCategoria(data[categoriaSeleccionada] || "Información no disponible");
+        setProgramas([]);
         setEdadSeleccionada(null);
         setAreaSeleccionada(null);
       })
