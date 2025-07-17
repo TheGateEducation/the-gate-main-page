@@ -5,14 +5,16 @@ interface EdadFilterPromp{
     edades: string[];
     onEdadSelect: (edad: string) => void;
     onBack: () => void;
-    edadSeleccionada?: string;
+    edadSeleccionada?: string | null;
+    texto?: string
 }
 
 const EdadFilter: React.FC<EdadFilterPromp> = ({
     edades,
     onEdadSelect, 
     edadSeleccionada,
-    onBack 
+    onBack,
+    texto
 }) => {
     return (
         <div className="p-6 flex flex-col gap-6">
@@ -26,6 +28,12 @@ const EdadFilter: React.FC<EdadFilterPromp> = ({
                 </button>
                 ))}
             </div>
+
+            {texto && (
+                <div className="text-center text-lg text-black font-medium max-w-2xl mx-auto mb-4 whitespace-pre-line">
+                    {texto}
+                </div>
+            )}
 
             <button
             onClick={onBack}

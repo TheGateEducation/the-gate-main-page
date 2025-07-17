@@ -1,18 +1,21 @@
 "use client"
 import React from "react";
+import { text } from "stream/consumers";
 
 interface AreaFilterPromp{
     areas: string[];
     onAreaSelect: (area: string) => void;
     onBack: () => void;
-    areaSeleccionada?: string;
+    areaSeleccionada?: string | null;
+    texto?: string; 
 }
 
 const AreaFilter: React.FC<AreaFilterPromp> = ({
     areas,
     onAreaSelect,
     onBack,
-    areaSeleccionada
+    areaSeleccionada,
+    texto
 }) => {
     return(
         <div className="p-6 flex flex-col gap-6">
@@ -27,6 +30,13 @@ const AreaFilter: React.FC<AreaFilterPromp> = ({
                     </button>
                 ))}
             </div>
+
+            {texto && (
+                <div className="text-center text-lg text-black font-medium max-w-2xl mx-auto mb-4 whitespace-pre-line">
+                    {texto}
+                </div>
+            )}
+
             <button
             onClick={onBack}
             className="mt-20 text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"

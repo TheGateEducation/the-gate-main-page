@@ -8,33 +8,9 @@ import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import textosGeneralesJson from "@src/data/textoPorCategoria.json" assert { type: "json" };
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria"; 
+import {categoriaPorTexto, categoriasPorArea, ordenDeCategorias, categoriasPorEdad} from "@src/data/constantes"
+import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 
-
-const categoriasPorEdad = ["Campamento de Verano"];
-
-const categoriasPorArea = ["Licenciatura", "Maestría", "EFP (Educación y Formación Profesional)", "Programa de Idiomas"];
-
-const categoriaPorTexto = [
-  "Tours de Estudio",
-  "A\u00F1o de fundaci\u00F3n",
-  "Consejero de campamento de verano",
-  "Programa de estudio y trabajo",
-  "A\u00F1o Sabatico"
-];
-
-const ordenDeCategorias = [
-  "Campamento de Verano",
-  "Tours de Estudio",
-  "A\u00F1o de fundaci\u00F3n",
-  "EFP (Educación y Formación Profesional)",
-  "Licenciatura",
-  "Maestría",
-  "Consejero de campamento de verano",
-  "Programa de estudio y trabajo",
-  "A\u00F1o Sabatico",
-  "Programas para Deportistas de Alto Rendimiento", 
-  "Programa de Idiomas"
-];
 
 const fetchPrograms = async (
   categoria: string,
@@ -43,6 +19,7 @@ const fetchPrograms = async (
   const encoded = encodeURIComponent(categoria);
   const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/masters/${encoded}${nextKey ? `?nextKey=${nextKey}` : ""}`;
   const res = await fetch(url);
+
   if (!res.ok) throw new Error("Error al cargar programas");
   return res.json();
 };
@@ -76,6 +53,14 @@ const ProgramPage: React.FC = () => {
       )
     ).sort();
   }, [programas]);
+
+  const edadesUnicas = Array.from(
+    new Set(programas.map((p) => p.edad))
+  ).sort((a, b) => {
+    const inicioA = parseInt(a?.split("-")[0]) || parseInt(a);
+    const inicioB = parseInt(b?.split("-")[0]) || parseInt(b);
+    return inicioA - inicioB;
+  });
 
   useEffect(() => {
     if (categoriaSeleccionada !== "Maestría") return;
@@ -150,14 +135,6 @@ const ProgramPage: React.FC = () => {
       .finally(() => setLoading(false));
   }, [categoriaSeleccionada]);
 
-  const edadesUnicas = Array.from(
-    new Set(programas.map((p) => p.edad))
-  ).sort((a, b) => {
-    const inicioA = parseInt(a?.split("-")[0]) || parseInt(a);
-    const inicioB = parseInt(b?.split("-")[0]) || parseInt(b);
-    return inicioA - inicioB;
-  });
-
   const programasFiltrados = categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada
     ? programas.filter((p) => p.edad === edadSeleccionada)
     : categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada
@@ -183,6 +160,8 @@ const ProgramPage: React.FC = () => {
             edades={edadesUnicas}
             onEdadSelect={setEdadSeleccionada}
             onBack={reset}
+            edadSeleccionada={edadSeleccionada}
+            texto={textosGenerales[categoriaSeleccionada]}
           />
         </>
       );
@@ -198,6 +177,8 @@ const ProgramPage: React.FC = () => {
             areas={areasUnicas}
             onAreaSelect={setAreaSeleccionada}
             onBack={reset}
+            areaSeleccionada={areaSeleccionada}
+            texto = {textosGenerales[categoriaSeleccionada]}
           />
         </>
       );
