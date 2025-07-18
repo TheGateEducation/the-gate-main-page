@@ -28,6 +28,7 @@
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-navigation-menu": "^1.2.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@tanstack/react-query": "^5.83.0",
     "@types/react-toastify": "^4.1.0",
     "aws-sdk": "^2.1659.0",
     "axios": "^1.7.7",
