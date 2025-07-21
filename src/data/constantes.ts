@@ -6,6 +6,7 @@ export const categoriasPorArea = [
   "EFP (Educación y Formación Profesional)", 
   "Programa de Idiomas"
 ];
+
 export const categoriaPorTexto = [
   "Tours de Estudio",
   "A\u00F1o de fundaci\u00F3n",
@@ -27,3 +28,23 @@ export const ordenDeCategorias = [
   "Programas para Deportistas de Alto Rendimiento", 
   "Programa de Idiomas"
 ];
+
+export const exepcionesMayuscula = [
+  "of", 
+  "and", 
+  "the", 
+  "in", 
+  "on", 
+  "at", 
+  "to", 
+  "for", 
+  "with", 
+  "a", 
+  "an"
+]
+
+export const endPointMap: Record<string, string> = {
+  "Maestría": "masters",
+  "Licenciatura": "bachelors",
+  "EFP (Educación y Formación Profesional)": "vets"
+} 

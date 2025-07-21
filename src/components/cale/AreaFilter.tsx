@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { text } from "stream/consumers";
+import { exepcionesMayuscula } from "@src/data/constantes";
 
 interface AreaFilterPromp{
     areas: string[];
@@ -26,7 +26,16 @@ const AreaFilter: React.FC<AreaFilterPromp> = ({
                     onClick={()=>onAreaSelect(area)}
                     className={`px-6 py-2 rounded-full font-semibold border transition ${area === areaSeleccionada? "bg-blue-600 text-white border-blue-600": "bg-white text-blue-600 border-blue-600 hover:bg-blue-100"}`}
                     >
-                        {area}
+                        {area
+                            .toLowerCase()
+                            .split(" ")
+                            .map((word, index) => 
+                                exepcionesMayuscula.includes(word) && index != 0 
+                                ? word
+                                : word.charAt(0).toUpperCase() + word.slice(1)
+                            )
+                            .join(" ")
+                        }
                     </button>
                 ))}
             </div>

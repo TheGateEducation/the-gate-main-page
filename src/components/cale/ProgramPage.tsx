@@ -9,7 +9,8 @@ import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import textosGeneralesJson from "@src/data/textoPorCategoria.json" assert { type: "json" };
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria"; 
-import {categoriaPorTexto, categoriasPorArea, ordenDeCategorias, categoriasPorEdad} from "@src/data/constantes"
+import {categoriaPorTexto, categoriasPorArea, ordenDeCategorias, categoriasPorEdad, endPointMap} from "@src/data/constantes"
+import { error } from "console";
 
 // Generate unique numeric ID from program name
 const generateId = (name: string): number => {
@@ -68,8 +69,10 @@ const fetchPrograms = async (
   categoria: string,
   nextKey?: string | null
 ): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
+  const endpoint = endPointMap[categoria];
+  if(!endpoint) throw new Error(`No endpoint mapped for category: ${categoria}`);
   const encoded = encodeURIComponent(categoria);
-  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/masters/${encoded}${
+  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud${
     nextKey ? `?nextKey=${nextKey}` : ""
   }`;
   const res = await fetch(url);

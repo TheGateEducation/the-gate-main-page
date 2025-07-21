@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-
-import {
-  FaWhatsapp
-} from "react-icons/fa6";
+import { FaWhatsapp } from "react-icons/fa6";
+import { exepcionesMayuscula } from "@src/data/constantes";
 
 interface Program {
   id: number;
@@ -31,10 +29,28 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({ programs, onReset })
           className="rounded-xl overflow-hidden shadow-md bg-white p-4"
         >
           <p>
-            <strong>Nombre: </strong> {program.nombre}
+            <strong>Nombre: </strong> {program.nombre
+                                        .toLowerCase()
+                                        .split(" ")
+                                        .map((word, index) => 
+                                          exepcionesMayuscula.includes(word) && index != 0 
+                                          ? word
+                                          : word.charAt(0).toUpperCase() + word.slice(1))
+                                        .join(" ")
+                                        .replace(/-.*$/, "")
+                                      }
           </p>
           <p>
-            <strong>Área de estudio: </strong> {program.area}
+            <strong>Área de estudio: </strong> {program.area
+                                                  .toLowerCase()
+                                                  .split(" ")
+                                                  .map((word, index) => 
+                                                    exepcionesMayuscula.includes(word) && index != 0 
+                                                    ? word
+                                                    : word.charAt(0).toUpperCase() + word.slice(1)
+                                                  )
+                                                  .join(" ")
+                                                }
           </p>
           <p>
             <strong>País:</strong> {program.pais}
