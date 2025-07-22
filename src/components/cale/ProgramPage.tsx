@@ -9,8 +9,14 @@ import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import textosGeneralesJson from "@src/data/textoPorCategoria.json" assert { type: "json" };
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria"; 
-import {categoriaPorTexto, categoriasPorArea, ordenDeCategorias, categoriasPorEdad, endPointMap} from "@src/data/constantes"
-import { error } from "console";
+import {
+  categoriaPorTexto,
+  categoriasPorArea,
+  ordenDeCategorias,
+  categoriasPorEdad,
+  endPointMap,
+  areaMapping
+} from "@src/data/constantes";
 
 // Generate unique numeric ID from program name
 const generateId = (name: string): number => {
@@ -65,31 +71,43 @@ export interface AgeProgram {
 
 type ProgramType = AreaProgram | AgeProgram;
 
-const fetchPrograms = async (
-  categoria: string,
+// NEW: Fetch programs by specific area
+const fetchProgramsByArea = async (
+  category: string,
+  spanishArea: string,
   nextKey?: string | null
 ): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
-  const endpoint = endPointMap[categoria];
-  if(!endpoint) throw new Error(`No endpoint mapped for category: ${categoria}`);
-  const encoded = encodeURIComponent(categoria);
-  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud${
+  const endpoint = endPointMap[category];
+  if (!endpoint) throw new Error(`No endpoint mapped for category: ${category}`);
+  
+  // Get English area name from mapping
+  const englishArea = areaMapping[category][spanishArea];
+  console.log("Área en inglés:", englishArea);
+  if (!englishArea) throw new Error(`Area ${spanishArea} not found for category ${category}`);
+  
+  const encodedArea = encodeURIComponent(englishArea);
+  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/${encodedArea}${
     nextKey ? `?nextKey=${nextKey}` : ""
   }`;
+  console.log(url);
   const res = await fetch(url);
-
   if (!res.ok) throw new Error("Error al cargar programas");
-  return res.json();
+  const data = await res.json()
+  console.log("Respuesta del API:", data);
+  return data; 
 };
 
+// OLD: Keep fallback for non-area categories
 const fetchAllPrograms = async (
   nextKey?: string | null
 ): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
-  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/masters/crud${nextKey ? `?nextKey=${nextKey}` : ""}`;
+  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/masters/crud${
+    nextKey ? `?nextKey=${nextKey}` : ""
+  }`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Error al cargar todos los programas");
   return res.json();
 };
-
 
 const dataSourceTexto: Record<string, () => Promise<any>> = {
   "Tours de Estudio": () => import("@src/data/categorias_texto.json").then((m) => m.default),
@@ -108,29 +126,31 @@ const ProgramPage: React.FC = () => {
   const [jsonLoading, setJsonLoading] = useState(false);
   const textosGenerales: Record<string, string> = textosGeneralesJson;
 
+  // NEW: Query for area-specific programs
   const {
-    data: apiData,
-    error: apiError,
+    data: areaProgramsData,
+    error: areaError,
     fetchNextPage,
     hasNextPage,
-    isFetching: isFetchingApi,
+    isFetching: isFetchingArea,
     isFetchingNextPage,
-    isError,
+    isError: isAreaError,
   } = useInfiniteQuery({
-    queryKey: ["apiPrograms", categoriaSeleccionada],
+    queryKey: ["areaPrograms", categoriaSeleccionada, areaSeleccionada],
     queryFn: ({ pageParam = null }) => {
-      if (!categoriaSeleccionada) throw new Error("No category selected");
-      return fetchPrograms(categoriaSeleccionada, pageParam);
+      if (!categoriaSeleccionada || !areaSeleccionada) 
+        throw new Error("Category or area not selected");
+      return fetchProgramsByArea(categoriaSeleccionada, areaSeleccionada, pageParam);
     },
     getNextPageParam: (lastPage) => lastPage.nextKey || undefined,
     initialPageParam: null as string | null,
-    enabled: !!categoriaSeleccionada && 
-             (categoriasPorArea.includes(categoriaSeleccionada) || 
-              categoriasPorEdad.includes(categoriaSeleccionada)),
+    enabled: !!categoriaSeleccionada && !!areaSeleccionada && 
+            categoriasPorArea.includes(categoriaSeleccionada),
     staleTime: 24 * 60 * 60 * 1000, // 24 hours cache
     retry: 2,
   });
 
+  // OLD: Fallback query for non-area categories
   const {
     data: allProgramsData,
     isFetching: isFetchingAllPrograms,
@@ -144,57 +164,31 @@ const ProgramPage: React.FC = () => {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
+  // NEW: Process area-specific data
   useEffect(() => {
-    if (apiData && categoriaSeleccionada) {
-      const allPrograms: ProgramType[] = apiData.pages.flatMap((page) =>
-        page.items.map((item: ApiProgram) => {
-          if (categoriasPorArea.includes(categoriaSeleccionada)) {
-            return {
-              id: generateId(item["nombre-del-programa"]),
-              nombre: item["nombre-del-programa"],
-              area: item["area-de-estudio"]?.trim() || "Sin área definida",
-              institucion: item.institucion,
-              pais: item.pais,
-              ciudad: item.ubicacion,
-              duracion: item.duracion,
-              costo: item["costo-p/ano"],
-              moneda: item.moneda,
-              link: item.link,
-              fechas: item["fechas-de-inicio"],
-            } as AreaProgram;
-          }
-          else if (categoriasPorEdad.includes(categoriaSeleccionada)) {
-            return {
-              id: generateId(item["nombre-del-programa"]),
-              nombre: item["nombre-del-programa"],
-              pais: item.pais,
-              ciudad: item.ubicacion,
-              edad: "N/A",
-              duracion: item.duracion,
-              proveedor: item.institucion,
-            } as AgeProgram;
-          }
-          return {
-            id: generateId(item["nombre-del-programa"]),
-            nombre: item["nombre-del-programa"],
-            area: item["area-de-estudio"]?.trim() || "Sin área definida",
-            institucion: item.institucion,
-            pais: item.pais,
-            ciudad: item.ubicacion,
-            duracion: item.duracion,
-            costo: item["costo-p/ano"],
-            moneda: item.moneda,
-            link: item.link,
-            fechas: item["fechas-de-inicio"],
-          } as AreaProgram;
-        })
+    if (areaProgramsData && categoriaSeleccionada && areaSeleccionada) {
+      const allPrograms: AreaProgram[] = areaProgramsData.pages.flatMap((page) =>
+        page.items.map((item: ApiProgram) => ({
+          id: generateId(item["nombre-del-programa"]),
+          nombre: item["nombre-del-programa"],
+          area: areaSeleccionada, // Use Spanish area name
+          institucion: item.institucion,
+          pais: item.pais,
+          ciudad: item.ubicacion,
+          duracion: item.duracion,
+          costo: item["costo-p/ano"],
+          moneda: item.moneda,
+          link: item.link,
+          fechas: item["fechas-de-inicio"],
+        }))
       );
       
-    setProgramas(allPrograms);
+      setProgramas(allPrograms);
       setTextoCategoria(textosGenerales[categoriaSeleccionada] || "Información no disponible");
     }
-  }, [apiData, categoriaSeleccionada, textosGenerales]);
+  }, [areaProgramsData, categoriaSeleccionada, areaSeleccionada, textosGenerales]);
 
+  // OLD: Fallback processing for non-area categories
   useEffect(() => {
     if (
       allProgramsData &&
@@ -202,14 +196,6 @@ const ProgramPage: React.FC = () => {
       categoriasPorArea.includes(categoriaSeleccionada)
     ) {
       const allPrograms = allProgramsData.pages.flatMap((page) => page.items);
-
-      const uniqueAreas = Array.from(
-        new Set(
-          allPrograms
-            .map((item) => item["area-de-estudio"]?.trim())
-            .filter((a): a is string => !!a)
-        )
-      ).sort();
 
       const processedPrograms: AreaProgram[] = allPrograms.map((item) => ({
         id: generateId(item["nombre-del-programa"]),
@@ -227,12 +213,10 @@ const ProgramPage: React.FC = () => {
 
       setProgramas(processedPrograms);
       setTextoCategoria(textosGenerales[categoriaSeleccionada] || "Información no disponible");
-
-      console.log("📦 Programas (desde CRUD):", processedPrograms);
-      console.log("🧩 Áreas detectadas:", uniqueAreas);
     }
   }, [allProgramsData, categoriaSeleccionada, textosGenerales]);
 
+  // Handle JSON-based categories (unchanged)
   useEffect(() => {
     if (!categoriaSeleccionada || 
        !dataSourceTexto[categoriaSeleccionada] || 
@@ -248,6 +232,15 @@ const ProgramPage: React.FC = () => {
       .finally(() => setJsonLoading(false));
   }, [categoriaSeleccionada]);
 
+  // Get available areas for current category
+  const areasDisponibles = useMemo(() => {
+    if (categoriaSeleccionada && areaMapping[categoriaSeleccionada]) {
+      return Object.keys(areaMapping[categoriaSeleccionada]);
+    }
+    return [];
+  }, [categoriaSeleccionada]);
+
+  // Get unique areas from programs (fallback)
   const areasUnicas = useMemo(() => {
     if (programas.some(p => "area" in p)) {
       return Array.from(
@@ -305,11 +298,11 @@ const ProgramPage: React.FC = () => {
   };
 
   const renderFiltroPorCategoria = () => {
-    if (isError) {
+    if (isAreaError || isAllProgramsError) {
       return (
         <div className="text-center py-10">
           <h3 className="text-xl font-bold text-red-600">Error al cargar datos</h3>
-          <p className="text-gray-600 mt-2">{apiError?.message || "Intente nuevamente más tarde"}</p>
+          <p className="text-gray-600 mt-2">{(areaError)?.message || "Intente nuevamente más tarde"}</p>
           <button
             onClick={reset}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
@@ -323,7 +316,7 @@ const ProgramPage: React.FC = () => {
     if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && !edadSeleccionada) {
       return (
         <>
-          {isFetchingApi ? (
+          {isFetchingArea ? (
             <p className="text-center py-4">Cargando edades...</p>
           ) : edadesUnicas.length === 0 ? (
             <p className="text-center text-red-500 mt-4">No se encontraron edades disponibles.</p>
@@ -343,13 +336,13 @@ const ProgramPage: React.FC = () => {
     if (categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && !areaSeleccionada) {
       return (
         <>
-          {isFetchingApi ? (
+          {isFetchingArea ? (
             <p className="text-center py-4">Cargando áreas...</p>
-          ) : areasUnicas.length === 0 ? (
+          ) : areasDisponibles.length === 0 ? (
             <p className="text-center text-red-500 mt-4">No se encontraron áreas disponibles.</p>
           ) : (
             <AreaFilter
-              areas={areasUnicas}
+              areas={areasDisponibles}
               onAreaSelect={setAreaSeleccionada}
               onBack={reset}
               areaSeleccionada={areaSeleccionada}
