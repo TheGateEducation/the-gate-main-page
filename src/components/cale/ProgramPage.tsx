@@ -148,7 +148,6 @@ const ProgramPage: React.FC = () => {
     if (apiData && categoriaSeleccionada) {
       const allPrograms: ProgramType[] = apiData.pages.flatMap((page) =>
         page.items.map((item: ApiProgram) => {
-          // For area-based programs
           if (categoriasPorArea.includes(categoriaSeleccionada)) {
             return {
               id: generateId(item["nombre-del-programa"]),
@@ -234,8 +233,6 @@ const ProgramPage: React.FC = () => {
     }
   }, [allProgramsData, categoriaSeleccionada, textosGenerales]);
 
-
-  // Handle JSON-based categories
   useEffect(() => {
     if (!categoriaSeleccionada || 
        !dataSourceTexto[categoriaSeleccionada] || 
