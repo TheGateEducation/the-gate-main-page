@@ -1,7 +1,21 @@
+export const ordenDeCategorias = [
+  "Campamentos de Verano",
+  "Formación Técnica",
+  "Campamento como Monitor",
+  "A\u00F1o de fundaci\u00F3n",
+  "Estudia y Trabaja",
+  "Maestrías",
+  "Tours de Estudio",
+  "Licenciaturas",
+  "Deportistas de Alto Rendimiento",
+  "A\u00F1o Sabatico", 
+  "Idiomas"
+];
+
 export const categoriasPorEdad = ["Campamento de Verano"];
 
 export const categoriasPorArea = [
-  "Licenciatura", 
+  "Licenciaturas", 
   "Maestría", 
   "EFP (Educación y Formación Profesional)", 
   "Programa de Idiomas"
@@ -15,19 +29,6 @@ export const categoriaPorTexto = [
   "A\u00F1o Sabatico"
 ];
 
-export const ordenDeCategorias = [
-  "Campamento de Verano",
-  "Tours de Estudio",
-  "A\u00F1o de fundaci\u00F3n",
-  "EFP (Educación y Formación Profesional)",
-  "Licenciatura",
-  "Maestría",
-  "Consejero de campamento de verano",
-  "Programa de estudio y trabajo",
-  "A\u00F1o Sabatico",
-  "Programas para Deportistas de Alto Rendimiento", 
-  "Programa de Idiomas"
-];
 
 export const exepcionesMayuscula = [
   "of", 
@@ -45,7 +46,7 @@ export const exepcionesMayuscula = [
 
 export const endPointMap: Record<string, string> = {
   "Maestría": "masters",
-  "Licenciatura": "bachelors",
+  "Licenciaturas": "bachelors",
   "EFP (Educación y Formación Profesional)": "vets"
 } 
 
@@ -107,7 +108,7 @@ export const areaMapping: Record<string, Record<string, string>> = {
     "Topografía y Medio Ambiente Construido": "surveying and built environment degrees",
     "Trabajo Social y Comunitario": "social and community"
   },
-  "Licenciatura": {
+  "Licenciaturas": {
     "Contaduría": "Accounting",
     "Contaduría y Finanzas": "Accounting and Finance",
     "Estudios Actuariales": "Actuarial Studies",
