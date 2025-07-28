@@ -1,146 +1,103 @@
-import Link from "next/link";
-import {
-    FaInstagram,
-    FaXTwitter,
-    FaFacebookF,
-    FaLinkedinIn,
-    FaTiktok,
-    FaWhatsapp,
-    FaYoutube,
-} from "react-icons/fa6";
-import React from "react";
+import Link   from "next/link";
+import Logo   from "@src/components/Navbar/components/Logo"; 
 
-type FooterLink = {
-    label: string;
-    href: string;
-    icon?: React.ReactNode;
-};
+const social = [
+  { label: "Instagram", href: "https://www.instagram.com/tge.studyabroad/" },
+  { label: "Facebook",  href: "https://www.facebook.com/TheGateEducation/" },
+  { label: "LinkedIn",  href: "https://www.linkedin.com/company/thegate-education/" },
+  { label: "Whatsapp",  href: "https://wa.me/528443510141" },
+];
 
-type FooterSection = {
-    title: string;
-    links: FooterLink[];
-};
+const menu   = [
+  { label: "Servicios", href: "/services" },
+  { label: "Programas", href: "/programs" },
+  { label: "Contacto",  href: "/contact"  },
+];
 
-const footerData: {
-    brand: { name: string; href: string };
-    sections: FooterSection[];
-} = {
-    brand: {
-        name: "The Gate Education",
-        href: "/",
-    },
-    sections: [
-        {
-            title: "Redes sociales",
-            links:
-            [
-                {
-                    label: "Instagram",
-                    href: "https://www.instagram.com/tge.studyabroad/",
-                    icon: <FaInstagram />,
-                },
-                {
-                    label: "X",
-                    href: "https://x.com/TheGateEdu",
-                    icon: <FaXTwitter />
-                },
-                {
-                    label: "Facebook",
-                    href: "https://www.facebook.com/TheGateEducation/",
-                    icon: <FaFacebookF />
-                },
-                {
-                    label: "LinkedIn",
-                    href: "https://www.linkedin.com/company/thegate-education/",
-                    icon: <FaLinkedinIn />,
-                },
-                {
-                    label: "TikTok",
-                    href: "https://www.tiktok.com/@tge_international_edu?_t=ZS-8voNfmYVRFS&_r=1",
-                    icon: <FaTiktok />
-                },
-                {
-                    label: "+52 8443510141",
-                    href: "http://wa.me/528443510141",
-                    icon: <FaWhatsapp />,
-                },
-                {
-                    label: "YouTube",
-                    href: "http://www.youtube.com/@TheGateEducation",
-                    icon: <FaYoutube/>,
-                }
-            ],
-        },
-        {
-            title: "Nosotros",
-            links: [
-                { label: "Programas", href: "/programs" },
-                { label: "Servicios", href: "/services" },
-            ],
-        },
-        {
-            title: "Soporte",
-            links: [
-                {
-                    label: "Políticas de privacidad",
-                    href: "https://drive.google.com/file/d/1qlotGUdbs3FBZZKrQ_SJ841j_gnZNIBb/view?usp=drive_link",
-                },
-            ],
-        },
-        {
-            title: "Oficinas",
-            links: [
-                {
-                    label: "Estado de México",
-                    href: "https://www.google.com/maps/place/Ignacio+Comonfort+3-c+103,+Atizapan+Centro,+52900+Cdad.+L%C3%B3pez+Mateos,+M%C3%A9x./@19.561066,-99.246263,19z/data=!3m1!4b1!4m5!3m4!1s0x85d21cf09caeeef3:0xb991486de7446bf7!8m2!3d19.5610647!4d-99.2456193?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D"
-                },
-                {
-                    label: "Saltillo",
-                    href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8"
-                },
-            ],
-        },
-    ],
-};
+const offices = [
+  { label: "Monterrey",        href: "#" },
+  { label: "Saltillo",         href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8" },
+  { label: "Estado de México", href: "https://maps.app.goo.gl/..." },
+  { label: "Panamá",           href: "#" },
+];
 
-// Componente
-export const Footer = () => {
-    return (
-        <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 text-sm">
-            <div className="max-w-screen-xl mx-auto px-6 py-16">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                    {footerData.sections.map((section) => (
-                        <div key={section.title} className="flex flex-col gap-3">
-                            <h3 className="text-base font-semibold text-gray-900 mb-1">
-                                {section.title}
-                            </h3>
-                            {section.links.map(({ label, href, icon }) => (
-                                <Link
-                                    key={label}
-                                    href={href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 text-gray-600 hover:text-customPurple transition-colors"
-                                >
-                                    {icon && <span className="text-base">{icon}</span>}
-                                    <span>{label}</span>
-                                </Link>
-                            ))}
-                        </div>
-                    ))}
-                </div>
+export const Footer = () => (
+  <footer className="w-full border-t border-gray-200 bg-white text-sm text-gray-700">
+    <div className="mx-auto max-w-7xl px-6 lg:px-16">
+      <div
+        className="
+          flex flex-col lg:flex-row lg:items-start
+          gap-12 lg:gap-[120px]
+          py-20
+        "
+      >
+        <div className="flex-1 max-w-[460px] space-y-4">
+          <Logo width={200} height={300} /> 
 
-                <div className="mt-10 pt-6 border-t border-gray-200 text-center text-xs text-gray-500">
-                    &copy; 2024{" "}
-                    <Link
-                        href={footerData.brand.href}
-                        className="text-yellow-500 hover:underline"
-                    >
-                        {footerData.brand.name}
-                    </Link>
-                    . Todos los derechos reservados.
-                </div>
-            </div>
-        </footer>
-    );
-};
+          <p className="text-gray-800">
+            ¡Donde hay una puerta abierta, hay un mundo por descubrir!
+          </p>
+
+          <p>
+            © 2025{" "}
+            <Link href="/" className="text-[#EDA74C] hover:underline">
+              The Gate Education
+            </Link>
+            . Todos los derechos reservados.
+          </p>
+        </div>
+
+        <div
+          className="
+            grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-12
+            text-gray-600
+          "
+        >
+          <div className="space-y-4">
+            <h4 className="font-semibold text-gray-900">Redes Sociales</h4>
+            <ul className="space-y-2">
+              {social.map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#6c3ebd] underline"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-semibold text-gray-900">¿Qué ofrecemos?</h4>
+            <ul className="space-y-2">
+              {menu.map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="hover:text-[#6c3ebd] underline">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h4 className="font-semibold text-gray-900">Oficinas</h4>
+            <ul className="space-y-2">
+              {offices.map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="hover:text-[#6c3ebd] underline">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+);
