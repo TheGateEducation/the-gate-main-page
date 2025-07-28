@@ -17,6 +17,7 @@ export default function Page() {
             <Hero />
             <AboutUs />
             <Stadistics />
+            <MeetTeam />
             <Safeway />
             <HeretoHelp />
             <Questions />

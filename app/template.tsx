@@ -1,27 +1,20 @@
-"use client";
-
 import React from 'react'
-import Head from 'next/head'
-import { Navbar } from '@src/components/Navbar/Navbar'
+import Navbar from '@src/components/Navbar/Navbar'
 import { Footer } from '@src/components/Footer/Footer'
 import { Carousel } from '@src/components/Footer/Carousel';
+
+export const metadata = {
+  title: 'The Gate Education',
+  icons: { icon: '/icon.ico' },
+};
 
 export default function template({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <Head>
-                <title></title>
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href="./src/assets/icon.ico"
-                />
-            </Head>
-            <div className="fixed top-0 left-0 right-0 bg-white bg-opacity-60 shadow-lg z-50">
+            <div className="fixed inset-x-0 top-0 z-50 bg-transparent">
                 <Navbar />
             </div>
-            <main>
+            <main className="pt-[125px]">
                 {children}
                 <footer>
                     <Carousel />

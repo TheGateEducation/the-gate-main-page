@@ -10,7 +10,6 @@ export const metadata = {
 export default function Programs() {
     return (
         <Hero
-            url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/news.jpg"
             title="Noticias"
         />
     );

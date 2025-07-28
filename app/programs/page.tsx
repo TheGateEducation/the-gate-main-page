@@ -14,7 +14,6 @@ export default function Programs() {
     return (
         <main>
             <Hero 
-            url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/programs.jpg" 
             title="Explora todos los caminos que puedes tomar" 
             subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
             />

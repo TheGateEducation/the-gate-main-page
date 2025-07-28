@@ -9,6 +9,7 @@ const Logo: React.FC = ({}) => {
                 alt="logo" 
                 width={140} 
                 height={200}
+                className="w-[158px] h-auto"
             />
     </div>
     );

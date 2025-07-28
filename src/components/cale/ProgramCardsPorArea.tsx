@@ -133,14 +133,13 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
         <button
           onClick={onReset}
           className="inline-flex items-center justify-center
-    px-14 py-[11px]
-    bg-[#5F338B] rounded-[24px]
-    font-roboto font-normal text-white
-    text-[20px] sm:text-[25px] leading-[29px]
-    w-full sm:w-[200px] mx-auto
-    hover:bg-[#4b2870] transition
-    focus:outline-none focus:ring-2 focus:ring-[#5F338B]/40"
-        >
+                      px-14 py-[11px]
+                      bg-[#5F338B] rounded-[24px]
+                      font-roboto font-normal text-white
+                      text-[20px] sm:text-[25px] leading-[29px]
+                      w-full sm:w-[200px] mx-auto
+                      hover:bg-[#4b2870] transition
+                      focus:outline-none focus:ring-2 focus:ring-[#5F338B]/40">
           Volver a categorías
         </button>
       </div>

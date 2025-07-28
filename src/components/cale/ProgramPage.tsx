@@ -216,7 +216,6 @@ const ProgramPage: React.FC = () => {
     }
   }, [allProgramsData, categoriaSeleccionada, textosGenerales]);
 
-  // Handle JSON-based categories (unchanged)
   useEffect(() => {
     if (!categoriaSeleccionada || 
        !dataSourceTexto[categoriaSeleccionada] || 
