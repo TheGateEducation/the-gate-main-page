@@ -14,15 +14,14 @@ interface Program {
   fechas?: string;
   duracion?: string;
   costoAnualUSD?: number | string;
-  becas?: string;         // "Sí" / "No" / ""...
+  becas?: string;
   notas?: string;
-  // agrega aquí los campos que necesites para el diseño
 }
 
 interface ProgramCardsProps {
   programs: Program[];
   onReset: () => void;
-  showEmpty?: boolean; // si true, muestra el label aunque el valor esté vacío
+  showEmpty?: boolean;
 }
 
 const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
@@ -30,7 +29,6 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
   onReset,
   showEmpty = true,
 }) => {
-  // Capitalizar siguiendo tus reglas
   const formatCase = (text?: string) => {
     if (!text) return "";
     return text
@@ -45,7 +43,6 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
       .replace(/-.*$/, "");
   };
 
-  // Renderiza una fila "Label: Valor" (con control de mostrar cuando está vacío)
   const renderField = (
     label: string,
     value?: string | number,
@@ -129,17 +126,10 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
       ))}
 
       {/* Botón volver */}
-      <div className="p-6 flex flex-col gap-6">
+      <div className="my-6 flex justify-center">
         <button
           onClick={onReset}
-          className="inline-flex items-center justify-center
-                      px-14 py-[11px]
-                      bg-[#5F338B] rounded-[24px]
-                      font-roboto font-normal text-white
-                      text-[20px] sm:text-[25px] leading-[29px]
-                      w-full sm:w-[200px] mx-auto
-                      hover:bg-[#4b2870] transition
-                      focus:outline-none focus:ring-2 focus:ring-[#5F338B]/40">
+          className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]">
           Volver a categorías
         </button>
       </div>

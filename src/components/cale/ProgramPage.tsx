@@ -1,35 +1,39 @@
+// app/(public)/programs/ProgramPage.tsx
 "use client";
+
 import React, { useState, useEffect, useMemo } from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useInfiniteQuery,
+  type InfiniteData,         // 👈 evita el error “InfiniteData no encontrado”
+} from "@tanstack/react-query";
+
+import Hero from "../Hero/Hero";
 import CategoriaGrid from "./CategoriaGrid";
-import EdadFilter from "./EdadFilter";
-import AreaFilter from "./AreaFilter";
-import TextoInformativo from "./textoInformativo";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
-import textosGeneralesJson from "@src/data/textoPorCategoria.json" assert { type: "json" };
-import imagenesPorCategoria from "@src/data/imagenesPorCategoria"; 
+import TextoInformativo from "./textoInformativo";
+
+import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
 import {
   categoriaPorTexto,
   categoriasPorArea,
-  ordenDeCategorias,
   categoriasPorEdad,
+  ordenDeCategorias,
   endPointMap,
-  areaMapping
+  areaMapping,
+  heroCopy,
 } from "@src/data/constantes";
 
-// Generate unique numeric ID from program name
-const generateId = (name: string): number => {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    const char = name.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0;
+const hash = (s: string): number => {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = (h << 5) - h + s.charCodeAt(i);
+    h |= 0; // int32
   }
-  return Math.abs(hash);
+  return Math.abs(h);
 };
 
-// API response type
+
 interface ApiProgram {
   "area-de-estudio": string;
   "nombre-del-programa": string;
@@ -43,7 +47,6 @@ interface ApiProgram {
   "fechas-de-inicio": string;
 }
 
-// Area program interface
 export interface AreaProgram {
   id: number;
   nombre: string;
@@ -58,7 +61,6 @@ export interface AreaProgram {
   fechas: string;
 }
 
-// Age program interface
 export interface AgeProgram {
   id: number;
   nombre: string;
@@ -71,349 +73,214 @@ export interface AgeProgram {
 
 type ProgramType = AreaProgram | AgeProgram;
 
-// NEW: Fetch programs by specific area
-const fetchProgramsByArea = async (
-  category: string,
-  spanishArea: string,
-  nextKey?: string | null
+const fetchPrograms = async (
+  categoria: string,
+  pageParam: string | null = null
 ): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
-  const endpoint = endPointMap[category];
-  if (!endpoint) throw new Error(`No endpoint mapped for category: ${category}`);
-  
-  // Get English area name from mapping
-  const englishArea = areaMapping[category][spanishArea];
-  console.log("Área en inglés:", englishArea);
-  if (!englishArea) throw new Error(`Area ${spanishArea} not found for category ${category}`);
-  
-  const encodedArea = encodeURIComponent(englishArea);
-  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/${encodedArea}${
-    nextKey ? `?nextKey=${nextKey}` : ""
-  }`;
-  console.log(url);
+  const endpoint = endPointMap[categoria];
+  if (!endpoint)
+    throw new Error(`No endpoint mapped for category "${categoria}"`);
+
+  const url =
+    pageParam === null
+      ? `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud`
+      : `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud?nextKey=${pageParam}`;
+
   const res = await fetch(url);
   if (!res.ok) throw new Error("Error al cargar programas");
-  const data = await res.json()
-  console.log("Respuesta del API:", data);
-  return data; 
-};
-
-// OLD: Keep fallback for non-area categories
-const fetchAllPrograms = async (
-  nextKey?: string | null
-): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
-  const url = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/masters/crud${
-    nextKey ? `?nextKey=${nextKey}` : ""
-  }`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Error al cargar todos los programas");
   return res.json();
 };
 
-const dataSourceTexto: Record<string, () => Promise<any>> = {
-  "Tours de Estudio": () => import("@src/data/categorias_texto.json").then((m) => m.default),
-  "A\u00F1o de fundaci\u00F3n": () => import("@src/data/categorias_texto.json").then((m) => m.default),
-  "A\u00F1o Sabatico": () => import("@src/data/categorias_texto.json").then((m) => m.default),
-  "Consejero del campamento de verano": () => import("@src/data/categorias_texto.json").then((m) => m.default),
-  "Programa de estudio y trabajo": () => import("@src/data/categorias_texto.json").then((m) => m.default),
+const dataSourceTexto: Record<
+  string,
+  () => Promise<Record<string, string>>
+> = {
+  "Tours de Estudio": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Año de fundación": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Año Sabatico": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Consejero del campamento de verano": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Programa de estudio y trabajo": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
 };
 
-const ProgramPage: React.FC = () => {
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string | null>(null);
-  const [edadSeleccionada, setEdadSeleccionada] = useState<string | null>(null);
-  const [areaSeleccionada, setAreaSeleccionada] = useState<string | null>(null);
-  const [textoCategoria, setTextoCategoria] = useState<string | null>(null);
-  const [programas, setProgramas] = useState<ProgramType[]>([]);
-  const [jsonLoading, setJsonLoading] = useState(false);
-  const textosGenerales: Record<string, string> = textosGeneralesJson;
 
-  // NEW: Query for area-specific programs
+export default function ProgramPage() {
+  const [categoria, setCategoria] = useState<string | null>(null);
+  const [filtroEdad, setFiltroEdad] = useState<string | null>(null);
+  const [filtroArea, setFiltroArea] = useState<string | null>(null);
+  const [textoSolo, setTextoSolo] = useState<string | null>(null);
+
   const {
-    data: areaProgramsData,
-    error: areaError,
-    fetchNextPage,
+    data,
     hasNextPage,
-    isFetching: isFetchingArea,
+    fetchNextPage,
+    isFetching,
     isFetchingNextPage,
-    isError: isAreaError,
-  } = useInfiniteQuery({
-    queryKey: ["areaPrograms", categoriaSeleccionada, areaSeleccionada],
-    queryFn: ({ pageParam = null }) => {
-      if (!categoriaSeleccionada || !areaSeleccionada) 
-        throw new Error("Category or area not selected");
-      return fetchProgramsByArea(categoriaSeleccionada, areaSeleccionada, pageParam);
-    },
-    getNextPageParam: (lastPage) => lastPage.nextKey || undefined,
-    initialPageParam: null as string | null,
-    enabled: !!categoriaSeleccionada && !!areaSeleccionada && 
-            categoriasPorArea.includes(categoriaSeleccionada),
-    staleTime: 24 * 60 * 60 * 1000, // 24 hours cache
-    retry: 2,
+    error,
+  } = useInfiniteQuery<
+    { items: ApiProgram[]; nextKey?: string | null },
+    Error,
+    InfiniteData<{ items: ApiProgram[]; nextKey?: string | null }, string | null>,
+    (string | null)[],
+    string | null
+  >({
+    queryKey: ["programas", categoria],
+    queryFn: ({ pageParam = null }) =>
+      categoria && !categoriaPorTexto.includes(categoria)
+        ? fetchPrograms(categoria, pageParam)
+        : Promise.resolve({ items: [], nextKey: null }),
+    initialPageParam: null,
+    enabled: !!categoria && !categoriaPorTexto.includes(categoria),
+    getNextPageParam: (last) => last.nextKey ?? undefined,
+    staleTime: 1000 * 60 * 60 * 12,
   });
 
-  // OLD: Fallback query for non-area categories
-  const {
-    data: allProgramsData,
-    isFetching: isFetchingAllPrograms,
-    isError: isAllProgramsError,
-  } = useInfiniteQuery({
-    queryKey: ["allPrograms"],
-    queryFn: ({ pageParam = null }) => fetchAllPrograms(pageParam),
-    getNextPageParam: (lastPage) => lastPage.nextKey || undefined,
-    initialPageParam: null as string | null,
-    enabled: !!categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada),
-    staleTime: 24 * 60 * 60 * 1000,
-  });
-
-  // NEW: Process area-specific data
   useEffect(() => {
-    if (areaProgramsData && categoriaSeleccionada && areaSeleccionada) {
-      const allPrograms: AreaProgram[] = areaProgramsData.pages.flatMap((page) =>
-        page.items.map((item: ApiProgram) => ({
-          id: generateId(item["nombre-del-programa"]),
-          nombre: item["nombre-del-programa"],
-          area: areaSeleccionada, // Use Spanish area name
-          institucion: item.institucion,
-          pais: item.pais,
-          ciudad: item.ubicacion,
-          duracion: item.duracion,
-          costo: item["costo-p/ano"],
-          moneda: item.moneda,
-          link: item.link,
-          fechas: item["fechas-de-inicio"],
-        }))
-      );
-      
-      setProgramas(allPrograms);
-      setTextoCategoria(textosGenerales[categoriaSeleccionada] || "Información no disponible");
-    }
-  }, [areaProgramsData, categoriaSeleccionada, areaSeleccionada, textosGenerales]);
+    if (!categoria || !categoriaPorTexto.includes(categoria)) return;
 
-  // OLD: Fallback processing for non-area categories
-  useEffect(() => {
-    if (
-      allProgramsData &&
-      categoriaSeleccionada &&
-      categoriasPorArea.includes(categoriaSeleccionada)
-    ) {
-      const allPrograms = allProgramsData.pages.flatMap((page) => page.items);
+    const load = async () => {
+      const json = await dataSourceTexto[categoria]();
+      setTextoSolo(json[categoria]);
+    };
+    load().catch(console.error);
+  }, [categoria]);
 
-      const processedPrograms: AreaProgram[] = allPrograms.map((item) => ({
-        id: generateId(item["nombre-del-programa"]),
-        nombre: item["nombre-del-programa"],
-        area: item["area-de-estudio"]?.trim() || "Sin área definida",
-        institucion: item.institucion,
-        pais: item.pais,
-        ciudad: item.ubicacion,
-        duracion: item.duracion,
-        costo: item["costo-p/ano"],
-        moneda: item.moneda,
-        link: item.link,
-        fechas: item["fechas-de-inicio"],
-      }));
+  const programas: ProgramType[] = useMemo(() => {
+    if (!data?.pages) return [];
+    return data.pages.flatMap((p) =>
+      p.items.map((it) => ({
+        id: hash(it["nombre-del-programa"]),
+        nombre: it["nombre-del-programa"],
+        area: it["area-de-estudio"],
+        pais: it.pais,
+        ciudad: it.ubicacion,
+        institucion: it.institucion,
+        link: it.link,
+        duracion: it.duracion,
+        costo: it["costo-p/ano"],
+        moneda: it.moneda,
+        fechas: it["fechas-de-inicio"],
+        edad: (it as any)["edades"] ?? "",
+        proveedor: (it as any)["proveedor"] ?? "",
+      }))
+    );
+  }, [data]);
 
-      setProgramas(processedPrograms);
-      setTextoCategoria(textosGenerales[categoriaSeleccionada] || "Información no disponible");
-    }
-  }, [allProgramsData, categoriaSeleccionada, textosGenerales]);
-
-  useEffect(() => {
-    if (!categoriaSeleccionada || 
-       !dataSourceTexto[categoriaSeleccionada] || 
-       categoriaSeleccionada === "Maestría") return;
-
-    setJsonLoading(true);
-    dataSourceTexto[categoriaSeleccionada]()
-      .then((data) => {
-        setTextoCategoria(data[categoriaSeleccionada] || "Información no disponible");
-        setProgramas([]);
-      })
-      .catch(console.error)
-      .finally(() => setJsonLoading(false));
-  }, [categoriaSeleccionada]);
-
-  // Get available areas for current category
   const areasDisponibles = useMemo(() => {
-    if (categoriaSeleccionada && areaMapping[categoriaSeleccionada]) {
-      return Object.keys(areaMapping[categoriaSeleccionada]);
-    }
-    return [];
-  }, [categoriaSeleccionada]);
+    if (!categoria || !categoriasPorArea.includes(categoria)) return [];
+    return Array.from(
+      new Set(programas.map((p) => (p as AreaProgram).area))
+    ).filter(Boolean) as string[];
+  }, [categoria, programas]);
 
-  // Get unique areas from programs (fallback)
-  const areasUnicas = useMemo(() => {
-    if (programas.some(p => "area" in p)) {
-      return Array.from(
-        new Set(
-          (programas as AreaProgram[])
-            .filter(p => "area" in p)
-            .map((p) => p.area?.trim())
-            .filter((a): a is string => !!a)
-        )
-      ).sort();
-    }
-    return [];
-  }, [programas]);
-
-  const edadesUnicas = useMemo(() => {
-    if (programas.some(p => "edad" in p)) {
-      return Array.from(
-        new Set(
-          (programas as AgeProgram[])
-            .filter(p => "edad" in p)
-            .map((p) => p.edad)
-        )
-      ).sort((a, b) => {
-        const inicioA = parseInt(a?.split("-")[0]) || parseInt(a);
-        const inicioB = parseInt(b?.split("-")[0]) || parseInt(b);
-        return inicioA - inicioB;
-      });
-    }
-    return [];
-  }, [programas]);
+  const edadesDisponibles = useMemo(() => {
+    if (!categoria || !categoriasPorEdad.includes(categoria)) return [];
+    return Array.from(
+      new Set(programas.map((p) => (p as AgeProgram).edad))
+    ).filter(Boolean) as string[];
+  }, [categoria, programas]);
 
   const programasFiltrados = useMemo(() => {
-    if (!categoriaSeleccionada) return [];
-    
-    if (categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada) {
-      return (programas as AgeProgram[]).filter((p) => 
-        "edad" in p && p.edad === edadSeleccionada
-      );
-    }
-    
-    if (categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada) {
-      return (programas as AreaProgram[]).filter((p) => 
-        "area" in p && p.area === areaSeleccionada
-      );
-    }
-    
-    return [];
-  }, [programas, categoriaSeleccionada, areaSeleccionada, edadSeleccionada]);
+    let res = programas;
+    if (filtroArea) res = res.filter((p) => (p as AreaProgram).area === filtroArea);
+    if (filtroEdad) res = res.filter((p) => (p as AgeProgram).edad === filtroEdad);
+    return res;
+  }, [programas, filtroArea, filtroEdad]);
 
-  const reset = () => {
-    setCategoriaSeleccionada(null);
-    setEdadSeleccionada(null);
-    setAreaSeleccionada(null);
-    setProgramas([]);
-  };
-
-  const renderFiltroPorCategoria = () => {
-    if (isAreaError || isAllProgramsError) {
-      return (
-        <div className="text-center py-10">
-          <h3 className="text-xl font-bold text-red-600">Error al cargar datos</h3>
-          <p className="text-gray-600 mt-2">{(areaError)?.message || "Intente nuevamente más tarde"}</p>
-          <button
-            onClick={reset}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Volver
-          </button>
-        </div>
-      );
-    }
-
-    if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && !edadSeleccionada) {
-      return (
-        <>
-          {isFetchingArea ? (
-            <p className="text-center py-4">Cargando edades...</p>
-          ) : edadesUnicas.length === 0 ? (
-            <p className="text-center text-red-500 mt-4">No se encontraron edades disponibles.</p>
-          ) : (
-            <EdadFilter
-              edades={edadesUnicas}
-              onEdadSelect={setEdadSeleccionada}
-              onBack={reset}
-              edadSeleccionada={edadSeleccionada}
-              texto={textosGenerales[categoriaSeleccionada]}
-            />
-          )}
-        </>
-      );
-    }
-
-    if (categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && !areaSeleccionada) {
-      return (
-        <>
-          {isFetchingArea ? (
-            <p className="text-center py-4">Cargando áreas...</p>
-          ) : areasDisponibles.length === 0 ? (
-            <p className="text-center text-red-500 mt-4">No se encontraron áreas disponibles.</p>
-          ) : (
-            <AreaFilter
-              areas={areasDisponibles}
-              onAreaSelect={setAreaSeleccionada}
-              onBack={reset}
-              areaSeleccionada={areaSeleccionada}
-              texto={textosGenerales[categoriaSeleccionada]}
-            />
-          )}
-        </>
-      );
-    }
-
-    if (categoriaSeleccionada && categoriaPorTexto.includes(categoriaSeleccionada) && textoCategoria) {
-      return <TextoInformativo texto={textoCategoria} onBack={reset} />;
-    }
-
-    if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada) {
-      return (
-        <>
-          <ProgramCardsPorEdad 
-            programs={programasFiltrados as AgeProgram[]} 
-            onReset={reset} 
-          />
-          {hasNextPage && (
-            <div className="col-span-full flex justify-center mt-6">
-              <button
-                onClick={() => fetchNextPage()}
-                disabled={isFetchingNextPage}
-                className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
-              >
-                {isFetchingNextPage ? "Cargando..." : "Cargar más"}
-              </button>
-            </div>
-          )}
-        </>
-      );
-    }
-
-    if (categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada) {
-      return (
-        <>
-          <ProgramCardsPorArea 
-            programs={programasFiltrados as AreaProgram[]} 
-            onReset={reset} 
-          />
-          {hasNextPage && (
-            <div className="col-span-full flex justify-center mt-6">
-              <button
-                onClick={() => fetchNextPage()}
-                disabled={isFetchingNextPage}
-                className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
-              >
-                {isFetchingNextPage ? "Cargando..." : "Cargar más"}
-              </button>
-            </div>
-          )}
-        </>
-      );
-    }
-  };
-
-  return (
-    <main className="p-8">
-      {!categoriaSeleccionada ? (
+  /* ---------------- renders ---------------- */
+  if (!categoria) {
+    /* grid inicial */
+    return (
+      <main className="p-8">
         <CategoriaGrid
           categorias={ordenDeCategorias}
-          onCategoriaSelect={setCategoriaSeleccionada}
+          onCategoriaSelect={setCategoria}
           imagenesPorCategoria={imagenesPorCategoria}
         />
+      </main>
+    );
+  }
+
+  /* categorías sólo-texto ------------------- */
+  if (categoriaPorTexto.includes(categoria)) {
+    return (
+      <main className="p-8">
+        <Hero title={categoria} subtitle={textoSolo ?? ""} />
+        {textoSolo && <TextoInformativo texto={textoSolo} onBack={() => setCategoria(null)} />}
+      </main>
+    );
+  }
+
+  /* categorías área o edad ------------------ */
+  return (
+    <main className="p-4 sm:p-8">
+      <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
+
+      {/* filtros (se muestran si hay más de 1 opción) */}
+      {(areasDisponibles.length > 1 || edadesDisponibles.length > 1) && (
+        <section className="mb-8 flex flex-wrap gap-3 justify-center">
+          {areasDisponibles.length > 1 && (
+            <select
+              value={filtroArea ?? ""}
+              onChange={(e) => setFiltroArea(e.target.value || null)}
+              className="border px-3 py-2 rounded-md"
+            >
+              <option value="">Todas las áreas</option>
+              {areasDisponibles.map((a) => (
+                <option key={a}>{a}</option>
+              ))}
+            </select>
+          )}
+
+          {edadesDisponibles.length > 1 && (
+            <select
+              value={filtroEdad ?? ""}
+              onChange={(e) => setFiltroEdad(e.target.value || null)}
+              className="border px-3 py-2 rounded-md"
+            >
+              <option value="">Todas las edades</option>
+              {edadesDisponibles.map((e) => (
+                <option key={e}>{e}</option>
+              ))}
+            </select>
+          )}
+        </section>
+      )}
+
+      {categoriasPorArea.includes(categoria) ? (
+        <ProgramCardsPorArea
+          programs={programasFiltrados as AreaProgram[]}
+          onReset={() => setCategoria(null)}
+        />
       ) : (
-        renderFiltroPorCategoria()
+        <ProgramCardsPorEdad
+          programs={programasFiltrados as AgeProgram[]}
+          onReset={() => setCategoria(null)}
+        />
+      )}
+
+      {/* paginación  ------------------------------------ */}
+      {hasNextPage && (
+        <div className="my-6 flex justify-center">
+          <button
+            disabled={isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+            className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
+          >
+            {isFetchingNextPage ? "Cargando…" : "Cargar más"}
+          </button>
+        </div>
+      )}
+
+      {error && (
+        <p className="text-center text-red-600 mt-4">
+          {error.message || "Ocurrió un error."}
+        </p>
       )}
     </main>
   );
-};
-
-export default ProgramPage;
+}

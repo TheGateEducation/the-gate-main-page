@@ -1,6 +1,7 @@
 export const ordenDeCategorias = [
-  "Campamentos de Verano",
+  "Campamentos",
   "Formación Técnica",
+  "EFP (Educación y Formación Profesional)", //Preguntar si Formación Técnica es EFP o VET 
   "Campamento como Monitor",
   "A\u00F1o de fundaci\u00F3n",
   "Estudia y Trabaja",
@@ -12,46 +13,33 @@ export const ordenDeCategorias = [
   "Idiomas"
 ];
 
-export const categoriasPorEdad = ["Campamento de Verano"];
+export const categoriasPorEdad = ["Campamentos"];
 
 export const categoriasPorArea = [
   "Licenciaturas", 
-  "Maestría", 
+  "Maestrías", 
   "EFP (Educación y Formación Profesional)", 
-  "Programa de Idiomas"
+  "Idiomas"
 ];
 
 export const categoriaPorTexto = [
   "Tours de Estudio",
   "A\u00F1o de fundaci\u00F3n",
-  "Consejero de campamento de verano",
-  "Programa de estudio y trabajo",
+  "Campamento como Monitor",
+  "Estudia y Trabaja",
   "A\u00F1o Sabatico"
 ];
 
 
-export const exepcionesMayuscula = [
-  "of", 
-  "and", 
-  "the", 
-  "in", 
-  "on", 
-  "at", 
-  "to", 
-  "for", 
-  "with", 
-  "a", 
-  "an"
-]
-
 export const endPointMap: Record<string, string> = {
-  "Maestría": "masters",
+  "Maestrías": "masters",
   "Licenciaturas": "bachelors",
-  "EFP (Educación y Formación Profesional)": "vets"
+  "EFP (Educación y Formación Profesional)": "vets",
+  "Campamentos": "camps"
 } 
 
 export const areaMapping: Record<string, Record<string, string>> = {
-  "Maestría": {
+  "Maestrías": {
     "Agricultura y Medio Ambiente": "agriculture and environment",
     "Alimentos, Nutrición y Dietética": "food, nutrition and dietetics",
     "Arquitectura y Diseño": "architecture and design, building, and property",
@@ -176,6 +164,20 @@ export const areaMapping: Record<string, Record<string, string>> = {
   }
 };
 
+export const exepcionesMayuscula = [
+  "of", 
+  "and", 
+  "the", 
+  "in", 
+  "on", 
+  "at", 
+  "to", 
+  "for", 
+  "with", 
+  "a", 
+  "an"
+]
+
 export const logos = {
     aiit: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/aiit.png",
     alc: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/alc.png",
@@ -214,4 +216,16 @@ export const logos = {
     tm: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/tm.png",
     nw: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/preparate_gris+(1).jpg",
     wester: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/WESTERNASUTR.jpg"
+};
+
+export const heroCopy: Record<string, string> = {
+  "Campamentos":
+    "Campamentos internacionales para mejorar un segundo idioma y potenciar tu desarrollo personal.",
+  "Formación Vocacional":
+    "Estudios técnicos prácticos y aplicables, ideales para una rápida inserción laboral.",
+  "Maestrías":
+    "Programas de 1 a 2 años para especializarte, cambiar de rumbo o crecer profesionalmente.",
+  "Licenciaturas":
+    "Cursa tu universidad completa en el extranjero y vive una formación global transformadora.",
+  
 };

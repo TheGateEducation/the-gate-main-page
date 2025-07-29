@@ -138,7 +138,7 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
       <div className="flex justify-start">
         <button
           onClick={onReset}
-          className="text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"
+          className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
         >
           Volver a categorías
         </button>
