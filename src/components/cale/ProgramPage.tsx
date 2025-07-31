@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import {
   useInfiniteQuery,
-  type InfiniteData,         // 👈 evita el error “InfiniteData no encontrado”
+  type InfiniteData,
 } from "@tanstack/react-query";
 
 import Hero from "../Hero/Hero";
