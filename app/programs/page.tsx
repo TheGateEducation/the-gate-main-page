@@ -13,6 +13,10 @@ export const metadata = {
 export default function Programs() {
     return (
         <main>
+            <Hero 
+            title="Explora todos los caminos que puedes tomar" 
+            subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
+            />
             <ProgramPage />
         </main>
     );

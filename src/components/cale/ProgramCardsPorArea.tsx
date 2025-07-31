@@ -1,15 +1,63 @@
 "use client";
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa6";
-import { formatCase, renderField} from "@src/data/funciones"
-import {ProgramCardsPropsArea} from "@src/data/interface"
+import { exepcionesMayuscula } from "@src/data/constantes";
 
+interface Program {
+  id: number;
+  nombre: string;
+  area?: string;
+  pais?: string;
+  ciudad?: string;
+  institucion?: string;
+  link?: string;
+  fechas?: string;
+  duracion?: string;
+  costoAnualUSD?: number | string;
+  becas?: string;
+  notas?: string;
+}
 
-const ProgramCardsPorArea: React.FC<ProgramCardsPropsArea> = ({
+interface ProgramCardsProps {
+  programs: Program[];
+  onReset: () => void;
+  showEmpty?: boolean;
+}
+
+const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
   programs,
   onReset,
-  showEmpty,
+  showEmpty = true,
 }) => {
+  const formatCase = (text?: string) => {
+    if (!text) return "";
+    return text
+      .toLowerCase()
+      .split(" ")
+      .map((word, index) =>
+        exepcionesMayuscula.includes(word) && index !== 0
+          ? word
+          : word.charAt(0).toUpperCase() + word.slice(1)
+      )
+      .join(" ")
+      .replace(/-.*$/, "");
+  };
+
+  const renderField = (
+    label: string,
+    value?: string | number,
+    extraClasses = ""
+  ) => {
+    if (!showEmpty && (value === undefined || value === null || value === ""))
+      return null;
+
+    return (
+      <p className={extraClasses}>
+        <strong>{label}: </strong>
+        {value ?? ""}
+      </p>
+    );
+  };
 
   return (
     <div className="flex flex-col gap-10 px-4 py-6 max-w-[1200px] mx-auto">
@@ -26,32 +74,35 @@ const ProgramCardsPorArea: React.FC<ProgramCardsPropsArea> = ({
           {/* Grid de dos columnas de datos */}
           <div className="w-full max-w-[860px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2 text-base md:text-lg">
             <div className="space-y-1">
-              {renderField("País", program.pais, showEmpty)}
-              {renderField("Especialización", formatCase(program.area), showEmpty)}
-              {renderField("Fechas de inicio", program.fechas, showEmpty)}
+              {renderField("País", program.pais)}
+              {renderField("Especialización", formatCase(program.area))}
+              {renderField("Fechas de inicio", program.fechas)}
               {renderField(
                 "Costo por Año (USD)",
-                program.costoUSD !== undefined
-                  ? `$${program.costoUSD}` 
+                program.costoAnualUSD !== undefined && program.costoAnualUSD !== ""
+                  ? `$${program.costoAnualUSD}`
                   : ""
-              , showEmpty)}
+              )}
             </div>
 
             <div className="space-y-1">
-              {renderField("Institución", program.institucion, showEmpty)}
-              {renderField("Ubicación", program.ubicacion, showEmpty)}
-              {renderField("Duración", program.duracion, showEmpty)}
+              {renderField("Institución", program.institucion)}
+              {renderField("Ubicación", program.ciudad)}
+              {renderField("Duración", program.duracion)}
+              {renderField("Becas", program.becas)}
             </div>
           </div>
           <div className="w-full max-w-[860px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2 text-base md:text-lg">
             <div className="space-y-1">
-              {renderField("Notas", "mt-4", showEmpty, program.notas)}
+              {renderField("Notas", program.notas, "mt-4")}
               {program.link && (
                 <a href={program.link} target="_blank" rel="noopener noreferrer" className="block mt-4 text-blue-600 underline hover:text-blue-800">
                 Link de la Institución
                 </a>)}
             </div>
           </div>
+
+          {/* Botones (opcional) */}
           <div className="mt-6 flex flex-wrap gap-3 justify-center">
             <a
               href="/contact"

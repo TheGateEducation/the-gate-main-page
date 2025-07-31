@@ -1,15 +1,16 @@
 // app/(public)/programs/ProgramPage.tsx
 "use client";
+
 import React, { useState, useEffect, useMemo } from "react";
 import {
   useInfiniteQuery,
-  type InfiniteData,
+  type InfiniteData,         // 👈 evita el error “InfiniteData no encontrado”
 } from "@tanstack/react-query";
 
 import Hero from "../Hero/Hero";
 import CategoriaGrid from "./CategoriaGrid";
-import ProgramCardsPorEdad from "./ProgramCardsCampamentos";
-import ProgramCardsPorArea from "./ProgramCards";
+import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
+import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import TextoInformativo from "./textoInformativo";
 
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
@@ -51,7 +52,7 @@ export interface AreaProgram {
   nombre: string;
   area: string;
   pais: string;
-  ubicacion: string;
+  ciudad: string;
   institucion: string;
   link: string;
   duracion: string;
@@ -192,12 +193,9 @@ export default function ProgramPage() {
 
   /* ---------------- renders ---------------- */
   if (!categoria) {
+    /* grid inicial */
     return (
       <main className="p-8">
-        <Hero  title="Explora todos los caminos que 
-              puedes tomar" 
-              subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
-              />
         <CategoriaGrid
           categorias={ordenDeCategorias}
           onCategoriaSelect={setCategoria}
@@ -257,7 +255,6 @@ export default function ProgramPage() {
         <ProgramCardsPorArea
           programs={programasFiltrados as AreaProgram[]}
           onReset={() => setCategoria(null)}
-          showEmpty={false}
         />
       ) : (
         <ProgramCardsPorEdad
