@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { FaWhatsapp } from "react-icons/fa6";
 import { exepcionesMayuscula } from "@src/data/constantes";
 
 interface Program {
@@ -20,13 +19,11 @@ interface Program {
 
 interface ProgramCardsProps {
   programs: Program[];
-  onReset: () => void;
   showEmpty?: boolean;
 }
 
 const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
   programs,
-  onReset,
   showEmpty = true,
 }) => {
   const formatCase = (text?: string) => {
@@ -101,38 +98,8 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
                 </a>)}
             </div>
           </div>
-
-          {/* Botones (opcional) */}
-          <div className="mt-6 flex flex-wrap gap-3 justify-center">
-            <a
-              href="/contact"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-blue-600 text-white px-5 py-2 rounded-lg text-center hover:bg-blue-700 transition"
-            >
-              Contáctanos
-            </a>
-            <a
-              href="http://wa.me/528443510141"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-green-500 text-white px-5 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600 transition"
-            >
-              <FaWhatsapp className="text-lg" />
-              WhatsApp
-            </a>
-          </div>
         </div>
       ))}
-
-      {/* Botón volver */}
-      <div className="my-6 flex justify-center">
-        <button
-          onClick={onReset}
-          className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]">
-          Volver a categorías
-        </button>
-      </div>
     </div>
   );
 };

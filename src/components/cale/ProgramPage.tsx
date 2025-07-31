@@ -12,6 +12,7 @@ import CategoriaGrid from "./CategoriaGrid";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import TextoInformativo from "./textoInformativo";
+import GeneralButtons from "@src/components/ui/buttons/GeneralButtons"
 
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
 import {
@@ -23,6 +24,7 @@ import {
   areaMapping,
   heroCopy,
 } from "@src/data/constantes";
+
 
 const hash = (s: string): number => {
   let h = 0;
@@ -196,6 +198,10 @@ export default function ProgramPage() {
     /* grid inicial */
     return (
       <main className="p-8">
+          <Hero 
+            title="Explora todos los caminos que puedes tomar" 
+            subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
+          />
         <CategoriaGrid
           categorias={ordenDeCategorias}
           onCategoriaSelect={setCategoria}
@@ -209,8 +215,8 @@ export default function ProgramPage() {
   if (categoriaPorTexto.includes(categoria)) {
     return (
       <main className="p-8">
-        <Hero title={categoria} subtitle={textoSolo ?? ""} />
-        {textoSolo && <TextoInformativo texto={textoSolo} onBack={() => setCategoria(null)} />}
+        <Hero title={categoria} subtitle={textoSolo ?? ""}/>
+        <GeneralButtons onBack={() => setCategoria(null)} />
       </main>
     );
   }
@@ -252,28 +258,42 @@ export default function ProgramPage() {
       )}
 
       {categoriasPorArea.includes(categoria) ? (
-        <ProgramCardsPorArea
-          programs={programasFiltrados as AreaProgram[]}
-          onReset={() => setCategoria(null)}
-        />
+        <main>
+          <ProgramCardsPorArea
+            programs={programasFiltrados as AreaProgram[]}
+          />
+          {hasNextPage && (
+            <div className="my-6 flex justify-center">
+              <button
+                disabled={isFetchingNextPage}
+                onClick={() => fetchNextPage()}
+                className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
+              >
+                {isFetchingNextPage ? "Cargando…" : "Cargar más"}
+              </button>
+            </div>
+          )}
+          <GeneralButtons onBack={() => setCategoria(null)} />
+        </main>
       ) : (
-        <ProgramCardsPorEdad
-          programs={programasFiltrados as AgeProgram[]}
-          onReset={() => setCategoria(null)}
-        />
-      )}
 
-      {/* paginación  ------------------------------------ */}
-      {hasNextPage && (
-        <div className="my-6 flex justify-center">
-          <button
-            disabled={isFetchingNextPage}
-            onClick={() => fetchNextPage()}
-            className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
-          >
-            {isFetchingNextPage ? "Cargando…" : "Cargar más"}
-          </button>
-        </div>
+        <main>
+          <ProgramCardsPorEdad
+            programs={programasFiltrados as AgeProgram[]}
+          />
+          {hasNextPage && (
+            <div className="my-6 flex justify-center">
+              <button
+                disabled={isFetchingNextPage}
+                onClick={() => fetchNextPage()}
+                className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
+              >
+                {isFetchingNextPage ? "Cargando…" : "Cargar más"}
+              </button>
+            </div>
+          )}
+          <GeneralButtons onBack={() => setCategoria(null)} />
+        </main>
       )}
 
       {error && (
