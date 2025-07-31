@@ -1,178 +1,286 @@
+// app/(public)/programs/ProgramPage.tsx
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useMemo } from "react";
+import {
+  useInfiniteQuery,
+  type InfiniteData,         // 👈 evita el error “InfiniteData no encontrado”
+} from "@tanstack/react-query";
+
+import Hero from "../Hero/Hero";
 import CategoriaGrid from "./CategoriaGrid";
-import EdadFilter from "./EdadFilter";
-import AreaFilter from "./AreaFilter";
-import TextoInformativo from "./textoInformativo";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
+import TextoInformativo from "./textoInformativo";
+
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
+import {
+  categoriaPorTexto,
+  categoriasPorArea,
+  categoriasPorEdad,
+  ordenDeCategorias,
+  endPointMap,
+  areaMapping,
+  heroCopy,
+} from "@src/data/constantes";
 
-
-const categoriasPorEdad = ["Campamento de Verano"]
-
-const categoriasPorArea = ["Licenciatura", "Maestria", "EFP (Educación y Formación Profesional)" ]
-
-const categoriaPorTexto = ["Tours de Estudio", "Año de fundación", "Consejero del campamento de verano", "Programa de estudio y trabajo","Año Sabatico"]
-
-// Mapeo de archivos JSON según la categoría
-const dataSource: Record<string, () => Promise<any>> = {
-  "Campamento de Verano": () => import("@src/data/summer_camps_programs.json").then((m) => m.default),
-  "Maestria": () => import("@src/data/masters_programs.json").then((m) => m.default),
-  "Licenciatura": () => import("@src/data/licenciaturas_programs.json").then((m) => m.default),
-  "Tours de Estudio": () => import("@src/data/categorias_texto.json").then((m)=>m.default)
+const hash = (s: string): number => {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = (h << 5) - h + s.charCodeAt(i);
+    h |= 0; // int32
+  }
+  return Math.abs(h);
 };
 
-const ProgramPage: React.FC = () => {
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<string | null>(null);
-  const [edadSeleccionada, setEdadSeleccionada] = useState<string | null>(null);
-  const [areaSeleccionada, setAreaSelecionada] = useState<string | null>(null);
-  const [textoCategoria, setTextoCategoria] = useState<string | null>(null);
-  const [programas, setProgramas] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+
+interface ApiProgram {
+  "area-de-estudio": string;
+  "nombre-del-programa": string;
+  institucion: string;
+  pais: string;
+  ubicacion: string;
+  duracion: string;
+  "costo-p/ano": number;
+  moneda: string;
+  link: string;
+  "fechas-de-inicio": string;
+}
+
+export interface AreaProgram {
+  id: number;
+  nombre: string;
+  area: string;
+  pais: string;
+  ciudad: string;
+  institucion: string;
+  link: string;
+  duracion: string;
+  costo: number;
+  moneda: string;
+  fechas: string;
+}
+
+export interface AgeProgram {
+  id: number;
+  nombre: string;
+  pais: string;
+  ciudad: string;
+  edad: string;
+  duracion: string;
+  proveedor: string;
+}
+
+type ProgramType = AreaProgram | AgeProgram;
+
+const fetchPrograms = async (
+  categoria: string,
+  pageParam: string | null = null
+): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
+  const endpoint = endPointMap[categoria];
+  if (!endpoint)
+    throw new Error(`No endpoint mapped for category "${categoria}"`);
+
+  const url =
+    pageParam === null
+      ? `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud`
+      : `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud?nextKey=${pageParam}`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Error al cargar programas");
+  return res.json();
+};
+
+const dataSourceTexto: Record<
+  string,
+  () => Promise<Record<string, string>>
+> = {
+  "Tours de Estudio": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Año de fundación": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Año Sabatico": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Consejero del campamento de verano": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+  "Programa de estudio y trabajo": () =>
+    import("@src/data/categorias_texto.json").then((m) => m.default),
+};
 
 
+export default function ProgramPage() {
+  const [categoria, setCategoria] = useState<string | null>(null);
+  const [filtroEdad, setFiltroEdad] = useState<string | null>(null);
+  const [filtroArea, setFiltroArea] = useState<string | null>(null);
+  const [textoSolo, setTextoSolo] = useState<string | null>(null);
 
-  // Cuando se elige una categoría, se carga su JSON correspondiente
-  useEffect(() => {
-    if (!categoriaSeleccionada || !dataSource[categoriaSeleccionada]) return;
-
-    setLoading(true);
-
-    dataSource[categoriaSeleccionada]()
-      .then((data) => {
-        if (categoriaPorTexto.includes(categoriaSeleccionada)) {
-          setTextoCategoria(data[categoriaSeleccionada] || "Información no disponible");
-          setProgramas([]); // Limpia programas para evitar errores de .map
-        } else {
-          const listaProgramas = Array.isArray(data) ? data : Object.values(data);
-          setProgramas(listaProgramas);
-          setTextoCategoria(null);
-        }
-
-        setEdadSeleccionada(null);
-        setAreaSelecionada(null);
-      })
-      .finally(() => setLoading(false));
-  }, [categoriaSeleccionada]);
-
-
-
-  const ordenDeCategorias = [
-    "Cursos de Idiomas", 
-    "Campamento de Verano", 
-    "Intercambios", 
-    "Secundaria",
-    "Certificados y Diplomas", 
-    "Licenciatura", 
-    "Maestrías", 
-    "Doctorados", 
-    "Tours de Estudio", 
-    "EFP (Educación y Formación Profesional)",
-    "Año de fundación",
-    "Consejero del campamento de verano", 
-    "Programa de estudio y trabajo",
-    "Año Sabatico"
-  ];
-
-  //Acomoda las categorias conforme a la lista que aparece arriba
-  const categoriasUnicas = Object.keys(dataSource).sort(
-    (a, b) => ordenDeCategorias.indexOf(a) - ordenDeCategorias.indexOf(b)
-  );
-
- //Ordena las edades conforme al valor que aparece al principio de cada valor de edad
-  const edadesUnicas = Array.from(
-    new Set(programas.map((p) => p.edad))
-  ).sort((a, b) => {
-    const inicioA = parseInt(a.split("-")[0]) || parseInt(a);
-    const inicioB = parseInt(b.split("-")[0]) || parseInt(b);
-    return inicioA - inicioB;
+  const {
+    data,
+    hasNextPage,
+    fetchNextPage,
+    isFetching,
+    isFetchingNextPage,
+    error,
+  } = useInfiniteQuery<
+    { items: ApiProgram[]; nextKey?: string | null },
+    Error,
+    InfiniteData<{ items: ApiProgram[]; nextKey?: string | null }, string | null>,
+    (string | null)[],
+    string | null
+  >({
+    queryKey: ["programas", categoria],
+    queryFn: ({ pageParam = null }) =>
+      categoria && !categoriaPorTexto.includes(categoria)
+        ? fetchPrograms(categoria, pageParam)
+        : Promise.resolve({ items: [], nextKey: null }),
+    initialPageParam: null,
+    enabled: !!categoria && !categoriaPorTexto.includes(categoria),
+    getNextPageParam: (last) => last.nextKey ?? undefined,
+    staleTime: 1000 * 60 * 60 * 12,
   });
 
-  const areasUnicas = Array.from(new Set(programas.map((p) => p.area))).sort()
+  useEffect(() => {
+    if (!categoria || !categoriaPorTexto.includes(categoria)) return;
 
-  const programasFiltrados =
-    categoriaSeleccionada &&categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada
-      ? programas.filter((p) => p.edad === edadSeleccionada)
-      : categoriaSeleccionada&& categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada
-      ? programas.filter((p) => p.area === areaSeleccionada)
-      : [];
+    const load = async () => {
+      const json = await dataSourceTexto[categoria]();
+      setTextoSolo(json[categoria]);
+    };
+    load().catch(console.error);
+  }, [categoria]);
 
-  const reset = () => {
-    setCategoriaSeleccionada(null);
-    setEdadSeleccionada(null);
-    setAreaSelecionada(null)
-  };
+  const programas: ProgramType[] = useMemo(() => {
+    if (!data?.pages) return [];
+    return data.pages.flatMap((p) =>
+      p.items.map((it) => ({
+        id: hash(it["nombre-del-programa"]),
+        nombre: it["nombre-del-programa"],
+        area: it["area-de-estudio"],
+        pais: it.pais,
+        ciudad: it.ubicacion,
+        institucion: it.institucion,
+        link: it.link,
+        duracion: it.duracion,
+        costo: it["costo-p/ano"],
+        moneda: it.moneda,
+        fechas: it["fechas-de-inicio"],
+        edad: (it as any)["edades"] ?? "",
+        proveedor: (it as any)["proveedor"] ?? "",
+      }))
+    );
+  }, [data]);
 
-  const renderFiltroPorCategoria = () =>{
-    if(categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && !edadSeleccionada){
-      return(
-        <EdadFilter
-          edades={edadesUnicas}
-          onEdadSelect={setEdadSeleccionada}
-          onBack={() => setCategoriaSeleccionada(null)}
-        />
-      );
-    }
+  const areasDisponibles = useMemo(() => {
+    if (!categoria || !categoriasPorArea.includes(categoria)) return [];
+    return Array.from(
+      new Set(programas.map((p) => (p as AreaProgram).area))
+    ).filter(Boolean) as string[];
+  }, [categoria, programas]);
 
-    if(categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && !areaSeleccionada){
-      return(
-        <AreaFilter
-        areas={areasUnicas}
-        onAreaSelect={setAreaSelecionada}
-        onBack={() => setCategoriaSeleccionada(null)}
-        />
-      )
-    }
+  const edadesDisponibles = useMemo(() => {
+    if (!categoria || !categoriasPorEdad.includes(categoria)) return [];
+    return Array.from(
+      new Set(programas.map((p) => (p as AgeProgram).edad))
+    ).filter(Boolean) as string[];
+  }, [categoria, programas]);
 
-    if(categoriaSeleccionada && categoriaPorTexto.includes(categoriaSeleccionada) && textoCategoria){
-      return(
-        <TextoInformativo
-        texto = {textoCategoria}
-        onBack={()=>{
-          setCategoriaSeleccionada(null);
-          setTextoCategoria(null);
-        }}
-        />
-      )
-    }
+  const programasFiltrados = useMemo(() => {
+    let res = programas;
+    if (filtroArea) res = res.filter((p) => (p as AreaProgram).area === filtroArea);
+    if (filtroEdad) res = res.filter((p) => (p as AgeProgram).edad === filtroEdad);
+    return res;
+  }, [programas, filtroArea, filtroEdad]);
 
-    if (categoriaSeleccionada && categoriasPorEdad.includes(categoriaSeleccionada) && edadSeleccionada) {
-      return (
-        <ProgramCardsPorEdad
-          programs={programasFiltrados}
-          onReset={reset}
-        />
-      );
-    }
-
-    if(categoriaSeleccionada && categoriasPorArea.includes(categoriaSeleccionada) && areaSeleccionada){
-      return(
-        <ProgramCardsPorArea
-          programs={programasFiltrados}
-          onReset={reset}
-          />
-      );
-    }
-  }
-
-  return (
-    <main className="p-8">
-      {!categoriaSeleccionada ? (
+  /* ---------------- renders ---------------- */
+  if (!categoria) {
+    /* grid inicial */
+    return (
+      <main className="p-8">
         <CategoriaGrid
-          categorias={categoriasUnicas}
-          onCategoriaSelect={setCategoriaSeleccionada}
+          categorias={ordenDeCategorias}
+          onCategoriaSelect={setCategoria}
           imagenesPorCategoria={imagenesPorCategoria}
         />
-      ) : loading ? (
-        <div className="flex justify-center items-center h-64">
-          Cargando...
-        </div>
+      </main>
+    );
+  }
+
+  /* categorías sólo-texto ------------------- */
+  if (categoriaPorTexto.includes(categoria)) {
+    return (
+      <main className="p-8">
+        <Hero title={categoria} subtitle={textoSolo ?? ""} />
+        {textoSolo && <TextoInformativo texto={textoSolo} onBack={() => setCategoria(null)} />}
+      </main>
+    );
+  }
+
+  /* categorías área o edad ------------------ */
+  return (
+    <main className="p-4 sm:p-8">
+      <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
+
+      {/* filtros (se muestran si hay más de 1 opción) */}
+      {(areasDisponibles.length > 1 || edadesDisponibles.length > 1) && (
+        <section className="mb-8 flex flex-wrap gap-3 justify-center">
+          {areasDisponibles.length > 1 && (
+            <select
+              value={filtroArea ?? ""}
+              onChange={(e) => setFiltroArea(e.target.value || null)}
+              className="border px-3 py-2 rounded-md"
+            >
+              <option value="">Todas las áreas</option>
+              {areasDisponibles.map((a) => (
+                <option key={a}>{a}</option>
+              ))}
+            </select>
+          )}
+
+          {edadesDisponibles.length > 1 && (
+            <select
+              value={filtroEdad ?? ""}
+              onChange={(e) => setFiltroEdad(e.target.value || null)}
+              className="border px-3 py-2 rounded-md"
+            >
+              <option value="">Todas las edades</option>
+              {edadesDisponibles.map((e) => (
+                <option key={e}>{e}</option>
+              ))}
+            </select>
+          )}
+        </section>
+      )}
+
+      {categoriasPorArea.includes(categoria) ? (
+        <ProgramCardsPorArea
+          programs={programasFiltrados as AreaProgram[]}
+          onReset={() => setCategoria(null)}
+        />
       ) : (
-        renderFiltroPorCategoria()
+        <ProgramCardsPorEdad
+          programs={programasFiltrados as AgeProgram[]}
+          onReset={() => setCategoria(null)}
+        />
+      )}
+
+      {/* paginación  ------------------------------------ */}
+      {hasNextPage && (
+        <div className="my-6 flex justify-center">
+          <button
+            disabled={isFetchingNextPage}
+            onClick={() => fetchNextPage()}
+            className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
+          >
+            {isFetchingNextPage ? "Cargando…" : "Cargar más"}
+          </button>
+        </div>
+      )}
+
+      {error && (
+        <p className="text-center text-red-600 mt-4">
+          {error.message || "Ocurrió un error."}
+        </p>
       )}
     </main>
   );
-};
-
-export default ProgramPage;
+}

@@ -1,4 +1,5 @@
 import './globals.css'
+import Providers from '@app/provider'
 
 export const metadata = {
     title: 'The Gate Education',
@@ -19,10 +20,13 @@ export const metadata = {
     },
 }
 
+
 export default function RootLayout({ children, }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
-            <body>{children}</body>
+        <html lang="es">
+            <body>
+                <Providers>{children}</Providers>
+            </body>
         </html>
     )
 }

@@ -13,7 +13,7 @@ export const metadata = {
 export default function Programs() {
     return (
         <main>
-            <Hero url="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/services.jpg" title="Servicios" />
+            <Hero title="Servicios" />
             <Content />
             <Tab />
 
