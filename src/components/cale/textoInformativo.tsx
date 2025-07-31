@@ -1,47 +1,15 @@
 "use client";
 import React from "react";
 
-import {
-  FaWhatsapp
-} from "react-icons/fa6";
-
 interface TextoInformativoProps {
   texto: string;
-  onBack?: () => void;
 }
 
 
-const TextoInformativo: React.FC<TextoInformativoProps> = ({ texto, onBack }) => {
+const TextoInformativo: React.FC<TextoInformativoProps> = ({ texto }) => {
   return (
     <div className="flex flex-col items-center p-6">
         <p className="text-3xl max-w-3xl text-center whitespace-pre-line mb-6"><strong>{texto}</strong></p>
-        <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 mt-8">
-          <button
-            onClick={onBack}
-            className="text-sm px-4 py-2 border border-blue-500 text-blue-500 rounded-full hover:bg-blue-500 hover:text-white transition"
-          >
-            Volver a categorías
-          </button>
-
-          <a
-              href="/contact"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-blue-400 text-white px-4 py-2 rounded-lg text-center hover:bg-blue-700 transition text-sm"
-          >
-              Contáctanos
-          </a>
-          <a
-              href="http://wa.me/528443510141"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600 transition text-sm"
-          >
-              <FaWhatsapp className="text-lg" />
-              WhatsApp
-          </a>
-
-      </div>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Hero from '@src/components/Hero/Hero';
 import ProgramPage from "@src/components/cale/ProgramPage";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,10 +12,6 @@ export const metadata = {
 export default function Programs() {
     return (
         <main>
-            <Hero 
-            title="Explora todos los caminos que puedes tomar" 
-            subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
-            />
             <ProgramPage />
         </main>
     );
