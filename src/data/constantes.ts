@@ -227,5 +227,4 @@ export const heroCopy: Record<string, string> = {
     "Programas de 1 a 2 años para especializarte, cambiar de rumbo o crecer profesionalmente.",
   "Licenciaturas":
     "Cursa tu universidad completa en el extranjero y vive una formación global transformadora.",
-  
 };
