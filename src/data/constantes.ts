@@ -1,14 +1,13 @@
 export const ordenDeCategorias = [
   "Campamentos",
-  "Formación Técnica",
-  "EFP (Educación y Formación Profesional)", //Preguntar si Formación Técnica es EFP o VET 
-  "Campamento como Monitor",
-  "A\u00F1o de fundaci\u00F3n",
+  "Formación Vocacional",
+  "Campamento como Staff",
+  "A\u00f1o de Preparaci\u00f3n",
   "Estudia y Trabaja",
   "Maestrías",
   "Tours de Estudio",
   "Licenciaturas",
-  "Deportistas de Alto Rendimiento",
+  "Jóvenes Deportistas de Alto Rendimiento",
   "A\u00F1o Sabatico", 
   "Idiomas"
 ];
@@ -18,14 +17,14 @@ export const categoriasPorEdad = ["Campamentos"];
 export const categoriasPorArea = [
   "Licenciaturas", 
   "Maestrías", 
-  "EFP (Educación y Formación Profesional)", 
+  "Formación Vocacional", 
   "Idiomas"
 ];
 
 export const categoriaPorTexto = [
   "Tours de Estudio",
-  "A\u00F1o de fundaci\u00F3n",
-  "Campamento como Monitor",
+  "A\u00f1o de Preparaci\u00f3n",
+  "Campamento como Staff",
   "Estudia y Trabaja",
   "A\u00F1o Sabatico"
 ];
@@ -34,7 +33,7 @@ export const categoriaPorTexto = [
 export const endPointMap: Record<string, string> = {
   "Maestrías": "masters",
   "Licenciaturas": "bachelors",
-  "EFP (Educación y Formación Profesional)": "vets",
+  "Formación Vocacional": "vets",
   "Campamentos": "camps"
 } 
 
