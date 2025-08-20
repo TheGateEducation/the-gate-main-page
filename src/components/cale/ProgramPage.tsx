@@ -1,18 +1,14 @@
-// app/(public)/programs/ProgramPage.tsx
+// 
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import {
-  useInfiniteQuery,
-  type InfiniteData,
-} from "@tanstack/react-query";
+import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 
 import Hero from "../Hero/Hero";
 import CategoriaGrid from "./CategoriaGrid";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
-import TextoInformativo from "./textoInformativo";
-import GeneralButtons from "@src/components/ui/buttons/GeneralButtons"
+import GeneralButtons from "@src/components/ui/buttons/GeneralButtons";
 
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
 import {
@@ -25,29 +21,62 @@ import {
   heroCopy,
 } from "@src/data/constantes";
 
-
 const hash = (s: string): number => {
   let h = 0;
   for (let i = 0; i < s.length; i++) {
     h = (h << 5) - h + s.charCodeAt(i);
-    h |= 0; // int32
+    h |= 0;
   }
   return Math.abs(h);
 };
 
-
-interface ApiProgram {
-  "area-de-estudio": string;
+interface ApiProgramGeneral {
   "nombre-del-programa": string;
   institucion: string;
-  pais: string;
-  ubicacion: string;
-  duracion: string;
-  "costo-p/ano": number;
-  moneda: string;
   link: string;
-  "fechas-de-inicio": string;
+  pais: string;
+  ubicacion?: string;
+  "ubicación"?: string;
+  duracion?: string;
+  "duración"?: string;
+  moneda: string;
 }
+
+interface AreaProgramApi extends ApiProgramGeneral {
+  "area-de-estudio": string; 
+  "fechas-de-inicio": string; 
+  "majors-especialización"?: string;
+  "costo-p/ano-USD"?: number;
+  "costo-p/ano": string; 
+  notas?: string;
+  profesiones?: string;
+  edades?: never;
+  proveedor?: never;
+  costo?: never;
+  "ubicación"?: never;
+  "duración"?: never;  
+}
+
+interface CampProgramApi extends ApiProgramGeneral {
+  "tipo de habitación"?: string;
+  "costo estimado camp en mxn"?: number;
+  fechas: string;
+  "edad-min": number;
+  proveedor: string;
+  extras?: string;
+  "tipo de alojamiento": string;
+  "folleto informativo"?: string;
+  costo: number;
+  "edad-max": number;
+  edades: string;
+  "area-de-estudio"?: never;
+  "costo-p/ano"?: never;
+  "fechas-de-inicio"?: never;
+  ubicacion?: never;
+  duracion?: never;
+}
+
+type ApiProgram = AreaProgramApi | CampProgramApi;
 
 export interface AreaProgram {
   id: number;
@@ -58,9 +87,13 @@ export interface AreaProgram {
   institucion: string;
   link: string;
   duracion: string;
-  costo: number;
+  costo: string;
   moneda: string;
   fechas: string;
+  notas?: string;
+  especializacion?: string;
+  profesiones?: string;
+  costoUSD?: string;
 }
 
 export interface AgeProgram {
@@ -71,26 +104,77 @@ export interface AgeProgram {
   edad: string;
   duracion: string;
   proveedor: string;
+  costo?: string;
+  fechas?: string;
+  habitacion?: string;
+  costoMX?:string; 
+  extras?: string;
+  folleto?: string;
+  profecions?: string; 
 }
 
 type ProgramType = AreaProgram | AgeProgram;
 
-const fetchPrograms = async (
-  categoria: string,
-  pageParam: string | null = null
-): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
-  const endpoint = endPointMap[categoria];
-  if (!endpoint)
-    throw new Error(`No endpoint mapped for category "${categoria}"`);
+const isAreaProgram = (program: ApiProgram): program is AreaProgramApi => {
+  return 'area-de-estudio' in program;
+};
 
-  const url =
-    pageParam === null
-      ? `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud`
-      : `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud?nextKey=${pageParam}`;
+const isCampProgram = (program: ApiProgram): program is CampProgramApi => {
+  return 'edades' in program;
+};
 
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Error al cargar programas");
-  return res.json();
+const transformApiToProgram = (apiProgram: ApiProgram): ProgramType => {
+  const ubicacion = apiProgram.ubicacion || apiProgram["ubicación"] || "";
+  const duracion = apiProgram.duracion || apiProgram["duración"] || "";
+  const base = {
+    id: hash(apiProgram["nombre-del-programa"]),
+    nombre: apiProgram["nombre-del-programa"],
+    pais: apiProgram.pais,
+    ciudad: ubicacion,
+    institucion: apiProgram.institucion,
+    link: apiProgram.link,
+    duracion: duracion,
+    moneda: apiProgram.moneda,
+  };
+
+  if (isAreaProgram(apiProgram)) {
+    return {
+      ...base,
+      area: apiProgram["area-de-estudio"],
+      costo: apiProgram["costo-p/ano"],
+      fechas: apiProgram["fechas-de-inicio"],
+      edad: "",
+      proveedor: "",
+      especializacion: apiProgram["majors-especialización"],
+      profecions: apiProgram.profesiones,
+      notas: apiProgram.notas,
+      costoUSD: apiProgram["costo-p/ano-USD"]
+    } as AreaProgram;
+  }
+
+  if (isCampProgram(apiProgram)) {
+    return {
+      ...base,
+      area: "",
+      costo: apiProgram.costo?.toString() || "",
+      fechas: apiProgram.fechas || "",
+      edad: apiProgram.edades || "",
+      proveedor: apiProgram.proveedor || "",
+      habitacion: apiProgram["tipo de habitación"],
+      costoMX: apiProgram["costo estimado camp en mxn"],
+      extras: apiProgram.extras,
+      folleto: apiProgram["folleto informativo"]
+    } as AgeProgram;
+  }
+
+  return {
+    ...base,
+    area: "",
+    costo: "",
+    fechas: "",
+    edad: "",
+    proveedor: "",
+  } as AgeProgram;
 };
 
 const dataSourceTexto: Record<
@@ -109,6 +193,23 @@ const dataSourceTexto: Record<
     import("@src/data/categorias_texto.json").then((m) => m.default),
 };
 
+const fetchPrograms = async (
+  categoria: string,
+  pageParam: string | null = null
+): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
+  const endpoint = endPointMap[categoria];
+  if (!endpoint)
+    throw new Error(`No hay datos para esta categoria "${categoria}"`);
+
+  const url =
+    pageParam === null
+      ? `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud`
+      : `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud?nextKey=${pageParam}`;
+
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Error al cargar programas");
+  return res.json();
+};
 
 export default function ProgramPage() {
   const [categoria, setCategoria] = useState<string | null>(null);
@@ -127,7 +228,7 @@ export default function ProgramPage() {
     { items: ApiProgram[]; nextKey?: string | null },
     Error,
     InfiniteData<{ items: ApiProgram[]; nextKey?: string | null }, string | null>,
-    (string | null)[],
+    [string, string | null],
     string | null
   >({
     queryKey: ["programas", categoria],
@@ -145,63 +246,73 @@ export default function ProgramPage() {
     if (!categoria || !categoriaPorTexto.includes(categoria)) return;
 
     const load = async () => {
-      const json = await dataSourceTexto[categoria]();
-      setTextoSolo(json[categoria]);
+      try {
+        const json = await dataSourceTexto[categoria]();
+        setTextoSolo(json[categoria]);
+      } catch (error) {
+        console.error("Error loading text data:", error);
+      }
     };
-    load().catch(console.error);
+    load();
   }, [categoria]);
 
   const programas: ProgramType[] = useMemo(() => {
     if (!data?.pages) return [];
-    return data.pages.flatMap((p) =>
-      p.items.map((it) => ({
-        id: hash(it["nombre-del-programa"]),
-        nombre: it["nombre-del-programa"],
-        area: it["area-de-estudio"],
-        pais: it.pais,
-        ciudad: it.ubicacion,
-        institucion: it.institucion,
-        link: it.link,
-        duracion: it.duracion,
-        costo: it["costo-p/ano"],
-        moneda: it.moneda,
-        fechas: it["fechas-de-inicio"],
-        edad: (it as any)["edades"] ?? "",
-        proveedor: (it as any)["proveedor"] ?? "",
-      }))
+    return data.pages.flatMap((page) => 
+      page.items.map(transformApiToProgram)
     );
   }, [data]);
 
   const areasDisponibles = useMemo(() => {
     if (!categoria || !categoriasPorArea.includes(categoria)) return [];
     return Array.from(
-      new Set(programas.map((p) => (p as AreaProgram).area))
+      new Set(programas
+        .filter((p): p is AreaProgram => 'area' in p)
+        .map((p) => p.area)
+      )
     ).filter(Boolean) as string[];
   }, [categoria, programas]);
 
   const edadesDisponibles = useMemo(() => {
     if (!categoria || !categoriasPorEdad.includes(categoria)) return [];
     return Array.from(
-      new Set(programas.map((p) => (p as AgeProgram).edad))
+      new Set(programas
+        .filter((p): p is AgeProgram => 'edad' in p)
+        .map((p) => p.edad)
+      )
     ).filter(Boolean) as string[];
   }, [categoria, programas]);
 
   const programasFiltrados = useMemo(() => {
-    let res = programas;
-    if (filtroArea) res = res.filter((p) => (p as AreaProgram).area === filtroArea);
-    if (filtroEdad) res = res.filter((p) => (p as AgeProgram).edad === filtroEdad);
-    return res;
+    let resultado = programas;
+    
+    if (filtroArea) {
+      resultado = resultado.filter((p): p is AreaProgram => 
+        'area' in p && p.area === filtroArea
+      );
+    }
+    
+    if (filtroEdad) {
+      resultado = resultado.filter((p): p is AgeProgram => 
+        'edad' in p && p.edad === filtroEdad
+      );
+    }
+    
+    return resultado;
   }, [programas, filtroArea, filtroEdad]);
 
-  /* ---------------- renders ---------------- */
+  useEffect(() => {
+    setFiltroArea(null);
+    setFiltroEdad(null);
+  }, [categoria]);
+
   if (!categoria) {
-    /* grid inicial */
     return (
       <main className="p-8">
-          <Hero 
-            title="Explora todos los caminos que puedes tomar" 
-            subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
-          />
+        <Hero 
+          title="Explora todos los caminos que puedes tomar" 
+          subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
+        />
         <CategoriaGrid
           categorias={ordenDeCategorias}
           onCategoriaSelect={setCategoria}
@@ -211,7 +322,6 @@ export default function ProgramPage() {
     );
   }
 
-  /* categorías sólo-texto ------------------- */
   if (categoriaPorTexto.includes(categoria)) {
     return (
       <main className="p-8">
@@ -221,12 +331,10 @@ export default function ProgramPage() {
     );
   }
 
-  /* categorías área o edad ------------------ */
   return (
     <main className="p-4 sm:p-8">
       <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
 
-      {/* filtros (se muestran si hay más de 1 opción) */}
       {(areasDisponibles.length > 1 || edadesDisponibles.length > 1) && (
         <section className="mb-8 flex flex-wrap gap-3 justify-center">
           {areasDisponibles.length > 1 && (
@@ -236,8 +344,8 @@ export default function ProgramPage() {
               className="border px-3 py-2 rounded-md"
             >
               <option value="">Todas las áreas</option>
-              {areasDisponibles.map((a) => (
-                <option key={a}>{a}</option>
+              {areasDisponibles.map((area) => (
+                <option key={area} value={area}>{area}</option>
               ))}
             </select>
           )}
@@ -249,8 +357,8 @@ export default function ProgramPage() {
               className="border px-3 py-2 rounded-md"
             >
               <option value="">Todas las edades</option>
-              {edadesDisponibles.map((e) => (
-                <option key={e}>{e}</option>
+              {edadesDisponibles.map((edad) => (
+                <option key={edad} value={edad}>{edad}</option>
               ))}
             </select>
           )}
@@ -258,48 +366,47 @@ export default function ProgramPage() {
       )}
 
       {categoriasPorArea.includes(categoria) ? (
-        <main>
-          <ProgramCardsPorArea
-            programs={programasFiltrados as AreaProgram[]}
-          />
+        <div>
+          <ProgramCardsPorArea programs={programasFiltrados as AreaProgram[]} />
           {hasNextPage && (
             <div className="my-6 flex justify-center">
               <button
                 disabled={isFetchingNextPage}
                 onClick={() => fetchNextPage()}
-                className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
+                className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870] disabled:opacity-50"
               >
                 {isFetchingNextPage ? "Cargando…" : "Cargar más"}
               </button>
             </div>
           )}
           <GeneralButtons onBack={() => setCategoria(null)} />
-        </main>
+        </div>
       ) : (
-
-        <main>
-          <ProgramCardsPorEdad
-            programs={programasFiltrados as AgeProgram[]}
-          />
+        <div>
+          <ProgramCardsPorEdad programs={programasFiltrados as AgeProgram[]} />
           {hasNextPage && (
             <div className="my-6 flex justify-center">
               <button
                 disabled={isFetchingNextPage}
                 onClick={() => fetchNextPage()}
-                className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870]"
+                className="px-6 py-2 rounded-lg bg-[#5F338B] text-white hover:bg-[#4b2870] disabled:opacity-50"
               >
                 {isFetchingNextPage ? "Cargando…" : "Cargar más"}
               </button>
             </div>
           )}
           <GeneralButtons onBack={() => setCategoria(null)} />
-        </main>
+        </div>
       )}
 
       {error && (
         <p className="text-center text-red-600 mt-4">
-          {error.message || "Ocurrió un error."}
+          {error.message || "Ocurrió un error al cargar los programas."}
         </p>
+      )}
+
+      {isFetching && !isFetchingNextPage && (
+        <p className="text-center text-gray-600 mt-4">Cargando programas...</p>
       )}
     </main>
   );
