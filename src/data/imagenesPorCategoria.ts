@@ -1,13 +1,15 @@
-const imagenesPorCategoria: Record<string, string> = {
-  "Campamento de Verano": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/campamento.jpg",
-  "EFP (Educación y Formación Profesional)": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/certificates.jpg",
-  "Cursos de Idiomas": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/idiomas.jpg",
-  "Año de fundación": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/intecambio.jpg",
-  "Maestría": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/maestria.jpg",
-  "Tours de Estudio": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/male.jpg",
-  "Secundaria": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/secundaria.jpg",
-  "Licenciatura": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/profesional.jpg",
-  "Consejero de campamento de verano": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/gallery/school.jpg",
+const imagenesPorCategoria: Record<string, string>= {
+  "Campamentos": "images/campamentoverano.jpg",
+  "Formación Vocacional": "images/formaciontecnica.jpg",
+  "Campamento como Staff": "images/campamentomonitor.jpg",
+  "A\u00f1o de Preparaci\u00f3n": "images/añodefundacion.jpg",
+  "Estudia y Trabaja": "images/estudiaytrabaja.jpg",
+  "Maestrías": "/images/maestrias.jpg",
+  "Tours de Estudio": "images/toursdeestudio.jpg",
+  "Licenciaturas": "images/graduacion.jpg",
+  "Jóvenes Deportistas de Alto Rendimiento": "images/deportealtorendimiento.jpg",
+  "A\u00F1o Sabatico": "images/sabatical.jpg", 
+  "Idiomas": "images/idiomas.png"
 };
 
 export default imagenesPorCategoria;
