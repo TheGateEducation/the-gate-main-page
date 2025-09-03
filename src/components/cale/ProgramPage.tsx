@@ -180,15 +180,15 @@ const dataSourceTexto: Record<
   string,
   () => Promise<Record<string, string>>
 > = {
-  "Tours de Estudio": () =>
+  "Study Tours": () =>
     import("@src/data/categorias_texto.json").then((m) => m.default),
   "Año de fundación": () =>
     import("@src/data/categorias_texto.json").then((m) => m.default),
-  "Año Sabatico": () =>
+  "Gap Year - Año Sabático": () =>
     import("@src/data/categorias_texto.json").then((m) => m.default),
-  "Consejero del campamento de verano": () =>
+  "Summer Camp Staff": () =>
     import("@src/data/categorias_texto.json").then((m) => m.default),
-  "Programa de estudio y trabajo": () =>
+  "Estudia y Trabaja": () =>
     import("@src/data/categorias_texto.json").then((m) => m.default),
 };
 

@@ -13,7 +13,13 @@ export const metadata = {
 export default function Programs() {
     return (
         <main>
-            <Hero title="Servicios" />
+            <Hero 
+            title="Servicios personalizados para cada etapa del viaje educativo" 
+            titileType="white"  
+            subtitle="Elige tu perfil para conocer los servicios que tenemos para ti" 
+            subtitleColor="white"
+            backgroundType="gradient" 
+            />
             <Content />
             <Tab />
 
