@@ -1,18 +1,19 @@
 export const ordenDeCategorias = [
-  "Campamentos",
-  "Formación Vocacional",
-  "Campamento como Staff",
-  "A\u00f1o de Preparaci\u00f3n",
-  "Estudia y Trabaja",
-  "Maestrías",
-  "Tours de Estudio",
   "Licenciaturas",
-  "Jóvenes Deportistas de Alto Rendimiento",
-  "A\u00F1o Sabatico", 
-  "Idiomas"
+  "Maestrías",
+  "Intercambio",
+  "Idiomas",
+  "Estudia y Trabaja",
+  "Diplomas y Certificaciones",
+  "Foundation Year - Propedéutico",
+  "Gap Year - Año Sabático",
+  "Programas en Línea",
+  "Study Tours", 
+  "Summer Camp Staff",
+  "Preparatoria y/o Campamentos para Deportistas de Alto Rendimiento"
 ];
 
-export const categoriasPorEdad = ["Campamentos"];
+export const categoriasPorEdad = ["Summer Camp Staff"];
 
 export const categoriasPorArea = [
   "Licenciaturas", 
@@ -22,11 +23,10 @@ export const categoriasPorArea = [
 ];
 
 export const categoriaPorTexto = [
-  "Tours de Estudio",
-  "A\u00f1o de Preparaci\u00f3n",
-  "Campamento como Staff",
+  "Study Tours",
+  "Summer Camp Staff",
   "Estudia y Trabaja",
-  "A\u00F1o Sabatico"
+  "Gap Year - Año Sabático"
 ];
 
 

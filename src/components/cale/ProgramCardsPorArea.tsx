@@ -1,30 +1,16 @@
 "use client";
 import React from "react";
 import { exepcionesMayuscula } from "@src/data/constantes";
-
-interface Program {
-  id: number;
-  nombre: string;
-  area?: string;
-  pais?: string;
-  ciudad?: string;
-  institucion?: string;
-  link?: string;
-  fechas?: string;
-  duracion?: string;
-  costoAnualUSD?: number | string;
-  becas?: string;
-  notas?: string;
-}
+import { AreaProgram } from "./ProgramPage";
 
 interface ProgramCardsProps {
-  programs: Program[];
+  programs: AreaProgram[];
   showEmpty?: boolean;
 }
 
 const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
   programs,
-  showEmpty = true,
+  showEmpty = false,
 }) => {
   const formatCase = (text?: string) => {
     if (!text) return "";
@@ -72,26 +58,27 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
           <div className="w-full max-w-[860px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2 text-base md:text-lg">
             <div className="space-y-1">
               {renderField("País", program.pais)}
-              {renderField("Especialización", formatCase(program.area))}
+              {renderField("Especialización", program.especializacion)}
+              {renderField("Profesión", program.profesiones)}
+              {renderField("Área de estudio", program.area)}
               {renderField("Fechas de inicio", program.fechas)}
-              {renderField(
-                "Costo por Año (USD)",
-                program.costoAnualUSD !== undefined && program.costoAnualUSD !== ""
-                  ? `$${program.costoAnualUSD}`
-                  : ""
-              )}
+              {renderField(`Costo por Año (${program.moneda})`, program.costo)}
+              {renderField("Costo por año (USD)", program.costoUSD)}
             </div>
 
             <div className="space-y-1">
               {renderField("Institución", program.institucion)}
               {renderField("Ubicación", program.ciudad)}
               {renderField("Duración", program.duracion)}
-              {renderField("Becas", program.becas)}
             </div>
           </div>
+
+
+          {renderField("Notas", program.notas, "mt-4 w-full max-w-[860px] mx-auto")}
+          {/*link de la institucion*/}
           <div className="w-full max-w-[860px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2 text-base md:text-lg">
             <div className="space-y-1">
-              {renderField("Notas", program.notas, "mt-4")}
+              
               {program.link && (
                 <a href={program.link} target="_blank" rel="noopener noreferrer" className="block mt-4 text-blue-600 underline hover:text-blue-800">
                 Link de la Institución

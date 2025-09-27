@@ -21,7 +21,7 @@ const navbarData = {
     { label: "Programas", href: "/programs" },
     { label: "Servicios", href: "/services" },
     { label: "Contacto", href: "/contact" },
-  ]
+  ],
 };
 
 export default function Navbar() {
@@ -31,24 +31,26 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full bg-transparent">
-      {/* This standard div is now our reliable, full-width layout container */}
+      {/* 1. Añadimos 'relative' para que sea el contenedor del menú absoluto */}
       <div
-        className="flex items-center justify-between w-full
+        className="relative flex items-center justify-between w-full
                    h-[143px] px-4 sm:px-6 lg:px-8"
       >
-        {/* === LEFT SIDE === */}
+        {/* === LADO IZQUIERDO === */}
         <Link href={brand.href} aria-label={brand.name}>
           <Logo className="w-[158px] h-auto" />
         </Link>
 
-        {/* === MIDDLE === */}
+        {/* === CENTRO (POSICIONADO ABSOLUTAMENTE) === */}
+        {/* 2. Este div ahora se centra perfectamente en la página */}
         <div
-          className="hidden md:flex items-center
-                     bg-white backdrop-blur-sm
-                     rounded-[30px] px-5 py-[13px] h-[60px]
+          className="hidden lg:flex absolute top-1/2 left-1/2 
+                     -translate-x-1/2 -translate-y-1/2 
+                     items-center bg-white backdrop-blur-sm
+                     rounded-[30px] px-8 py-[13px] h-[60px]
                      shadow-pill"
         >
-          <ul className="flex gap-[98px]">
+          <ul className="flex gap-x-12">
             {routes.map(({ href, label }) => {
               const active = pathname.startsWith(href);
               return (
@@ -56,10 +58,12 @@ export default function Navbar() {
                   <Link
                     href={href}
                     className={`
-                      font-semibold text-[18px] underline transition
-                      ${active
-                        ? "text-[#EDA74C] decoration-[#EDA74C]"
-                        : "text-black decoration-transparent hover:decoration-current"}
+                      font-semibold text-[18px] underline transition whitespace-nowrap
+                      ${
+                        active
+                          ? "text-[#EDA74C] decoration-[#EDA74C]"
+                          : "text-black decoration-transparent hover:decoration-current"
+                      }
                     `}
                   >
                     {label}
@@ -70,30 +74,28 @@ export default function Navbar() {
           </ul>
         </div>
 
-        {/* === RIGHT SIDE === */}
-        {/* Desktop Button */}
+        {/* === LADO DERECHO === */}
         <Link
           href="https://calendly.com/thegateeducation/30min"
-          className="hidden md:flex items-center justify-center
-                     bg-[#EDA74C] text-white font-semibold
+          className="hidden lg:flex items-center justify-center
+                     bg-[#EDA74C] text-white font-semibold whitespace-nowrap
                      w-[168px] h-[60px] rounded-[30px]
                      hover:bg-[#d38f36] transition-shadow"
         >
           Agenda Ahora
         </Link>
 
-        {/* Mobile Menu Trigger */}
-        <div className="md:hidden flex items-center gap-2">
+        {/* === MENÚ MÓVIL === */}
+        <div className="lg:hidden flex items-center gap-2">
           <ModeToggle />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger className="p-2">
               <Menu className="h-6 w-6" />
             </SheetTrigger>
             <SheetContent side="left">
+              {/* ... (el contenido del menú móvil no cambia) ... */}
               <SheetHeader>
-                <SheetTitle className="font-bold text-xl">
-                  {brand.name}
-                </SheetTitle>
+                <SheetTitle className="font-bold text-xl">{brand.name}</SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col gap-4">
                 {routes.map(({ href, label }) => (

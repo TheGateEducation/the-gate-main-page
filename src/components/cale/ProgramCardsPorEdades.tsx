@@ -1,31 +1,16 @@
 "use client";
 import React from "react";
-import { FaWhatsapp } from "react-icons/fa6";
 import { exepcionesMayuscula } from "@src/data/constantes";
-
-interface Program {
-  id: number;
-  nombre: string;
-  area?: string;
-  pais?: string;
-  ciudad?: string;
-  institucion?: string;
-  link?: string;
-  fechasInicio?: string;
-  duracion?: string;
-  costoAnualUSD?: number | string;
-  becas?: string;        
-  notas?: string;
-}
+import { AgeProgram } from "./ProgramPage"; 
 
 interface ProgramCardsProps {
-  programs: Program[];
+  programs: AgeProgram[];
   showEmpty?: boolean; 
 }
 
-const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
+const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({
   programs,
-  showEmpty = true,
+  showEmpty = false,
 }) => {
   const formatCase = (text?: string) => {
     if (!text) return "";
@@ -73,37 +58,32 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
           {/* Grid de dos columnas de datos */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-2 text-base md:text-lg">
             <div className="space-y-1">
-              {renderField("País", program.pais)}
-              {renderField("Especialización", formatCase(program.area))}
-              {renderField("Fechas de inicio", program.fechasInicio)}
-              {renderField(
-                "Costo por Año (USD)",
-                program.costoAnualUSD !== undefined && program.costoAnualUSD !== ""
-                  ? `$${program.costoAnualUSD}`
-                  : ""
-              )}
+              {renderField("Edades", program.edad)}
+              {renderField("Fechas", program.fechas)}
+              {renderField("Duración", program.duracion)}
+              {renderField("Ubicación", program.ciudad)}
             </div>
 
             <div className="space-y-1">
-              {renderField("Institución", program.institucion)}
-              {renderField("Ubicación", program.ciudad)}
-              {renderField("Duración", program.duracion)}
-              {renderField("Becas", program.becas)}
+              {renderField("Tipo de alojamiento", program.habitacion)}
+              {renderField("Costro aproximado en MXN", program.costoMX)}
+              {renderField("Proveedor", program.proveedor)}
+              {/* {renderField("Becas", program.becas)} */}
             </div>
           </div>
 
           {/* Notas (fila completa) */}
-          {renderField("Notas", program.notas, "mt-4")}
+          {renderField("Notas", program.extras, "mt-4")}
 
           {/* Link institución (si hay) */}
-          {program.link && (
+          {program.folleto && (
             <a
-              href={program.link}
+              href={program.folleto}
               target="_blank"
               rel="noopener noreferrer"
               className="block mt-4 text-blue-600 underline hover:text-blue-800"
             >
-              Link de la Institución
+               <strong>Para más informacion de click aqui</strong>
             </a>
           )}
         </div>
@@ -112,4 +92,4 @@ const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
   );
 };
 
-export default ProgramCardsPorArea;
+export default ProgramCardsPorEdad;
