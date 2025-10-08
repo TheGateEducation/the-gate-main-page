@@ -36,7 +36,7 @@ export default function Programs() {
             subtitle="¡Checa en qué te podemos ayudar!"
             buttonLabel="Soy Institución"
             imageUrl="/images/maestrias.jpg" // Cambia esta imagen por una diferente si es necesario
-            linkTo="/institucion"
+            linkTo="/instituciones"
           />
         </div>
       </section>
