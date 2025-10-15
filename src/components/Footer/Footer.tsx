@@ -1,29 +1,31 @@
-import Link   from "next/link";
-import Logo   from "@src/components/Navbar/components/Logo"; 
+import Link from "next/link";
+import Logo from "@src/components/Navbar/components/Logo";
+import Script from "next/script"; // PASO 1: Importar el componente Script
 
 const social = [
   { label: "Instagram", href: "https://www.instagram.com/tge.studyabroad/" },
-  { label: "Facebook",  href: "https://www.facebook.com/TheGateEducation/" },
-  { label: "LinkedIn",  href: "https://www.linkedin.com/company/thegate-education/" },
-  { label: "Whatsapp",  href: "https://wa.me/528443510141" },
+  { label: "Facebook", href: "https://www.facebook.com/TheGateEducation/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/thegate-education/" },
+  { label: "Whatsapp", href: "https://wa.me/528443510141" },
 ];
 
-const menu   = [
+const menu = [
   { label: "Servicios", href: "/services" },
   { label: "Programas", href: "/programs" },
-  { label: "Contacto",  href: "/contact"  },
+  { label: "Contacto", href: "/contact" },
 ];
 
 const offices = [
-  { label: "Monterrey",        href: "#" },
-  { label: "Saltillo",         href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8" },
+  { label: "Monterrey", href: "#" },
+  { label: "Saltillo", href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8" },
   { label: "Estado de México", href: "https://maps.app.goo.gl/..." },
-  { label: "Panamá",           href: "#" },
+  { label: "Panamá", href: "#" },
 ];
 
 export const Footer = () => (
   <footer className="w-full border-t border-gray-200 bg-white text-sm text-gray-700">
     <div className="mx-auto max-w-7xl px-6 lg:px-16">
+      {/* SECCIÓN SUPERIOR CON LOGO Y ENLACES */}
       <div
         className="
           flex flex-col lg:flex-row lg:items-start
@@ -32,18 +34,9 @@ export const Footer = () => (
         "
       >
         <div className="flex-1 max-w-[460px] space-y-4">
-          <Logo width={200} height={300} /> 
-
+          <Logo width={200} height={300} />
           <p className="text-gray-800">
             ¡Donde hay una puerta abierta, hay un mundo por descubrir!
-          </p>
-
-          <p>
-            © 2025{" "}
-            <Link href="/" className="text-[#EDA74C] hover:underline">
-              The Gate Education
-            </Link>
-            . Todos los derechos reservados.
           </p>
         </div>
 
@@ -53,6 +46,7 @@ export const Footer = () => (
             text-gray-600
           "
         >
+          {/* ... (Las columnas de enlaces no cambian) ... */}
           <div className="space-y-4">
             <h4 className="font-semibold text-gray-900">Redes Sociales</h4>
             <ul className="space-y-2">
@@ -97,6 +91,28 @@ export const Footer = () => (
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* SECCIÓN INFERIOR PARA ACREDITACIÓN Y COPYRIGHT */}
+      <div className="flex flex-col items-center gap-8 border-t border-gray-200 py-10 text-center">
+        <div>
+          <h4 className="font-semibold text-gray-900 mb-4">Socio Acreditado</h4>
+          <span id='iasBadge' data-account-id='6694'></span>
+          
+          {/* PASO 2: Reemplazar <script> por <Script> */}
+          <Script 
+            id="icef-badge-script"
+            strategy="afterInteractive"
+            src="https://www-cdn.icef.com/scripts/iasbadgeid.js" 
+          />
+        </div>
+        <p>
+          © 2025{" "}
+          <Link href="/" className="text-[#EDA74C] hover:underline">
+            The Gate Education
+          </Link>
+          . Todos los derechos reservados.
+        </p>
       </div>
     </div>
   </footer>
