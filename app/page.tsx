@@ -1,26 +1,22 @@
 import React from 'react';
 import { Inter } from 'next/font/google';
 
-import Hero from '@src/components/Homepage/Hero/Hero';
-import AboutUs from '@src/components/Homepage/About/About';
+import Hero from '@src/components/Hero/Hero';
 import Stadistics from '@src/components/Homepage/Stadistics/Stadistics';
-import HeretoHelp from '@src/components/Homepage/About/HereToHelp';
 import MeetTeam from '@src/components/Homepage/MeetTeam/MeetTeam';
-import Questions from '@src/components/Homepage/Stadistics/Questions';
-import Safeway from '@src/components/Homepage/SafeWay/Safeway';
+import MissionVision from '@src/components/Homepage/MissionVision/missionvision';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Page() {
     return (
         <main>
-            <Hero />
-            <AboutUs />
+            <Hero 
+                title="Donde hay una puerta abierta, hay un mundo por descubrir" 
+            />
             <Stadistics />
             <MeetTeam />
-            <Safeway />
-            <HeretoHelp />
-            <Questions />
+            <MissionVision/>
         </main>
     );
 }
