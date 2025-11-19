@@ -1,6 +1,7 @@
 "use client";
 import { Inter } from "next/font/google";
 import { useState } from "react";
+import UnderConstruction from "@src/components/UnderConstruction/UnderConstruction";
 import Hero from "@src/components/Hero/Hero";
 import ServiceCard from "@src/components/estudiantes/ServiceCard";
 import SummaryCard from "@src/components/estudiantes/SummaryCard";
@@ -73,18 +74,16 @@ export default function Estudiante() {
 
   return (
     <main>
-      <Hero
+      {/* <Hero
         title="Nuestros servicios para estudiantes"
         subtitle="Todo lo que necesitas para estudiar en el extranjero, reunido en un solo lugar."
       />
 
-      {/* Contenedor principal con layout de 2 columnas para pantallas grandes */}
+
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-12 sm:px-6 lg:px-8">
         
-        {/* Columna Izquierda: Lista de Servicios */}
         <div className="flex w-full flex-col items-center space-y-8">
-          
-          {/* Sección Gratuitos */}
+
           <h1 className="font-inter text-center font-bold text-[#5F338B] text-3xl leading-tight sm:text-4xl lg:text-5xl">Gratuitos</h1>
           {servicesGratuitos.map((service) => (
             <ServiceCard
@@ -99,7 +98,6 @@ export default function Estudiante() {
             />
           ))}
 
-          {/* Sección Servicios Completos */}
           <h1 className="pt-20 font-inter text-center font-bold text-[#EDA74C] text-3xl leading-tight sm:text-4xl lg:text-5xl">Servicios Completos</h1>
           {servicesCompletos.map((service) => (
             <ServiceCard
@@ -114,7 +112,6 @@ export default function Estudiante() {
             />
           ))}
 
-          {/* Sección Servicios por Separado */}
           <h1 className="pt-20 font-inter text-center font-bold text-[#5F338B] text-3xl leading-tight sm:text-4xl lg:text-5xl">Servicios por Separado</h1>
           {servicesSeparado.map((service) => (
             <ServiceCard
@@ -130,7 +127,7 @@ export default function Estudiante() {
           ))}
 
             <div className="w-full pt-20 items-center">
-            <div className="sticky top-8 items-center"> {/* El sticky hace que no se mueva al hacer scroll */}
+            <div className="sticky top-8 items-center"> 
                 <h1 className="mb-8 pb-10 font-inter text-4xl font-bold leading-tight text-orange-500 lg:text-5xl bg-gradient-to-r from-[#EDA74C] to-[#9747FF] bg-clip-text text-transparent  ">
                 Revisa las aventuras que elegiste
                 </h1>
@@ -138,7 +135,9 @@ export default function Estudiante() {
             </div>
             </div>
         </div>
-      </div>
+      </div> */}
+
+      <UnderConstruction />
     </main>
   );
 }
