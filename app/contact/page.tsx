@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import ContactUsForm from '@src/components/ContactUs/Form';
 import Hero from '@src/components/Hero/Hero';
+import UnderConstruction from "@src/components/UnderConstruction/UnderConstruction";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,10 +16,12 @@ export const metadata = {
 export default function ContactUs() {
     return (
         <main>
-            <Hero
+
+            <UnderConstruction />
+            {/* <Hero
                 title="Contáctanos"
                 subtitle="¿Quieres ponerte en contacto? Nos encantaría saber de ti." />
-            <ContactUsForm />
+            <ContactUsForm /> */}
         </main>
     );
 }
