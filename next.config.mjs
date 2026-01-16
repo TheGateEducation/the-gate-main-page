@@ -5,10 +5,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
-        port: '',
-        pathname: '/public/**',
-      }
+        hostname: 'the-gate-images.s3.mx-central-1.amazonaws.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images-bucket-landing-page.s3.us-east-2.amazonaws.com',
+        pathname: '/**',
+      },
     ],
   },
 };
