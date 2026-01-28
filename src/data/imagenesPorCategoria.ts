@@ -7,9 +7,11 @@ const imagenesPorCategoria: Record<string, string>= {
   "Maestrías": "/images/maestrias.jpg",
   "Study Tours": "images/toursdeestudio.jpg",
   "Licenciaturas": "images/graduacion.jpg",
-  "Preparatoria y/o Campamentos para Deportistas de Alto Rendimiento": "images/deportealtorendimiento.jpg",
+  "Preparatoria y/o Campamentos para Deportistas de Alto Rendimiento": "images/deportes.jpg",
   "Gap Year - Año Sabático": "images/sabatical.jpg", 
-  "Idiomas": "images/idiomas.png"
+  "Idiomas": "images/idiomas.png",
+  "Intercambio": "images/intercambio.jpg",
+  "Programas en Línea": "images/programaenlinea.jpg"
 };
 
 // Intercambio

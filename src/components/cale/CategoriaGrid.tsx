@@ -50,7 +50,7 @@ const CategoriaGrid: React.FC<CategoriaGridProps> = ({
             {renderCategoria(categoria)}
           </React.Fragment>
         ))}
-        {idiomas && renderCategoria(idiomas, true)}
+        {idiomas && renderCategoria(idiomas)}
       </div>
     </div>
   );
