@@ -4,13 +4,13 @@ export const ordenDeCategorias = [
   "Intercambio",
   "Idiomas",
   "Estudia y Trabaja",
-  "Diplomas y Certificaciones",
+  "Diplomas y Certificados",
   "Foundation Year - Propedéutico",
   "Gap Year - Año Sabático",
   "Programas en Línea",
   "Study Tours", 
   "Summer Camp Staff",
-  "Preparatoria y/o Campamentos para Deportistas de Alto Rendimiento"
+  "Preparatoria y/o Campamentos"
 ];
 
 export const categoriasPorEdad = ["Summer Camp Staff"];

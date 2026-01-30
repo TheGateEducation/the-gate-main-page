@@ -214,6 +214,8 @@ export default function ProgramPage() {
   const [categoria, setCategoria] = useState<string | null>(null);
   const [filtroEdad, setFiltroEdad] = useState<string | null>(null);
   const [filtroArea, setFiltroArea] = useState<string | null>(null);
+  const [filtroPais, setFiltroPais] = useState<string | null>(null);
+  const [filtroEspecializacion, setFiltroEspecializacion] = useState<string | null>(null);
   const [textoSolo, setTextoSolo] = useState<string | null>(null);
 
   const {
@@ -272,6 +274,33 @@ export default function ProgramPage() {
     ).filter(Boolean) as string[];
   }, [categoria, programas]);
 
+  const paisesDisponibles = useMemo(() => {
+    return Array.from(
+      new Set(
+        programas
+          .filter((p): p is AreaProgram => "pais" in p)
+          .map((p) => p.pais)
+      )
+    ).filter(Boolean);
+  }, [programas]);
+
+  const especializacionesDisponibles = useMemo(() => {
+    if (!filtroArea) return [];
+    return Array.from(
+      new Set(
+        programas
+          .filter(
+            (p): p is AreaProgram =>
+              "area" in p &&
+              p.area === filtroArea &&
+              !!p.especializacion &&
+              p.especializacion !== "N/A"
+          )
+          .map((p) => p.especializacion!)
+      )
+    );
+  }, [programas, filtroArea]);
+
   const edadesDisponibles = useMemo(() => {
     if (!categoria || !categoriasPorEdad.includes(categoria)) return [];
     return Array.from(
@@ -297,12 +326,23 @@ export default function ProgramPage() {
       );
     }
     
+    if (filtroPais) {
+      resultado = resultado.filter((p) => p.pais === filtroPais);
+    }
+
+    if (filtroEspecializacion) {
+      resultado = resultado.filter((p): p is AreaProgram =>
+        "especializacion" in p && p.especializacion === filtroEspecializacion
+      );
+    }
+
     return resultado;
-  }, [programas, filtroArea, filtroEdad]);
+  }, [programas, filtroArea, filtroEdad, filtroPais]);
 
   useEffect(() => {
     setFiltroArea(null);
     setFiltroEdad(null);
+    setFiltroPais(null);
   }, [categoria]);
 
   if (!categoria) {
@@ -345,6 +385,36 @@ export default function ProgramPage() {
               <option value="">Todas las áreas</option>
               {areasDisponibles.map((area) => (
                 <option key={area} value={area}>{area}</option>
+              ))}
+            </select>
+          )}
+
+          {paisesDisponibles.length >= 1 && (
+            <select
+              value={filtroPais ?? ""}
+              onChange={(e) => setFiltroPais(e.target.value || null)}
+              className="border px-3 py-2 rounded-md"
+            >
+              <option value="">Todos los países</option>
+              {paisesDisponibles.map((pais) => (
+                <option key={pais} value={pais}>
+                  {pais}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {filtroArea && especializacionesDisponibles.length > 0 && (
+            <select
+              value={filtroEspecializacion ?? ""}
+              onChange={(e) => setFiltroEspecializacion(e.target.value || null)}
+              className="border px-3 py-2 rounded-md"
+            >
+              <option value="">Todas las especializaciones</option>
+              {especializacionesDisponibles.map((esp) => (
+                <option key={esp} value={esp}>
+                  {esp}
+                </option>
               ))}
             </select>
           )}
