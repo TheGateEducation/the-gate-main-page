@@ -8,7 +8,7 @@ import CategoriaGrid from "./CategoriaGrid";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import GeneralButtons from "@src/components/ui/buttons/GeneralButtons";
-
+import CertificatesPage from "@src/components/cale/CertificatesPage";
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
 import {
   categoriaPorTexto,
@@ -366,6 +366,21 @@ export default function ProgramPage() {
       <main className="p-8">
         <Hero title={categoria} subtitle={textoSolo ?? ""}/>
         <GeneralButtons onBack={() => setCategoria(null)} />
+      </main>
+    );
+  }
+
+  if (categoria === "Diplomas y Certificados") {
+    return (
+      <main className="p-4 sm:p-8">
+        <Hero
+          title="Diplomas y Certificados"
+          subtitle="Explora los diferentes cursos y certificaciones disponibles."
+        />
+        <CertificatesPage />
+        <div className="mt-8">
+          <GeneralButtons onBack={() => setCategoria(null)} />
+        </div>
       </main>
     );
   }

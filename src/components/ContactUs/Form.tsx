@@ -612,7 +612,7 @@ const ContactUsForm = () => {
                     >
                         <option value="">Selecciona tu programa de interés</option>
                         <option value="Campamento">Campamento</option>
-                        <option value="Certificados y Diplomas">Certificados y Diplomas</option>
+                        <option value="Diplomas y Certificados">Diplomas y Certificados</option>
                         <option value="Cursos de idiomas">Cursos de idiomas</option>
                         <option value="Intercambios">Intercambios</option>
                         <option value="Maestrias">Maestriasl</option>
