@@ -65,7 +65,14 @@ const Hero: React.FC<HeroProps> = ({ title, titileType, subtitle, subtitleColor,
 
             <div className="max-w-[1100px] px-4 text-center flex flex-col gap-4">
                 <h1
-                className={`${colorTitle} ${inter.className}`}
+                className={`max-w-[1032px] mx-auto text-center font-bold leading-[1.2]
+                [font-size:clamp(2rem,5vw,4rem)] md:[font-size:clamp(4rem,5vw,5rem)]
+                ${inter.className}`}
+                style={{
+                    background: "linear-gradient(90deg, #EDA74C, #9747FF)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                    }}
                 >
                 {title}
                 </h1>

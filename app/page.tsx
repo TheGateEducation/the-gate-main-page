@@ -12,7 +12,8 @@ export default function Page() {
     return (
         <main>
             <Hero 
-                title="Donde hay una puerta abierta, hay un mundo por descubrir" 
+                title="Donde hay una puerta abierta, hay un mundo por descubrir"
+                titileType="gradient" 
             />
             <Stadistics />
             <MeetTeam />
