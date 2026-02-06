@@ -10,7 +10,7 @@ export const ordenDeCategorias = [
   "Programas en Línea",
   "Study Tours", 
   "Summer Camp Staff",
-  "Preparatoria y/o Campamentos"
+  "Campamentos"
 ];
 
 export const categoriasPorEdad = ["Summer Camp Staff"];
@@ -219,7 +219,7 @@ export const logos = {
 
 export const heroCopy: Record<string, string> = {
   "Campamentos":
-    "Campamentos internacionales para mejorar un segundo idioma y potenciar tu desarrollo personal.",
+    "Explora los Campamentos de Primavera, Verano e Invierno que tenemos para ti, alrededor del mundo.",
   "Formación Vocacional":
     "Estudios técnicos prácticos y aplicables, ideales para una rápida inserción laboral.",
   "Maestrías":

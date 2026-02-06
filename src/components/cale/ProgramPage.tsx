@@ -8,7 +8,7 @@ import CategoriaGrid from "./CategoriaGrid";
 import ProgramCardsPorEdad from "./ProgramCardsPorEdades";
 import ProgramCardsPorArea from "./ProgramCardsPorArea";
 import GeneralButtons from "@src/components/ui/buttons/GeneralButtons";
-import CertificatesPage from "@src/components/cale/CertificatesPage";
+
 import imagenesPorCategoria from "@src/data/imagenesPorCategoria";
 import {
   categoriaPorTexto,
@@ -42,18 +42,18 @@ interface ApiProgramGeneral {
 }
 
 interface AreaProgramApi extends ApiProgramGeneral {
-  "area-de-estudio": string; 
-  "fechas-de-inicio": string; 
+  "area-de-estudio": string;
+  "fechas-de-inicio": string;
   "majors-especialización"?: string;
   "costo-p/ano-USD"?: number;
-  "costo-p/ano": string; 
+  "costo-p/ano": string;
   notas?: string;
   profesiones?: string;
   edades?: never;
   proveedor?: never;
   costo?: never;
   "ubicación"?: never;
-  "duración"?: never;  
+  "duración"?: never;
 }
 
 interface CampProgramApi extends ApiProgramGeneral {
@@ -106,10 +106,10 @@ export interface AgeProgram {
   costo?: string;
   fechas?: string;
   habitacion?: string;
-  costoMX?:string; 
+  costoMX?: string;
   extras?: string;
   folleto?: string;
-  profecions?: string; 
+  profecions?: string;
 }
 
 type ProgramType = AreaProgram | AgeProgram;
@@ -259,7 +259,7 @@ export default function ProgramPage() {
 
   const programas: ProgramType[] = useMemo(() => {
     if (!data?.pages) return [];
-    return data.pages.flatMap((page) => 
+    return data.pages.flatMap((page) =>
       page.items.map(transformApiToProgram)
     );
   }, [data]);
@@ -313,19 +313,19 @@ export default function ProgramPage() {
 
   const programasFiltrados = useMemo(() => {
     let resultado = programas;
-    
+
     if (filtroArea) {
-      resultado = resultado.filter((p): p is AreaProgram => 
+      resultado = resultado.filter((p): p is AreaProgram =>
         'area' in p && p.area === filtroArea
       );
     }
-    
+
     if (filtroEdad) {
-      resultado = resultado.filter((p): p is AgeProgram => 
+      resultado = resultado.filter((p): p is AgeProgram =>
         'edad' in p && p.edad === filtroEdad
       );
     }
-    
+
     if (filtroPais) {
       resultado = resultado.filter((p) => p.pais === filtroPais);
     }
@@ -348,8 +348,8 @@ export default function ProgramPage() {
   if (!categoria) {
     return (
       <main className="p-8">
-        <Hero 
-          title="Explora todos los caminos que puedes tomar" 
+        <Hero
+          title="Explora todos los caminos que puedes tomar"
           subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
         />
         <CategoriaGrid
@@ -364,23 +364,8 @@ export default function ProgramPage() {
   if (categoriaPorTexto.includes(categoria)) {
     return (
       <main className="p-8">
-        <Hero title={categoria} subtitle={textoSolo ?? ""}/>
+        <Hero title={categoria} subtitle={textoSolo ?? ""} />
         <GeneralButtons onBack={() => setCategoria(null)} />
-      </main>
-    );
-  }
-
-  if (categoria === "Diplomas y Certificados") {
-    return (
-      <main className="p-4 sm:p-8">
-        <Hero
-          title="Diplomas y Certificados"
-          subtitle="Explora los diferentes cursos y certificaciones disponibles."
-        />
-        <CertificatesPage />
-        <div className="mt-8">
-          <GeneralButtons onBack={() => setCategoria(null)} />
-        </div>
       </main>
     );
   }
@@ -388,6 +373,47 @@ export default function ProgramPage() {
   return (
     <main className="p-4 sm:p-8">
       <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
+      <section id="tipos-programas" className="max-w-6xl mx-auto my-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <a
+            href="#tipos-programas"
+            className="relative h-56 md:h-64 rounded-2xl overflow-hidden group"
+          >
+            <img
+              src="/images/tipos-programas.jpg"
+              alt="Tipos de Programas"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
+
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-white text-2xl md:text-3xl font-semibold text-center">
+                Tipos de Programas
+              </h3>
+            </div>
+          </a>
+          <a
+            href="#destinos"
+            className="relative h-56 md:h-64 rounded-2xl overflow-hidden group"
+          >
+            <img
+              src="/images/elige-destino.jpg"
+              alt="Elige tu destino"
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
+
+            <div className="absolute inset-0 flex items-center justify-center">
+              <h3 className="text-white text-2xl md:text-3xl font-semibold text-center">
+                Elige tu destino
+              </h3>
+            </div>
+          </a>
+
+        </div>
+      </section>
 
       {(areasDisponibles.length > 1 || edadesDisponibles.length > 1) && (
         <section className="mb-8 flex flex-wrap gap-3 justify-center">
@@ -448,6 +474,60 @@ export default function ProgramPage() {
           )}
         </section>
       )}
+      {/* DESTINOS */}
+      <section className="mt-12 max-w-6xl mx-auto">
+        {programasFiltrados.length === 0 && (
+          <div className="my-12 max-w-4xl mx-auto text-center space-y-4">
+            <h2 className="text-3xl font-bold">
+              Explora los Campamentos de Primavera, Verano e Invierno que tenemos para ti, alrededor del mundo.
+            </h2>
+
+            <p className="text-lg text-gray-600">
+              Programas internacionales para niños y jóvenes que combinan aprendizaje, cultura y experiencias inolvidables.
+              En The Gate Education contamos con programas desde el summer camp tradicional para disfrutar de las actividades de verano, programas de idiomas con actividades recreativas y culturales, hasta programas para mentes jóvenes que buscan una experiencia más allá de sólo un idioma.
+            </p>
+
+            <p className="text-gray-500">
+              Próximamente estaremos agregando opciones disponibles para esta categoría.
+            </p>
+          </div>
+        )}
+        <h3 className="text-2xl font-semibold text-center mb-8">
+          Destinos disponibles
+        </h3>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {[
+            { nombre: "Estados Unidos", bandera: "/images/usa flag.png" },
+            { nombre: "Canada", bandera: "/images/canada flag.png" },
+            { nombre: "Reino Unido", bandera: "/images/uk flag.png" },
+            { nombre: "Australia", bandera: "/images/australia flag.png" },
+            { nombre: "Alemania", bandera: "/images/alemania flag.webp" },
+            { nombre: "Emiratos Árabes Unidos", bandera: "/images/emiratos flag.png" },
+            { nombre: "Francia", bandera: "/images/francia flag.png" },
+            { nombre: "Irlanda", bandera: "/images/irlanda flag.png" },
+            { nombre: "Malta", bandera: "/images/malta flag.png" },
+          ].map((destino) => (
+            <div
+              key={destino.nombre}
+              className="relative h-48 sm:h-56 md:h-64 rounded-2xl overflow-hidden cursor-pointer group"
+            >
+              <img
+                src={destino.bandera}
+                alt={`Destino ${destino.nombre}`}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
+
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h4 className="text-white text-xl md:text-2xl font-semibold text-center px-4">
+                  {destino.nombre}
+                </h4>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {categoriasPorArea.includes(categoria) ? (
         <div>
