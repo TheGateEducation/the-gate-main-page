@@ -35,9 +35,9 @@ interface ApiProgramGeneral {
   link: string;
   pais: string;
   ubicacion?: string;
-  "ubicación"?: string;
+  ubicación?: string;
   duracion?: string;
-  "duración"?: string;
+  duración?: string;
   moneda: string;
 }
 
@@ -52,8 +52,8 @@ interface AreaProgramApi extends ApiProgramGeneral {
   edades?: never;
   proveedor?: never;
   costo?: never;
-  "ubicación"?: never;
-  "duración"?: never;
+  ubicación?: never;
+  duración?: never;
 }
 
 interface CampProgramApi extends ApiProgramGeneral {
@@ -115,11 +115,11 @@ export interface AgeProgram {
 type ProgramType = AreaProgram | AgeProgram;
 
 const isAreaProgram = (program: ApiProgram): program is AreaProgramApi => {
-  return 'area-de-estudio' in program;
+  return "area-de-estudio" in program;
 };
 
 const isCampProgram = (program: ApiProgram): program is CampProgramApi => {
-  return 'edades' in program;
+  return "edades" in program;
 };
 
 const transformApiToProgram = (apiProgram: ApiProgram): ProgramType => {
@@ -147,7 +147,7 @@ const transformApiToProgram = (apiProgram: ApiProgram): ProgramType => {
       especializacion: apiProgram["majors-especialización"],
       profecions: apiProgram.profesiones,
       notas: apiProgram.notas,
-      costoUSD: apiProgram["costo-p/ano-USD"]
+      costoUSD: apiProgram["costo-p/ano-USD"],
     } as AreaProgram;
   }
 
@@ -162,7 +162,7 @@ const transformApiToProgram = (apiProgram: ApiProgram): ProgramType => {
       habitacion: apiProgram["tipo de habitación"],
       costoMX: apiProgram["costo estimado camp en mxn"],
       extras: apiProgram.extras,
-      folleto: apiProgram["folleto informativo"]
+      folleto: apiProgram["folleto informativo"],
     } as AgeProgram;
   }
 
@@ -176,10 +176,7 @@ const transformApiToProgram = (apiProgram: ApiProgram): ProgramType => {
   } as AgeProgram;
 };
 
-const dataSourceTexto: Record<
-  string,
-  () => Promise<Record<string, string>>
-> = {
+const dataSourceTexto: Record<string, () => Promise<Record<string, string>>> = {
   "Study Tours": () =>
     import("@src/data/categorias_texto.json").then((m) => m.default),
   "Año de fundación": () =>
@@ -194,7 +191,7 @@ const dataSourceTexto: Record<
 
 const fetchPrograms = async (
   categoria: string,
-  pageParam: string | null = null
+  pageParam: string | null = null,
 ): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
   const endpoint = endPointMap[categoria];
   if (!endpoint)
@@ -215,7 +212,9 @@ export default function ProgramPage() {
   const [filtroEdad, setFiltroEdad] = useState<string | null>(null);
   const [filtroArea, setFiltroArea] = useState<string | null>(null);
   const [filtroPais, setFiltroPais] = useState<string | null>(null);
-  const [filtroEspecializacion, setFiltroEspecializacion] = useState<string | null>(null);
+  const [filtroEspecializacion, setFiltroEspecializacion] = useState<
+    string | null
+  >(null);
   const [textoSolo, setTextoSolo] = useState<string | null>(null);
 
   const {
@@ -228,7 +227,10 @@ export default function ProgramPage() {
   } = useInfiniteQuery<
     { items: ApiProgram[]; nextKey?: string | null },
     Error,
-    InfiniteData<{ items: ApiProgram[]; nextKey?: string | null }, string | null>,
+    InfiniteData<
+      { items: ApiProgram[]; nextKey?: string | null },
+      string | null
+    >,
     [string, string | null],
     string | null
   >({
@@ -259,18 +261,17 @@ export default function ProgramPage() {
 
   const programas: ProgramType[] = useMemo(() => {
     if (!data?.pages) return [];
-    return data.pages.flatMap((page) =>
-      page.items.map(transformApiToProgram)
-    );
+    return data.pages.flatMap((page) => page.items.map(transformApiToProgram));
   }, [data]);
 
   const areasDisponibles = useMemo(() => {
     if (!categoria || !categoriasPorArea.includes(categoria)) return [];
     return Array.from(
-      new Set(programas
-        .filter((p): p is AreaProgram => 'area' in p)
-        .map((p) => p.area)
-      )
+      new Set(
+        programas
+          .filter((p): p is AreaProgram => "area" in p)
+          .map((p) => p.area),
+      ),
     ).filter(Boolean) as string[];
   }, [categoria, programas]);
 
@@ -279,8 +280,8 @@ export default function ProgramPage() {
       new Set(
         programas
           .filter((p): p is AreaProgram => "pais" in p)
-          .map((p) => p.pais)
-      )
+          .map((p) => p.pais),
+      ),
     ).filter(Boolean);
   }, [programas]);
 
@@ -294,20 +295,21 @@ export default function ProgramPage() {
               "area" in p &&
               p.area === filtroArea &&
               !!p.especializacion &&
-              p.especializacion !== "N/A"
+              p.especializacion !== "N/A",
           )
-          .map((p) => p.especializacion!)
-      )
+          .map((p) => p.especializacion!),
+      ),
     );
   }, [programas, filtroArea]);
 
   const edadesDisponibles = useMemo(() => {
     if (!categoria || !categoriasPorEdad.includes(categoria)) return [];
     return Array.from(
-      new Set(programas
-        .filter((p): p is AgeProgram => 'edad' in p)
-        .map((p) => p.edad)
-      )
+      new Set(
+        programas
+          .filter((p): p is AgeProgram => "edad" in p)
+          .map((p) => p.edad),
+      ),
     ).filter(Boolean) as string[];
   }, [categoria, programas]);
 
@@ -315,14 +317,14 @@ export default function ProgramPage() {
     let resultado = programas;
 
     if (filtroArea) {
-      resultado = resultado.filter((p): p is AreaProgram =>
-        'area' in p && p.area === filtroArea
+      resultado = resultado.filter(
+        (p): p is AreaProgram => "area" in p && p.area === filtroArea,
       );
     }
 
     if (filtroEdad) {
-      resultado = resultado.filter((p): p is AgeProgram =>
-        'edad' in p && p.edad === filtroEdad
+      resultado = resultado.filter(
+        (p): p is AgeProgram => "edad" in p && p.edad === filtroEdad,
       );
     }
 
@@ -331,8 +333,9 @@ export default function ProgramPage() {
     }
 
     if (filtroEspecializacion) {
-      resultado = resultado.filter((p): p is AreaProgram =>
-        "especializacion" in p && p.especializacion === filtroEspecializacion
+      resultado = resultado.filter(
+        (p): p is AreaProgram =>
+          "especializacion" in p && p.especializacion === filtroEspecializacion,
       );
     }
 
@@ -373,47 +376,6 @@ export default function ProgramPage() {
   return (
     <main className="p-4 sm:p-8">
       <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
-      <section id="tipos-programas" className="max-w-6xl mx-auto my-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <a
-            href="#tipos-programas"
-            className="relative h-56 md:h-64 rounded-2xl overflow-hidden group"
-          >
-            <img
-              src="/images/tipos-programas.jpg"
-              alt="Tipos de Programas"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h3 className="text-white text-2xl md:text-3xl font-semibold text-center">
-                Tipos de Programas
-              </h3>
-            </div>
-          </a>
-          <a
-            href="#destinos"
-            className="relative h-56 md:h-64 rounded-2xl overflow-hidden group"
-          >
-            <img
-              src="/images/elige-destino.jpg"
-              alt="Elige tu destino"
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition" />
-
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h3 className="text-white text-2xl md:text-3xl font-semibold text-center">
-                Elige tu destino
-              </h3>
-            </div>
-          </a>
-
-        </div>
-      </section>
 
       {(areasDisponibles.length > 1 || edadesDisponibles.length > 1) && (
         <section className="mb-8 flex flex-wrap gap-3 justify-center">
@@ -425,7 +387,9 @@ export default function ProgramPage() {
             >
               <option value="">Todas las áreas</option>
               {areasDisponibles.map((area) => (
-                <option key={area} value={area}>{area}</option>
+                <option key={area} value={area}>
+                  {area}
+                </option>
               ))}
             </select>
           )}
@@ -468,7 +432,9 @@ export default function ProgramPage() {
             >
               <option value="">Todas las edades</option>
               {edadesDisponibles.map((edad) => (
-                <option key={edad} value={edad}>{edad}</option>
+                <option key={edad} value={edad}>
+                  {edad}
+                </option>
               ))}
             </select>
           )}
@@ -479,16 +445,23 @@ export default function ProgramPage() {
         {programasFiltrados.length === 0 && (
           <div className="my-12 max-w-4xl mx-auto text-center space-y-4">
             <h2 className="text-3xl font-bold">
-              Explora los Campamentos de Primavera, Verano e Invierno que tenemos para ti, alrededor del mundo.
+              Explora los Campamentos de Primavera, Verano e Invierno que
+              tenemos para ti, alrededor del mundo.
             </h2>
 
             <p className="text-lg text-gray-600">
-              Programas internacionales para niños y jóvenes que combinan aprendizaje, cultura y experiencias inolvidables.
-              En The Gate Education contamos con programas desde el summer camp tradicional para disfrutar de las actividades de verano, programas de idiomas con actividades recreativas y culturales, hasta programas para mentes jóvenes que buscan una experiencia más allá de sólo un idioma.
+              Programas internacionales para niños y jóvenes que combinan
+              aprendizaje, cultura y experiencias inolvidables. En The Gate
+              Education contamos con programas desde el summer camp tradicional
+              para disfrutar de las actividades de verano, programas de idiomas
+              con actividades recreativas y culturales, hasta programas para
+              mentes jóvenes que buscan una experiencia más allá de sólo un
+              idioma.
             </p>
 
             <p className="text-gray-500">
-              Próximamente estaremos agregando opciones disponibles para esta categoría.
+              Próximamente estaremos agregando opciones disponibles para esta
+              categoría.
             </p>
           </div>
         )}
@@ -502,7 +475,10 @@ export default function ProgramPage() {
             { nombre: "Reino Unido", bandera: "/images/uk flag.png" },
             { nombre: "Australia", bandera: "/images/australia flag.png" },
             { nombre: "Alemania", bandera: "/images/alemania flag.webp" },
-            { nombre: "Emiratos Árabes Unidos", bandera: "/images/emiratos flag.png" },
+            {
+              nombre: "Emiratos Árabes Unidos",
+              bandera: "/images/emiratos flag.png",
+            },
             { nombre: "Francia", bandera: "/images/francia flag.png" },
             { nombre: "Irlanda", bandera: "/images/irlanda flag.png" },
             { nombre: "Malta", bandera: "/images/malta flag.png" },
