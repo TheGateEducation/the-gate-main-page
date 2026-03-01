@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 import Hero from "../Hero/Hero";
 import CategoriaGrid from "./CategoriaGrid";
@@ -208,6 +209,7 @@ const fetchPrograms = async (
 };
 
 export default function ProgramPage() {
+  const router = useRouter();
   const [categoria, setCategoria] = useState<string | null>(null);
   const [filtroEdad, setFiltroEdad] = useState<string | null>(null);
   const [filtroArea, setFiltroArea] = useState<string | null>(null);
@@ -348,6 +350,14 @@ export default function ProgramPage() {
     setFiltroPais(null);
   }, [categoria]);
 
+  const handleCategoriaSelect = (cat: string) => {
+    if (cat.includes("Campamentos")) {
+      router.push("/programs/camps");
+    } else {
+      setCategoria(cat);
+    }
+  };
+
   if (!categoria) {
     return (
       <main className="p-8">
@@ -357,7 +367,7 @@ export default function ProgramPage() {
         />
         <CategoriaGrid
           categorias={ordenDeCategorias}
-          onCategoriaSelect={setCategoria}
+          onCategoriaSelect={handleCategoriaSelect}
           imagenesPorCategoria={imagenesPorCategoria}
         />
       </main>
@@ -440,25 +450,14 @@ export default function ProgramPage() {
           )}
         </section>
       )}
+      
       {/* DESTINOS */}
       <section className="mt-12 max-w-6xl mx-auto">
         {programasFiltrados.length === 0 && (
           <div className="my-12 max-w-4xl mx-auto text-center space-y-4">
             <h2 className="text-3xl font-bold">
-              Explora los Campamentos de Primavera, Verano e Invierno que
-              tenemos para ti, alrededor del mundo.
+              No se encontraron programas
             </h2>
-
-            <p className="text-lg text-gray-600">
-              Programas internacionales para niños y jóvenes que combinan
-              aprendizaje, cultura y experiencias inolvidables. En The Gate
-              Education contamos con programas desde el summer camp tradicional
-              para disfrutar de las actividades de verano, programas de idiomas
-              con actividades recreativas y culturales, hasta programas para
-              mentes jóvenes que buscan una experiencia más allá de sólo un
-              idioma.
-            </p>
-
             <p className="text-gray-500">
               Próximamente estaremos agregando opciones disponibles para esta
               categoría.
