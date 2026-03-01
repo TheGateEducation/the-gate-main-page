@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import { exepcionesMayuscula } from "@src/data/constantes";
-import { AgeProgram } from "./ProgramPage"; 
+import { AgeProgram } from "./ProgramPage";
 
 interface ProgramCardsProps {
   programs: AgeProgram[];
-  showEmpty?: boolean; 
+  showEmpty?: boolean;
 }
 
 const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({
@@ -20,7 +20,7 @@ const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({
       .map((word, index) =>
         exepcionesMayuscula.includes(word) && index !== 0
           ? word
-          : word.charAt(0).toUpperCase() + word.slice(1)
+          : word.charAt(0).toUpperCase() + word.slice(1),
       )
       .join(" ")
       .replace(/-.*$/, "");
@@ -30,7 +30,7 @@ const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({
   const renderField = (
     label: string,
     value?: string | number,
-    extraClasses = ""
+    extraClasses = "",
   ) => {
     if (!showEmpty && (value === undefined || value === null || value === ""))
       return null;
@@ -78,12 +78,10 @@ const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({
           {/* Link institución (si hay) */}
           {program.folleto && (
             <a
-              href={program.folleto}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/contact"
               className="block mt-4 text-blue-600 underline hover:text-blue-800"
             >
-               <strong>Para más informacion de click aqui</strong>
+              <strong>Para más informacion de click aqui</strong>
             </a>
           )}
         </div>
