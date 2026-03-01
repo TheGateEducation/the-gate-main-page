@@ -57,6 +57,11 @@ export default function Navbar() {
                 <li key={label}>
                   <Link
                     href={href}
+                    onClick={() => {
+                      if (active) {
+                        window.dispatchEvent(new CustomEvent("reset-programs"));
+                      }
+                    }}
                     className={`
                       font-semibold text-[18px] underline transition whitespace-nowrap
                       ${
@@ -102,7 +107,12 @@ export default function Navbar() {
                   <Link
                     key={label}
                     href={href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      if (pathname.startsWith(href)) {
+                        window.dispatchEvent(new CustomEvent("reset-programs"));
+                      }
+                    }}
                     className={buttonVariants({
                       variant: pathname.startsWith(href) ? "secondary" : "ghost",
                     })}
