@@ -62,6 +62,12 @@ export default function CampamentosPage() {
                   <strong className="text-white">👥 Edades:</strong><br/>
                   <span className="text-white/80 text-base">7 a 18 años (varía por destino)</span>
                 </p>
+                <p>
+                  <strong className="text-white">📅 Fechas:</strong><br/>
+                  <span className="text-white/80 text-sm block mb-1">• <strong>Verano:</strong> Fines de junio a fines de agosto.</span>
+                  <span className="text-white/80 text-sm block mb-1">• <strong>Invierno:</strong> Mediados de diciembre a mediados de febrero.</span>
+                  <span className="text-white/80 text-sm block">• <strong>Primavera - Otoño:</strong> Marzo-Abril y Octubre-Noviembre.</span>
+                </p>
               </div>
             </div>
           </div>
