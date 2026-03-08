@@ -3,10 +3,10 @@
 import React, { useEffect } from "react";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import Link from "next/link";
 
 import InputField from "./Label";
 import StudentsRecordsService from "@src/services/studentsRecords.service"
-
 
 const ContactUsForm = () => {
     const [name, setName] = React.useState("");
@@ -98,7 +98,6 @@ const ContactUsForm = () => {
                         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-purple-900 
                             focus:ring-2 focus:ring-customPurple"
                     >
-                        <option value="">Selecciona tu país de origen</option>
                         <option value="">Selecciona tu país de origen</option>
                         <option value="AF">Afganistán</option>
                         <option value="AL">Albania</option>
@@ -354,7 +353,6 @@ const ContactUsForm = () => {
                         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-purple-900 
                             focus:ring-2 focus:ring-customPurple"
                     >
-                        <option value="">Selecciona tu país de destino</option>
                         <option value="">Selecciona tu país de destino</option>
                         <option value="AF">Afganistán</option>
                         <option value="AL">Albania</option>
@@ -615,10 +613,10 @@ const ContactUsForm = () => {
                         <option value="Diplomas y Certificados">Diplomas y Certificados</option>
                         <option value="Cursos de idiomas">Cursos de idiomas</option>
                         <option value="Intercambios">Intercambios</option>
-                        <option value="Maestrias">Maestriasl</option>
+                        <option value="Maestrias">Maestrias</option>
                         <option value="Tours de estudio">Tours de estudio</option>
                         <option value="Secundaria">Secundaria</option>
-                        <option value="Licenciatura">Licenciatural</option>
+                        <option value="Licenciatura">Licenciatura</option>
                         <option value="Doctorados">Doctorados</option>
                     </select>
                 </label>
@@ -641,19 +639,28 @@ const ContactUsForm = () => {
                     </select>
                 </label>
 
-                <div className="pt-4">
+                
+                <div className="mt-8 mb-6 text-sm text-gray-600 text-center px-2">
+                    Al enviar este formulario, aceptas nuestro{' '}
+                    <Link href="/aviso-de-privacidad" className="text-customOrange hover:text-customOrangeHover underline font-semibold transition-colors">
+                        Aviso de Privacidad
+                    </Link>{' '}
+                    y el tratamiento de tus datos personales.
+                </div>
+
+                <div className="pt-2">
                     {!isSubmitted ? (
                         <button
                             type="submit"
                             onClick={sendForm}
-                            className="w-full bg-orange-400 text-white py-3 px-4 rounded-3xl hover:bg-customOrangeHover transition-colors"
+                            className="w-full bg-customOrange text-white py-3 px-4 rounded-3xl hover:bg-customOrangeHover transition-all font-semibold shadow-md hover:shadow-lg"
                             disabled={isSubmitted}
                         >
                             Enviar
                         </button>
                     ) :
                         (
-                            <p className="w-full cursor-pointer text-center bg-orange-400 text-white py-3 px-4 rounded-3xl hover:bg-customOrangeHover transition-colors"
+                            <p className="w-full cursor-pointer text-center bg-customOrange text-white py-3 px-4 rounded-3xl hover:bg-customOrangeHover transition-colors font-semibold shadow-md"
                             >
                                 Registro completado. ¡Gracias por contactarnos!
                             </p>
