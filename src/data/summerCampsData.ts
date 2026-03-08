@@ -6,9 +6,9 @@ export interface ProgramType {
   image: string; 
 }
 
-export interface IncludeDetail {
+export interface DestinationProgram {
   title: string;
-  description: string;
+  description?: string;
 }
 
 export interface Destination {
@@ -17,7 +17,8 @@ export interface Destination {
   subtitle: string;
   description: string;
   flagImage: string; 
-  includes: IncludeDetail[];
+  programas: DestinationProgram[];
+  incluye: string[];
 }
 
 export const programTypes: ProgramType[] = [
@@ -68,163 +69,209 @@ export const campDestinations: Destination[] = [
     id: "canada",
     country: "Canadá",
     subtitle: "Vive el verano en Canadá mientras perfeccionas tu inglés",
-    description: "Descubre Canadá a través de programas que combinan aprendizaje de idiomas, liderazgo y experiencias inolvidables en entornos urbanos y naturales. Desde la vibrante ciudad de Toronto hasta un tradicional campamento canadiese junto al lago.",
+    description: "Descubre Canadá a través de programas que combinan aprendizaje de idiomas, liderazgo y experiencias inolvidables en entornos urbanos y naturales. Desde la vibrante ciudad de Toronto hasta un tradicional campamento canadiese junto al lago, los estudiantes desarrollan habilidades académicas, sociales y personales en un ambiente internacional y seguro.",
     flagImage: "/images/canada flag.png",
-    includes: [
-      { title: "Clases de inglés y programas académicos", description: "Opciones de Inglés General y programas especializados como Liderazgo Global, Futuros Emprendedores y Preparación Académica." },
+    programas: [
+      { title: "Clases de inglés", description: "Programas de Inglés General y opciones académicas especializadas en un entorno internacional." },
+      { title: "Programas académicos especializados", description: "Liderazgo Global, Futuros Emprendedores y Preparación Académica paга estudiantes que buscan un enfoque más desafiante." },
       { title: "French Camp", description: "Programa de inmersión en francés que combina aprendizaje del idioma con actividades culturales y recreativas en un entorno francófono." },
-      { title: "Experiencia urbana en Toronto", description: "Estudia en campus reconocidos y vive la ciudad a través de excursiones culturales y actividades supervisadas." },
-      { title: "Campamento canadiense tradicional", description: "Programa en entorno natural con enfoque en liderazgo, actividades al aire libre y vida en comunidad." },
-      { title: "Alojamiento y supervisión completa", description: "Opciones en residencia universitaria o campamento, con acompañamiento integral durante toda la experiencia." },
+      { title: "Campamento canadiense tradicional", description: "Experiencia en entorno natural con enfoque en liderazgo, actividades al aire libre y vida en comunidad." }
     ],
+    incluye: [
+      "Alojamiento",
+      "Plan de alimentos",
+      "Actividades y excursiones",
+      "Supervisión completa"
+    ]
   },
   {
     id: "reino-unido",
     country: "Reino Unido",
     subtitle: "Perfecciona tu inglés en la cuna de la tradición académica",
-    description: "Vive una experiencia internacional en el Reino Unido combinando clases de inglés con actividades deportivas, artísticas y culturales en destinos emblemáticos.",
+    description: "Vive una experiencia internacional en el Reino Unido combinando clases de inglés con actividades deportivas, artísticas y culturales en destinos emblemáticos. Los estudiantes desarrollan confianza, independencia y habilidades globales mientras se sumergen en la cultura británica.",
     flagImage: "/images/uk flag.png",
-    includes: [
+    programas: [
       { title: "Clases de inglés para jóvenes", description: "Programas dinámicos que integran actividades como equitación, deportes, artes y experiencias culturales." },
-      { title: "Cursos especializados", description: "Opciones académicas como Business and Leadership, Global Leadership y programas con enfoque académico." },
+      { title: "Cursos especializados", description: "Opciones académicas como Business and Leadership, Global Leadership y programas con enfoque académico para quienes buscaban un reto adicional." },
       { title: "Programas deportivos de alto rendimiento", description: "Entrenamiento especializado para atletas comprometidos que desean potenciar su desarrollo competitivo." },
-      { title: "Formación dentro del fútbol inglés", description: "Oportunidad para jugadores internacionales de entrenar y competir en un entorno profesional en Reading, Inglaterra." },
-      { title: "Alojamiento y supervisión integral", description: "Opciones cuidadosamente seleccionadas que garantizan seguridad, acompañamiento y una experiencia internacional completa." },
+      { title: "Fútbol en Inglaterra (Reading)", description: "Oportunidad para jugadores internacionales de entrenar y competir en un entorno profesional dentro del sistema del fútbol inglés." }
     ],
+    incluye: [
+      "Alojamiento en residencia o familia anfitriona (según programa)",
+      "Plan de alimentos",
+      "Actividades y excursiones organizadas",
+      "Supervisión y acompañamiento integral"
+    ]
   },
   {
     id: "alemania",
     country: "Alemania",
     subtitle: "Aprende alemán mientras vives una experiencia internacional",
-    description: "Descubre Alemania a través de un programa diseñado para jóvenes que desean perfeccionar el idioma mientras participan en actividades culturales, deportivas y recreativas.",
+    description: "Descubre Alemania a través de un programa diseñado para jóvenes que desean perfeccionar el idioma mientras participan en actividades culturales, deportivas y recreativas. Una experiencia completa que combina aprendizaje, diversión y convivencia internacional en algunos de los destinos más atractivos del país.",
     flagImage: "/images/alemania flag.webp",
-    includes: [
+    programas: [
       { title: "Clases de alemán para jóvenes", description: "Programas diseñados para desarrollar habilidades comunicativas en un entorno dinámico e internacional." },
-      { title: "Aprendizaje activo y experiencias culturales", description: "Actividades deportivas, creativas y recreativas que permiten practicar el idioma dentro y fuera del aula." },
-      { title: "Alojamiento y alimentación", description: "Opciones en residencias estudiantiles o con familias anfitrionas cuidadosamente seleccionadas, con comidas incluidas." },
-      { title: "Excursiones y actividades culturales", description: "Visitas a ciudades históricas, museos, parques temáticos y actividades deportivas que permiten practicar el idioma." },
+      { title: "Programa con actividades integradas", description: "Experiencia que combina aprendizaje del idioma con actividades deportivas, creativas y culturales." }
     ],
+    incluye: [
+      "Alojamiento en residencia estudiantil o familia anfitriona",
+      "Plan de alimentos",
+      "Actividades deportivas y recreativas",
+      "Excursiones culturales a ciudades históricas y puntos de interés",
+      "Supervisión y acompañamiento integral"
+    ]
   },
   {
     id: "emiratos-arabes",
-    country: "Emiratos Árabes Unidos (Dubái)",
+    country: "Emiratos Árabes",
     subtitle: "Aprende inglés en una de las ciudades más innovadoras del mundo",
-    description: "Vive una experiencia internacional en Dubái mientras perfeccionas tu inglés en un entorno moderno, multicultural y dinámico.",
+    description: "Vive una experiencia internacional en Dubái mientras perfeccionas tu inglés en un entorno moderno, multicultural y dinámico. Este programa combina aprendizaje académico con la oportunidad de descubrir una ciudad reconocida por su arquitectura, diversidad cultural y visión global.",
     flagImage: "/images/emiratos flag.png",
-    includes: [
+    programas: [
       { title: "Clases de inglés en diferentes modalidades", description: "Opciones en horario matutino, vespertino o intensivo, adaptadas a tu nivel actual." },
       { title: "International Diploma in Business", description: "Formación en áreas como marketing, emprendimiento, organizaciones empresariales y negocios internacionales." },
-      { title: "Opción Work & Study con visa de 1 año", description: "Incluye proceso de visa, seguro médico, Emirates ID y acompañamiento durante tu estancia." },
-      { title: "Apoyo para empleabilidad", description: "Asesorías en elaboración de CV, preparación para entrevistas y orientación laboral." },
-      { title: "Opciones de alojamiento", description: "Residencias estudiantiles o departamentos compartidos en zonas estratégicas de la ciudad." },
+      { title: "Opción Work & Study con visa de 1 año", description: "Programa diseñado para estudiantes que desean combinar estudios con experiencia internacional. Incluye proceso de visa, seguro médico y documentación correspondiente." }
     ],
+    incluye: [
+      "Opciones de alojamiento en residencia o departamento compartido",
+      "Acompañamiento durante la estancia"
+    ]
   },
   {
     id: "francia",
     country: "Francia",
     subtitle: "Vive una experiencia académica internacional en el corazón de París",
-    description: "Descubre París a través de un programa preuniversitario diseñado para jóvenes que desean explorar su futuro académico en un entorno internacional.",
+    description: "Descubre París a través de un programa preuniversitario diseñado para jóvenes que desean explorar su futuro académico en un entorno internacional. Esta experiencia combina aprendizaje aplicado con inmersión cultural en una de las ciudades más icónicas del mundo.",
     flagImage: "/images/francia flag.png",
-    includes: [
-      { title: "Curso general de frances en EP París", description: "Programa disponible desde nivel A1 hasta C1, con 15 o 20 horas por semana bajo un enfoque comunicativo." },
-      { title: "Programa académico preuniversitario", description: "Enfoque en áreas como negocios internacionales, emprendimiento y tecnología, con metodología aplicada." },
-      { title: "Apoyo académico y seguimiento personalizado", description: "Placement test, tutorías periódicas, Conversation Club y Study Clinics para reforzar el progreso." },
-      { title: "Certificación oficial", description: "Certificado al finalizar el programa cumpliendo con los requisitos académicos." },
-      { title: "Inmersión cultural en París", description: "Actividades sociales y experiencias que permiten explorar la ciudad mientras se desarrolla una perspectiva internacional." },
+    programas: [
+      { title: "Curso general de frances en EP París", description: "Programa disponible desde nivel A1 hasta C1, con 15 o 20 horas por semana bajo un enfoque comunicativo que fortalece conversación, comprensión y fluidez." },
+      { title: "Programa académico preuniversitario", description: "Enfoque en áreas como negocios internacionales, emprendimiento y tecnología, con metodología aplicada y visión global." }
     ],
+    incluye: [
+      "Placement test y seguimiento académico personalizado",
+      "Tutorías periódicas, Conversation Club y Study Clinics",
+      "Certificación oficial al finalizar el programa",
+      "Actividades culturales y sociales en París",
+      "Alojamiento y acompañamiento integral durante la estancia"
+    ]
   },
   {
     id: "irlanda",
     country: "Irlanda",
     subtitle: "Aprende inglés frente al mar en la costa irlandesa",
-    description: "Descubre Irlanda a través de programas diseñados para jóvenes y adultos que buscan mejorar su inglés mientras viven una auténtica experiencia internacional.",
+    description: "Descubre Irlanda a través de programas diseñados para jóvenes y adultos que buscan mejorar su inglés mientras viven una auténtica experiencia internacional. Desde la tranquilidad costera de Bray hasta la energía de Dublín, cada opción combina aprendizaje, cultura y desarrollo personal en un entorno seguro y dinámico.",
     flagImage: "/images/irlanda flag.png",
-    includes: [
-      { title: "Clases de inglés en Bray", description: "Estudia frente al mar en una encantadora ciudad costera cercana a Dublín, con alojamiento en residencia o apartamento." },
-      { title: "Residencias y apartamentos equipados", description: "Opciones de casas victorianas restauradas o residencias a pocos minutos caminando de la escuela." },
-      { title: "Programa Work & Study en Dublín (+18)", description: "Combina clases de inglés (15 o 20 horas por semana) con posibilidad de trabajar durante tu estancia." },
-      { title: "Alojamiento incluido en modalidad Work & Study", description: "Experiencia inicial en homestay con apoyo en búsqueda de alojamiento y acompañamiento." },
-      { title: "Seguro médico y orientación integral", description: "Apoyo administrativo y académico para una experiencia internacional completa." },
+    programas: [
+      { title: "Clases de inglés en Bray", description: "Estudia en una ciudad costera cercana a Dublín, en un entorno académico internacional." },
+      { title: "Programa Work & Study en Dublín (+18)", description: "Combina clases de inglés (15 o 20 horas por semana) con la posibilidad de adquirir experiencia laboral durante tu estancia. Apoyo en búsqueda de alojamiento." }
     ],
+    incluye: [
+      "Opciones de alojamiento en residencia, apartamento o homestay",
+      "Seguro médico (según el programa)",
+      "Orientación académica y administrativa",
+      "Supervisión y acompañamiento integral durante la estancia"
+    ]
   },
   {
     id: "malta",
     country: "Malta",
     subtitle: "Aprende inglés en el Mediterráneo",
-    description: "Vive una experiencia internacional en St. Paul's Bay y St. Julian's, encantadores destinos costeros en Malta. Este programa combina clases de inglés con actividades recreativas y culturales.",
+    description: "Vive una experiencia internacional en St. Paul's Bay y St. Julian's, encantadores destinos costeros en Malta. Este programa combina clases de inglés con actividades recreativas y culturales en un ambiente seguro, dinámico y multicultural, rodeado de playas, historia y paisajes mediterráneos.",
     flagImage: "/images/malta flag.png",
-    includes: [
-      { title: "Clases de inglés en diferentes modalidades", description: "Opciones Classic o Semi-Intensive adaptadas a tu nivel y objetivos académicos." },
-      { title: "Opción Work & Study", description: "Programa para mayores de 18 años que combina estudios con experiencia internacional." },
-      { title: "Professional Certificates", description: "Certificaciones en áreas como Business Management, Digital Marketing, Sustainability y Leadership." },
-      { title: "Opciones de alojamiento", description: "Residencia estudiantil (16+), apartamentos compartidos o guest house." },
-      { title: "Explora Malta mientras practicas inglés", description: "Valletta y Mdina, Blue Grotto, Marsaxlokk, Malta National Aquarium, y experiencias junto al mar." },
+    programas: [
+      { title: "Clases de inglés", description: "Opciones Classic o Semi-Intensive adaptadas a tu nivel y objetivos académicos." },
+      { title: "Opción Work & Study", description: "Programa para mayores de 18 años que combina estudios con experiencia internacional en uno de los destinos más atractivos de Europa." },
+      { title: "Professional Certificates", description: "Certificaciones en áreas como Business Management, Digital Marketing, Sustainability y Leadership." }
     ],
+    incluye: [
+      "Opciones de alojamiento en residencia estudiantil (16+), apartamento compartido o guest house",
+      "Actividades culturales y recreativas",
+      "Excursiones a destinos como Valletta, Mdina, Blue Grotto y Marsaxlokk",
+      "Acompañamiento y orientación durante la estancia"
+    ]
   },
   {
     id: "estados-unidos",
     country: "Estados Unidos",
     subtitle: "Vive una experiencia académica y deportiva en Estados Unidos",
     description: "Descubre Estados Unidos a través de programas diseñados para estudiantes que buscan combinar alto rendimiento deportivo o perfeccionamiento del inglés en destinos icónicos como Boston, Nueva York y Miami.",
-    flagImage: "/images/usa flag.png", 
-    includes: [
+    flagImage: "/images/usa flag.png",
+    programas: [
       { title: "Programas deportivos de alto rendimiento", description: "Entrenamiento especializado en Fútbol, Tenis, Golf y Volleyball, enfocados en el desarrollo técnico, físico y competitivo." },
-      { title: "Clases de inglés en ciudades internacionales", description: "Programas Core, Plus o Intensive (15, 20 o 30 horas semanales), disponibles para estudiantes desde los 16 años." },
-      { title: "Preparación académica y profesional", description: "Opciones que incluyen preparación de exámenes, Business English y desarrollo de habilidades comunicativas." },
-      { title: "Opciones de alojamiento", description: "Homestay con familias anfitrionas para una experiencia cultural completa." },
+      { title: "Clases de inglés", description: "Programas Core, Plus o Intensive (15, 20 o 30 horas semanales), disponibles para estudiantes desde los 16 años." },
+      { title: "Preparación académica y profesional", description: "Opciones que incluyen preparación de exámenes, Business English y desarrollo de habilidades comunicativas." }
     ],
+    incluye: [
+      "Opciones de alojamiento en homestay con familias anfitrionas",
+      "Acompañamiento académico durante el programa",
+      "Actividades complementarias según sede",
+      "Supervisión y apoyo durante la estancia"
+    ]
   },
   {
     id: "espana",
     country: "España",
     subtitle: "Entrena fútbol en una de las academias más reconocidas en Europa",
-    description: "Vive una experiencia deportiva de alto nivel en Valencia, una ciudad con gran tradición futbolística. Este programa combina entrenamiento profesional con formación académica personalizada.",
-    flagImage: "/images/SpainFlag.png",
-    includes: [
-      { title: "Entrenamiento de alto rendimiento", description: "Sesiones técnicas, tácticas y físicas diseñadas para potenciar el desarrollo integral del jugador." },
-      { title: "Formación académica complementaria", description: "Programa educativo adaptado para equilibrar el rendimiento deportivo con el progreso académico." },
-      { title: "Entorno profesional internacional", description: "Experiencia en una ciudad con fuerte cultura futbolística y exposición a estándares europeos." },
-      { title: "Desarrollo integral del atleta", description: "Enfoque en disciplina, trabajo en equipo y crecimiento personal dentro y fuera del campo." },
+    description: "Vive una experiencia deportiva de alto nivel en Valencia, una ciudad con gran tradición futbolística. Este programa combina entrenamiento profesional con formación académica personalizada, permitiendo a los estudiantes desarrollar su talento mientras viven una experiencia internacional en España.",
+    flagImage: "/images/SpainFlag.png", 
+    programas: [
+      { title: "Fútbol de alto rendimiento", description: "Entrenamiento técnico, táctico y físico en una academia reconocida en Europa. Incluye preparación deportiva especializada y formación académica adaptada para equilibrar el desarrollo del atleta." },
+      { title: "Negocios y emprendimiento", description: "Programas enfocados en liderazgo, innovación y visión empresarial dentro de un contexto europeo internacional. Formación académica con enfoque práctico y proyección internacional." }
     ],
+    incluye: [
+      "Acompañamiento académico o deportivo según el programa elegido",
+      "Entorno profesional internacional",
+      "Supervisión y orientación durante la estancia"
+    ]
   },
   {
     id: "italia",
     country: "Italia",
     subtitle: "Estudia en el corazón de Europa y vive una experiencia académica y profesional única",
-    description: "Italia combina tradición, innovación y excelencia en distintas áreas académicas y creativas. Desde programas deportivos hasta especializaciones en moda, cocina y negocios de lujo.",
+    description: "Italia combina tradición, innovación y excelencia en distintas áreas académicas y creativas. Desde programas deportivos de alto rendimiento hasta especializaciones en moda, cocina y negocios de lujo, los estudiantes viven una experiencia formativa en un entorno internacional y culturalmente incomparable.",
     flagImage: "/images/ItalyFlag.png",
-    includes: [
+    programas: [
       { title: "Idioma italiano", description: "Perfecciona el idioma mientras te sumerges en la cultura, historia y estilo de vida italiano." },
-      { title: "Deportivo - Fútbol de alto rendimiento", description: "Entrena en una academia profesional en Roma y desarrolla tu talento. Combina preparación física, técnica y táctica con formación académica." },
+      { title: "Fútbol de alto rendimiento", description: "Entrenamiento en academia profesional en Roma con preparación técnica, táctica y física en un entorno competitivo." },
       { title: "Cocina italiana (cocina y repostería)", description: "Formación práctica en gastronomía italiana, desde técnicas tradicionales hasta cocina contemporánea." },
-      { title: "Diseño, Medicina, Ingeniería y Artes", description: "Especializaciones en moda, producto, preuniversitarios en salud, deporte de motor y artes escénicas." },
-      { title: "Negocios - Luxury management", description: "Aprende sobre gestión y estrategia en el sector del lujo en uno de los mercados más influyentes del mundo." },
+      { title: "Diseño (moda y diseño de producto)", description: "Estudios enfocados en creatividad, tendencias y desarrollo de producto en uno de los países referentes del sector." },
+      { title: "Medicina (programa preuniversitario)", description: "Preparación académica orientada a estudios en ciencias de la salud." },
+      { title: "Ingeniería en deporte de motor", description: "Formación especializada en un país referente en la industria automotriz y el automovilismo." },
+      { title: "Artes escénicas", description: "Técnica vocal, presencia escénica e interpretación en un entorno artístico profesional." },
+      { title: "Negocios - Luxury management", description: "Enfoque en gestión y estrategia dentro del sector del lujo internacional." }
     ],
+    incluye: [
+      "Acompañamiento académico según el programa elegido",
+      "Entorno internacional especializado",
+      "Supervisión y orientación durante la estancia"
+    ]
   },
   {
     id: "australia",
     country: "Australia",
     subtitle: "Estudia inglés y desarrolla tu talento artístico en Australia",
-    description: "Vive una experiencia internacional en Brisbane, una de las ciudades más vibrantes y multiculturales de Australia. Combina cursos de inglés con opciones académicas y artísticas.",
+    description: "Vive una experiencia internacional en Brisbane, una de las ciudades más vibrantes y multiculturales de Australia. Este programa combina cursos de inglés con opciones académicas y artísticas, en un entorno moderno y con excelente ubicación en el centro de la ciudad.",
     flagImage: "/images/australia flag.png",
-    includes: [
+    programas: [
       { title: "Idioma inglés (ELICOS)", description: "Cursos de Inglés General e Inglés Intensivo en un ambiente internacional, con enfoque comunicativo y acompañamiento académico." },
-      { title: "Preparación IELTS", description: "Ideal para estudiantes que buscan avanzar hacia estudios técnicos o universitarios en Australia." },
-      { title: "Artes escénicas", description: "Programas enfocados en actuación, canto y baile, combinando formación artística con desarrollo personal." },
-      { title: "Pathways académicos (ELICOS + VET)", description: "Posibilidad de continuar hacia programas técnicos y vocacionales en áreas como negocios, liderazgo y hospitalidad." },
+      { title: "Artes escénicas", description: "Programas enfocados en actuación, canto y baile, combinando formación artística con desarrollo personal." }
     ],
+    incluye: []
   },
   {
     id: "brasil",
     country: "Brasil",
     subtitle: "Vive el fútbol en uno de los países más apasionados del mundo",
-    description: "Brasil es sinónimo de talento, técnica y pasión por el fútbol. Este programa está diseñado para estudiantes que desean entrenar como atletas profesionales mientras viven una experiencia cultural única.",
+    description: "Brasil es sinónimo de talento, técnica y pasión por el fútbol. Este programa está diseñado para estudiantes que desean entrenar como atletas profesionales mientras viven una experiencia cultural única en uno de los entornos deportivos más icónicos del mundo.",
     flagImage: "/images/BrazilFlag.png",
-    includes: [
-      { title: "Futbol de alto rendimiento", description: "Entrenamiento técnico, táctico y físico en academias reconocidas internacionalmente, con metodología profesional." },
-      { title: "Desarrollo integral del atleta", description: "Trabajo en disciplina, liderazgo, mentalidad competitiva y preparación física de alto nivel." },
-      { title: "Formación académica complementaria", description: "Programa que permite equilibrar el rendimiento deportivo con el desarrollo académico." },
-      { title: "Experiencia cultural internacional", description: "Inmersión en la cultura brasileña, convivencia multicultural y aprendizaje dentro y fuera del campo." },
+    programas: [
+      { title: "Futbol de alto rendimiento", description: "Entrenamiento técnico, táctico y físico en academias reconocidas internacionalmente, con metodología profesional y enfoque competitivo." }
     ],
+    incluye: [
+      "Desarrollo integral del atleta (disciplina, liderazgo y mentalidad competitiva)",
+      "Formación académica complementaria",
+      "Inmersión cultural en Brasil",
+      "Supervisión y acompañamiento durante la estancia"
+    ]
   },
 ];
