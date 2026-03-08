@@ -111,7 +111,11 @@ export const Footer = () => (
           <Link href="/" className="text-[#EDA74C] hover:underline">
             The Gate Education
           </Link>
-          . Todos los derechos reservados.
+          . Todos los derechos reservados.{" "}
+          
+          <Link href="/aviso-de-privacidad" className="hover:text-[#FA5939] transition-colors">
+            Aviso de Privacidad
+          </Link>
         </p>
       </div>
     </div>
