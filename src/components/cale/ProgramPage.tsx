@@ -50,6 +50,7 @@ interface AreaProgramApi extends ApiProgramGeneral {
   "costo-p/ano": string;
   notas?: string;
   profesiones?: string;
+  "nivel-credencial"?: string;
   edades?: never;
   proveedor?: never;
   costo?: never;
@@ -94,6 +95,7 @@ export interface AreaProgram {
   especializacion?: string;
   profesiones?: string;
   costoUSD?: string;
+  nivelCredencial?: string;
 }
 
 export interface AgeProgram {
@@ -149,6 +151,7 @@ const transformApiToProgram = (apiProgram: ApiProgram): ProgramType => {
       profecions: apiProgram.profesiones,
       notas: apiProgram.notas,
       costoUSD: apiProgram["costo-p/ano-USD"],
+      nivelCredencial: apiProgram["nivel-credencial"],
     } as AreaProgram;
   }
 
@@ -190,10 +193,24 @@ const dataSourceTexto: Record<string, () => Promise<Record<string, string>>> = {
     import("@src/data/categorias_texto.json").then((m) => m.default),
 };
 
+// Categories served from local CSV instead of the remote API
+const localCsvEndpoints: Record<string, string> = {
+  Licenciaturas: "/api/programs/csv?credential=Bachelor",
+};
+
 const fetchPrograms = async (
   categoria: string,
   pageParam: string | null = null,
 ): Promise<{ items: ApiProgram[]; nextKey?: string | null }> => {
+  const localPath = localCsvEndpoints[categoria];
+  if (localPath) {
+    const url =
+      pageParam === null ? localPath : `${localPath}&nextKey=${pageParam}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Error al cargar programas");
+    return res.json();
+  }
+
   const endpoint = endPointMap[categoria];
   if (!endpoint)
     throw new Error(`No hay datos para esta categoria "${categoria}"`);
@@ -217,6 +234,7 @@ export default function ProgramPage() {
   const [filtroEspecializacion, setFiltroEspecializacion] = useState<
     string | null
   >(null);
+  const [filtroInstitucion, setFiltroInstitucion] = useState<string | null>(null);
   const [textoSolo, setTextoSolo] = useState<string | null>(null);
 
   const {
@@ -238,11 +256,16 @@ export default function ProgramPage() {
   >({
     queryKey: ["programas", categoria],
     queryFn: ({ pageParam = null }) =>
-      categoria && !categoriaPorTexto.includes(categoria)
+      categoria &&
+      !categoriaPorTexto.includes(categoria) &&
+      (!!endPointMap[categoria] || !!localCsvEndpoints[categoria])
         ? fetchPrograms(categoria, pageParam)
         : Promise.resolve({ items: [], nextKey: null }),
     initialPageParam: null,
-    enabled: !!categoria && !categoriaPorTexto.includes(categoria),
+    enabled:
+      !!categoria &&
+      !categoriaPorTexto.includes(categoria) &&
+      (!!endPointMap[categoria] || !!localCsvEndpoints[categoria]),
     getNextPageParam: (last) => last.nextKey ?? undefined,
     staleTime: 1000 * 60 * 60 * 12,
   });
@@ -304,6 +327,16 @@ export default function ProgramPage() {
     );
   }, [programas, filtroArea]);
 
+  const institucionesDisponibles = useMemo(() => {
+    return Array.from(
+      new Set(
+        programas
+          .filter((p): p is AreaProgram => "institucion" in p)
+          .map((p) => p.institucion),
+      ),
+    ).filter(Boolean);
+  }, [programas]);
+
   const edadesDisponibles = useMemo(() => {
     if (!categoria || !categoriasPorEdad.includes(categoria)) return [];
     return Array.from(
@@ -341,13 +374,21 @@ export default function ProgramPage() {
       );
     }
 
+    if (filtroInstitucion) {
+      resultado = resultado.filter(
+        (p): p is AreaProgram =>
+          "institucion" in p && p.institucion === filtroInstitucion,
+      );
+    }
+
     return resultado;
-  }, [programas, filtroArea, filtroEdad, filtroPais]);
+  }, [programas, filtroArea, filtroEdad, filtroPais, filtroInstitucion]);
 
   useEffect(() => {
     setFiltroArea(null);
     setFiltroEdad(null);
     setFiltroPais(null);
+    setFiltroInstitucion(null);
   }, [categoria]);
 
   const handleCategoriaSelect = (cat: string) => {
@@ -387,67 +428,118 @@ export default function ProgramPage() {
     <main className="p-4 sm:p-8">
       <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
 
-      {(areasDisponibles.length > 1 || edadesDisponibles.length > 1) && (
-        <section className="mb-8 flex flex-wrap gap-3 justify-center">
-          {areasDisponibles.length > 1 && (
-            <select
-              value={filtroArea ?? ""}
-              onChange={(e) => setFiltroArea(e.target.value || null)}
-              className="border px-3 py-2 rounded-md"
-            >
-              <option value="">Todas las áreas</option>
-              {areasDisponibles.map((area) => (
-                <option key={area} value={area}>
-                  {area}
-                </option>
-              ))}
-            </select>
-          )}
+      {(areasDisponibles.length > 1 ||
+        edadesDisponibles.length > 1 ||
+        paisesDisponibles.length > 1 ||
+        institucionesDisponibles.length > 1) && (
+        <section className="mb-8 px-2">
+          <div className="max-w-5xl mx-auto bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 text-center">
+              Filtrar programas
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {areasDisponibles.length > 1 && (
+                <select
+                  value={filtroArea ?? ""}
+                  onChange={(e) => {
+                    setFiltroArea(e.target.value || null);
+                    setFiltroEspecializacion(null);
+                  }}
+                  className="border border-gray-300 bg-white text-gray-700 text-sm px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5F338B] min-w-[180px]"
+                >
+                  <option value="">Todas las áreas</option>
+                  {areasDisponibles.map((area) => (
+                    <option key={area} value={area}>
+                      {area}
+                    </option>
+                  ))}
+                </select>
+              )}
 
-          {paisesDisponibles.length >= 1 && (
-            <select
-              value={filtroPais ?? ""}
-              onChange={(e) => setFiltroPais(e.target.value || null)}
-              className="border px-3 py-2 rounded-md"
-            >
-              <option value="">Todos los países</option>
-              {paisesDisponibles.map((pais) => (
-                <option key={pais} value={pais}>
-                  {pais}
-                </option>
-              ))}
-            </select>
-          )}
+              {paisesDisponibles.length > 1 && (
+                <select
+                  value={filtroPais ?? ""}
+                  onChange={(e) => setFiltroPais(e.target.value || null)}
+                  className="border border-gray-300 bg-white text-gray-700 text-sm px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5F338B] min-w-[160px]"
+                >
+                  <option value="">Todos los países</option>
+                  {paisesDisponibles.map((pais) => (
+                    <option key={pais} value={pais}>
+                      {pais}
+                    </option>
+                  ))}
+                </select>
+              )}
 
-          {filtroArea && especializacionesDisponibles.length > 0 && (
-            <select
-              value={filtroEspecializacion ?? ""}
-              onChange={(e) => setFiltroEspecializacion(e.target.value || null)}
-              className="border px-3 py-2 rounded-md"
-            >
-              <option value="">Todas las especializaciones</option>
-              {especializacionesDisponibles.map((esp) => (
-                <option key={esp} value={esp}>
-                  {esp}
-                </option>
-              ))}
-            </select>
-          )}
+              {institucionesDisponibles.length > 1 && (
+                <select
+                  value={filtroInstitucion ?? ""}
+                  onChange={(e) => setFiltroInstitucion(e.target.value || null)}
+                  className="border border-gray-300 bg-white text-gray-700 text-sm px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5F338B] min-w-[200px]"
+                >
+                  <option value="">Todas las instituciones</option>
+                  {institucionesDisponibles.map((inst) => (
+                    <option key={inst} value={inst}>
+                      {inst}
+                    </option>
+                  ))}
+                </select>
+              )}
 
-          {edadesDisponibles.length > 1 && (
-            <select
-              value={filtroEdad ?? ""}
-              onChange={(e) => setFiltroEdad(e.target.value || null)}
-              className="border px-3 py-2 rounded-md"
-            >
-              <option value="">Todas las edades</option>
-              {edadesDisponibles.map((edad) => (
-                <option key={edad} value={edad}>
-                  {edad}
-                </option>
-              ))}
-            </select>
-          )}
+              {filtroArea && especializacionesDisponibles.length > 0 && (
+                <select
+                  value={filtroEspecializacion ?? ""}
+                  onChange={(e) =>
+                    setFiltroEspecializacion(e.target.value || null)
+                  }
+                  className="border border-gray-300 bg-white text-gray-700 text-sm px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5F338B] min-w-[200px]"
+                >
+                  <option value="">Todas las especializaciones</option>
+                  {especializacionesDisponibles.map((esp) => (
+                    <option key={esp} value={esp}>
+                      {esp}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {edadesDisponibles.length > 1 && (
+                <select
+                  value={filtroEdad ?? ""}
+                  onChange={(e) => setFiltroEdad(e.target.value || null)}
+                  className="border border-gray-300 bg-white text-gray-700 text-sm px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5F338B] min-w-[160px]"
+                >
+                  <option value="">Todas las edades</option>
+                  {edadesDisponibles.map((edad) => (
+                    <option key={edad} value={edad}>
+                      {edad}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {(filtroArea || filtroPais || filtroInstitucion || filtroEspecializacion || filtroEdad) && (
+                <button
+                  onClick={() => {
+                    setFiltroArea(null);
+                    setFiltroPais(null);
+                    setFiltroInstitucion(null);
+                    setFiltroEspecializacion(null);
+                    setFiltroEdad(null);
+                  }}
+                  className="text-sm text-red-500 hover:text-red-700 px-3 py-2 rounded-xl border border-red-200 hover:bg-red-50 transition-colors"
+                >
+                  Limpiar filtros
+                </button>
+              )}
+            </div>
+
+            {(filtroArea || filtroPais || filtroInstitucion) && (
+              <p className="text-center text-xs text-gray-500 mt-3">
+                Mostrando {programasFiltrados.length} programa{programasFiltrados.length !== 1 ? "s" : ""}
+              </p>
+            )}
+          </div>
         </section>
       )}
       
