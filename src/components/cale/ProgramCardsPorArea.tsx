@@ -8,6 +8,7 @@ interface ProgramCardsProps {
   showEmpty?: boolean;
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 const formatCase = (text?: string) => {
   if (!text) return "";
   return text
@@ -16,7 +17,7 @@ const formatCase = (text?: string) => {
     .map((word, index) =>
       exepcionesMayuscula.includes(word) && index !== 0
         ? word
-        : word.charAt(0).toUpperCase() + word.slice(1)
+        : word.charAt(0).toUpperCase() + word.slice(1),
     )
     .join(" ")
     .replace(/-.*$/, "");
@@ -25,6 +26,7 @@ const formatCase = (text?: string) => {
 const COUNTRY_FLAGS: Record<string, string> = {
   "Turquía": "🇹🇷",
   "Canadá": "🇨🇦",
+  "Canada": "🇨🇦",
   "Estados Unidos": "🇺🇸",
   "Reino Unido": "🇬🇧",
   "Australia": "🇦🇺",
@@ -34,55 +36,56 @@ const COUNTRY_FLAGS: Record<string, string> = {
   "Malta": "🇲🇹",
   "Emiratos Árabes Unidos": "🇦🇪",
   "España": "🇪🇸",
+  "Italia": "🇮🇹",
+  "Brasil": "🇧🇷",
 };
 
-const DOMAIN_COLORS: Record<string, string> = {
-  "Business": "bg-blue-100 text-blue-800",
-  "Engineering": "bg-orange-100 text-orange-800",
-  "Medicine": "bg-red-100 text-red-800",
-  "Healthcare": "bg-green-100 text-green-800",
-  "Law": "bg-purple-100 text-purple-800",
-  "Architecture": "bg-yellow-100 text-yellow-800",
-  "Computer": "bg-cyan-100 text-cyan-800",
-  "Psychology": "bg-pink-100 text-pink-800",
-  "default": "bg-gray-100 text-gray-700",
-};
-
-function getDomainColor(domain: string): string {
+const domainColor = (domain: string): string => {
   const d = domain.toLowerCase();
-  if (d.includes("business") || d.includes("management") || d.includes("finance")) return DOMAIN_COLORS["Business"];
-  if (d.includes("engineering") || d.includes("mechatr") || d.includes("electrical")) return DOMAIN_COLORS["Engineering"];
-  if (d.includes("medicine") || d.includes("medical") || d.includes("dentistry") || d.includes("pharmacy") || d.includes("nursing")) return DOMAIN_COLORS["Medicine"];
-  if (d.includes("health") || d.includes("physiotherapy") || d.includes("nutrition") || d.includes("rehab")) return DOMAIN_COLORS["Healthcare"];
-  if (d.includes("law") || d.includes("legal") || d.includes("justice")) return DOMAIN_COLORS["Law"];
-  if (d.includes("architect") || d.includes("interior") || d.includes("design")) return DOMAIN_COLORS["Architecture"];
-  if (d.includes("computer") || d.includes("software") || d.includes("data") || d.includes("it/") || d.includes("game") || d.includes("ai") || d.includes("cyber")) return DOMAIN_COLORS["Computer"];
-  if (d.includes("psych")) return DOMAIN_COLORS["Psychology"];
-  return DOMAIN_COLORS["default"];
-}
+  if (d.includes("business") || d.includes("management") || d.includes("administration"))
+    return "bg-blue-100 text-blue-700";
+  if (d.includes("engineer") || d.includes("mechatro") || d.includes("electrical") || d.includes("civil"))
+    return "bg-orange-100 text-orange-700";
+  if (d.includes("medicine") || d.includes("medical") || d.includes("dentistry") || d.includes("pharmacy"))
+    return "bg-red-100 text-red-700";
+  if (d.includes("health") || d.includes("nursing") || d.includes("physioth") || d.includes("nutrition"))
+    return "bg-green-100 text-green-700";
+  if (d.includes("law") || d.includes("legal"))
+    return "bg-purple-100 text-purple-700";
+  if (d.includes("architect") || d.includes("interior") || d.includes("design"))
+    return "bg-yellow-100 text-yellow-700";
+  if (d.includes("computer") || d.includes("software") || d.includes("data") || d.includes("game") || d.includes("cyber"))
+    return "bg-cyan-100 text-cyan-700";
+  if (d.includes("psych"))
+    return "bg-pink-100 text-pink-700";
+  if (d.includes("finance") || d.includes("banking") || d.includes("fintech") || d.includes("economics"))
+    return "bg-emerald-100 text-emerald-700";
+  if (d.includes("media") || d.includes("communication") || d.includes("film") || d.includes("television"))
+    return "bg-violet-100 text-violet-700";
+  return "bg-gray-100 text-gray-600";
+};
 
-function RequirementsSection({ text }: { text: string }) {
+// ─── Requirements accordion ───────────────────────────────────────────────────
+function Requirements({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
-  const items = text
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+  const items = text.split(",").map((s) => s.trim()).filter(Boolean);
 
   return (
-    <div className="mt-4 border-t border-gray-100 pt-3">
+    <div className="mt-2 pt-2 border-t border-gray-100">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 text-sm font-medium text-[#5F338B] hover:text-[#4b2870] transition-colors"
-        aria-expanded={open}
+        className="flex w-full items-center justify-between text-xs font-medium text-gray-500 hover:text-[#5F338B] transition-colors"
       >
-        <span className={`transition-transform duration-200 ${open ? "rotate-90" : ""}`}>▶</span>
-        Requisitos de admisión
+        <span className="flex items-center gap-1">
+          <span>📋</span> Requisitos de admisión
+        </span>
+        <span className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}>▾</span>
       </button>
       {open && (
-        <ul className="mt-2 space-y-1 pl-4">
+        <ul className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-1">
           {items.map((item, i) => (
-            <li key={i} className="text-sm text-gray-600 flex gap-2 items-start">
-              <span className="text-[#EDA74C] mt-0.5 shrink-0">•</span>
+            <li key={i} className="flex items-start gap-1.5 text-xs text-gray-400 leading-snug">
+              <span className="text-[#EDA74C] shrink-0">•</span>
               <span>{item}</span>
             </li>
           ))}
@@ -92,125 +95,146 @@ function RequirementsSection({ text }: { text: string }) {
   );
 }
 
-const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({
-  programs,
-  showEmpty = false,
-}) => {
-  if (programs.length === 0 && !showEmpty) return null;
+// ─── Sub-card (individual program) ───────────────────────────────────────────
+function ProgramSubCard({ program }: { program: AreaProgram }) {
+  const hasNotas = !!program.notas && program.notas !== "N/A";
+  const hasLink = !!program.link;
 
   return (
-    <div className="flex flex-col gap-6 px-4 py-6 max-w-[1200px] mx-auto">
-      {programs.map((program) => {
-        const flag = COUNTRY_FLAGS[program.pais] ?? "";
-        const domainColor = getDomainColor(program.area || "");
-        const hasCost = program.costo && program.costo !== "";
-        const hasLink = program.link && program.link !== "";
-        const hasNotas = program.notas && program.notas !== "" && program.notas !== "N/A";
+    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 flex flex-col gap-2 hover:border-[#5F338B]/30 hover:bg-white transition-all duration-150">
+      {/* Name + cost */}
+      <div className="flex items-start justify-between gap-2">
+        <h4 className="text-sm font-semibold text-gray-800 leading-snug">
+          {formatCase(program.nombre)}
+        </h4>
+        {program.costo && (
+          <span className="shrink-0 bg-[#5F338B] text-white text-xs font-bold px-2.5 py-1 rounded-lg whitespace-nowrap">
+            {program.costo} <span className="font-normal opacity-80">{program.moneda}/año</span>
+          </span>
+        )}
+      </div>
 
-        return (
-          <div
-            key={program.id}
-            className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-200 overflow-hidden border border-gray-100"
-          >
-            {/* Header strip */}
-            <div className="bg-gradient-to-r from-[#5F338B] to-[#7b4bab] px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <h3 className="text-white text-lg md:text-xl font-semibold leading-snug">
-                {formatCase(program.nombre)}
-              </h3>
-              {program.area && (
-                <span className={`shrink-0 self-start sm:self-auto text-xs font-semibold px-3 py-1 rounded-full ${domainColor}`}>
-                  {program.area}
-                </span>
-              )}
-            </div>
+      {/* Domain pill */}
+      {program.area && (
+        <span className={`self-start text-xs font-medium px-2 py-0.5 rounded-full ${domainColor(program.area)}`}>
+          {program.area}
+        </span>
+      )}
 
-            {/* Body */}
-            <div className="px-6 py-5">
-              {/* University + location row */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4 text-gray-700">
-                {program.institucion && (
-                  <span className="font-semibold text-base">{program.institucion}</span>
-                )}
-                {(program.pais || program.ciudad) && (
-                  <span className="text-sm text-gray-500 flex items-center gap-1">
-                    {flag && <span>{flag}</span>}
-                    {[program.ciudad, program.pais].filter(Boolean).join(", ")}
-                  </span>
-                )}
-              </div>
+      {/* Meta chips */}
+      <div className="flex flex-wrap gap-1.5 text-xs text-gray-500">
+        {program.duracion && (
+          <span className="bg-white border border-gray-200 px-2 py-0.5 rounded-lg">
+            🕐 {program.duracion}
+          </span>
+        )}
+        {program.fechas && (
+          <span className="bg-white border border-gray-200 px-2 py-0.5 rounded-lg">
+            📅 {program.fechas}
+          </span>
+        )}
+        {program.especializacion && program.especializacion !== "N/A" && (
+          <span className="bg-white border border-gray-200 px-2 py-0.5 rounded-lg">
+            🎯 {program.especializacion}
+          </span>
+        )}
+      </div>
 
-              {/* Key info grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-2">
-                {hasCost && (
-                  <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xs text-amber-600 font-medium uppercase tracking-wide mb-0.5">Costo / año</p>
-                    <p className="text-lg font-bold text-amber-700">
-                      {program.costo}
-                      <span className="text-sm font-normal ml-1">{program.moneda}</span>
-                    </p>
-                    {program.costoUSD && program.moneda !== "USD" && (
-                      <p className="text-xs text-amber-500 mt-0.5">≈ {Number(program.costoUSD).toLocaleString()} USD</p>
-                    )}
-                  </div>
-                )}
+      {/* Requirements */}
+      {hasNotas && <Requirements text={program.notas!} />}
 
-                {program.duracion && (
-                  <div className="bg-purple-50 border border-purple-200 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xs text-purple-600 font-medium uppercase tracking-wide mb-0.5">Duración</p>
-                    <p className="text-base font-semibold text-purple-800">{program.duracion}</p>
-                  </div>
-                )}
+      {/* Link */}
+      {hasLink && (
+        <a
+          href={program.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="self-start mt-1 text-xs font-semibold text-[#5F338B] hover:text-[#4b2870] transition-colors"
+        >
+          Ver programa ↗
+        </a>
+      )}
+    </div>
+  );
+}
 
-                {program.fechas && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xs text-blue-600 font-medium uppercase tracking-wide mb-0.5">Inicio</p>
-                    <p className="text-base font-semibold text-blue-800">{program.fechas}</p>
-                  </div>
-                )}
+// ─── University group card ────────────────────────────────────────────────────
+function UniversityGroup({ institucion, programs }: { institucion: string; programs: AreaProgram[] }) {
+  const [expanded, setExpanded] = useState(false);
+  const sample = programs[0];
+  const flag = COUNTRY_FLAGS[sample?.pais ?? ""] ?? "";
+  const location = [sample?.ciudad, sample?.pais].filter(Boolean).join(", ");
 
-                {program.especializacion && program.especializacion !== "N/A" && (
-                  <div className="bg-green-50 border border-green-200 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xs text-green-600 font-medium uppercase tracking-wide mb-0.5">Especialización</p>
-                    <p className="text-sm font-semibold text-green-800">{program.especializacion}</p>
-                  </div>
-                )}
-
-                {program.profesiones && program.profesiones !== "N/A" && (
-                  <div className="bg-teal-50 border border-teal-200 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xs text-teal-600 font-medium uppercase tracking-wide mb-0.5">Profesiones</p>
-                    <p className="text-sm font-semibold text-teal-800">{program.profesiones}</p>
-                  </div>
-                )}
-
-                {program.nivelCredencial && (
-                  <div className="bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-center">
-                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-0.5">Nivel</p>
-                    <p className="text-sm font-semibold text-gray-700">{program.nivelCredencial}</p>
-                  </div>
-                )}
-              </div>
-
-              {/* Requirements (collapsible) */}
-              {hasNotas && <RequirementsSection text={program.notas!} />}
-
-              {/* Link */}
-              {hasLink && (
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <a
-                    href={program.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-[#5F338B] hover:text-[#4b2870] transition-colors"
-                  >
-                    <span>Ver programa en institución</span>
-                    <span className="text-xs">↗</span>
-                  </a>
-                </div>
-              )}
-            </div>
+  return (
+    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      {/* University header */}
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="w-full flex items-center justify-between gap-4 px-5 py-4 hover:bg-gray-50 transition-colors text-left"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Logo placeholder — purple circle with initial */}
+          <div className="shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[#5F338B] to-[#9b5de5] flex items-center justify-center text-white font-bold text-base select-none">
+            {institucion.charAt(0).toUpperCase()}
           </div>
-        );
-      })}
+          <div className="min-w-0">
+            <h3 className="text-base font-bold text-gray-900 leading-tight truncate">{institucion}</h3>
+            {location && (
+              <p className="text-xs text-gray-400 mt-0.5">
+                {flag} {location}
+              </p>
+            )}
+          </div>
+        </div>
+        <div className="flex items-center gap-3 shrink-0">
+          <span className="bg-[#5F338B]/10 text-[#5F338B] text-xs font-semibold px-2.5 py-1 rounded-full">
+            {programs.length} {programs.length === 1 ? "carrera" : "carreras"}
+          </span>
+          <span className={`text-gray-400 text-sm transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}>
+            ▾
+          </span>
+        </div>
+      </button>
+
+      {/* Programs grid */}
+      {expanded && (
+        <div className="px-4 pb-4 grid grid-cols-1 md:grid-cols-2 gap-3 border-t border-gray-100 pt-3">
+          {programs.map((p, i) => (
+            <ProgramSubCard key={`${p.id}-${i}`} program={p} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Main export ──────────────────────────────────────────────────────────────
+const ProgramCardsPorArea: React.FC<ProgramCardsProps> = ({ programs, showEmpty = false }) => {
+  if (programs.length === 0 && !showEmpty) return null;
+
+  // Group by institution preserving order of first appearance
+  const groups = programs.reduce<{ institucion: string; programs: AreaProgram[] }[]>(
+    (acc, program) => {
+      const existing = acc.find((g) => g.institucion === program.institucion);
+      if (existing) {
+        existing.programs.push(program);
+      } else {
+        acc.push({ institucion: program.institucion, programs: [program] });
+      }
+      return acc;
+    },
+    [],
+  );
+
+  return (
+    <div className="px-2 py-4 max-w-[1100px] mx-auto flex flex-col gap-5">
+      {groups.map((group) => (
+        <UniversityGroup
+          key={group.institucion}
+          institucion={group.institucion}
+          programs={group.programs}
+        />
+      ))}
     </div>
   );
 };
