@@ -509,6 +509,8 @@ export default function ProgramPage() {
   const handleCategoriaSelect = (cat: string) => {
     if (cat.includes("Campamentos")) {
       router.push("/programs/camps");
+    } else if (cat.includes("Maestría") || cat.includes("Maestrias")) {
+      router.push("/programs/maestrias");
     } else {
       setCategoria(cat);
     }
