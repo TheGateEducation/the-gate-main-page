@@ -72,10 +72,9 @@ const formatCase = (text?: string) => {
 };
 
 const fetchMaestrias = async (pageParam: string | null = null) => {
-  const endpoint = endPointMap["Maestrías"] || "maestrias";
   const url = pageParam === null
-    ? `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud`
-    : `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud?nextKey=${pageParam}`;
+    ? `/api/programs/masters`
+    : `/api/programs/masters?nextKey=${pageParam}`;
 
   const res = await fetch(url);
   if (!res.ok) throw new Error("Error al cargar programas");
