@@ -215,7 +215,7 @@ const dataSourceTexto: Record<string, () => Promise<Record<string, string>>> = {
 
 // ─── Local CSV endpoints ──────────────────────────────────────────────────────
 const localCsvEndpoints: Record<string, string> = {
-  Licenciaturas: "/api/programs/csv?credential=Bachelor",
+  Licenciaturas: "/api/programs/csv",
 };
 
 // ─── Fetch ────────────────────────────────────────────────────────────────────
