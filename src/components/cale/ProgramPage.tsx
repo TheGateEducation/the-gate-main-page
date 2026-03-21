@@ -35,6 +35,10 @@ const FLAG_IMAGE: Record<string, string> = {
   "Brasil":         "/images/BrazilFlag.png",
   "Italia":         "/images/ItalyFlag.png",
   "España":         "/images/SpainFlag.png",
+  "Nueva zelanda":  "/images/nueva zelanda flag.png",
+  "Nueva Zelanda":  "/images/nueva zelanda flag.png",
+  "Suecia":         "/images/suecia flag.svg",
+  "Suiza":          "/images/suiza flag.svg",
 };
 
 const FLAG_EMOJI: Record<string, string> = {
@@ -45,6 +49,8 @@ const FLAG_EMOJI: Record<string, string> = {
   "Suiza":   "🇨🇭",
   "Suecia":  "🇸🇪",
   "Países Bajos": "🇳🇱",
+  "Nueva zelanda": "🇳🇿",
+  "Nueva Zelanda": "🇳🇿",
 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
