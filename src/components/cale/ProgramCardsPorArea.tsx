@@ -38,6 +38,14 @@ const COUNTRY_FLAGS: Record<string, string> = {
   "España": "🇪🇸",
   "Italia": "🇮🇹",
   "Brasil": "🇧🇷",
+  "Suiza": "🇨🇭",
+  "Suecia": "🇸🇪",
+  "Nueva zelanda": "🇳🇿",
+  "Nueva Zelanda": "🇳🇿",
+  "México": "🇲🇽",
+  "Japón": "🇯🇵",
+  "China": "🇨🇳",
+  "Países Bajos": "🇳🇱",
 };
 
 const domainColor = (domain: string): string => {
