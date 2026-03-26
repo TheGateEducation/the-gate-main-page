@@ -522,7 +522,7 @@ export default function ProgramPage({ initialCategoria = null, initialData }: Pr
     if (cat.includes("Campamentos")) {
       router.push("/programs/camps");
     } else if (cat === "Maestrías") {
-      router.push("/programs/maestrias");
+      router.push("/programs/masters");
     } else if (cat === "Licenciaturas") {
       router.push("/programs/bachelors");
     } else {
