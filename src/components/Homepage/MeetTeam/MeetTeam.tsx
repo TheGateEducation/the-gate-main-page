@@ -46,7 +46,7 @@ const data: DataProps[] = [
         borderColor: "#5F338B",
     },
     {
-        name: "Alejandra \"Apellido\"",
+        name: "Alejandra \"Hernandez\"",
         position: "Co-Founder de The Gate Education",
         description: "Sé lo que se siente salir de tu zona de confort. Hoy, quiero ayudarte a dar ese paso con seguridad.",
         imageUrl:
