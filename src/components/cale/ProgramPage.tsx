@@ -221,6 +221,7 @@ const dataSourceTexto: Record<string, () => Promise<Record<string, string>>> = {
 
 // ─── Local CSV endpoints ──────────────────────────────────────────────────────
 const localCsvEndpoints: Record<string, string> = {
+  "Maestrías": "/api/programs/masters",
   Licenciaturas: "/api/programs/csv",
 };
 
@@ -348,7 +349,7 @@ export default function ProgramPage() {
         !categoriaPorTexto.includes(categoria) &&
         (!!endPointMap[categoria] || !!localCsvEndpoints[categoria]),
       getNextPageParam: (last) => last.nextKey ?? undefined,
-      staleTime: 1000 * 60 * 60 * 12,
+      staleTime: 1000 * 60 * 5, // 5 minutes — keep fresh for Google Sheets updates
     });
 
   useEffect(() => {
