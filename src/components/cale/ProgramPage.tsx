@@ -314,11 +314,16 @@ function DestinoCard({
 }
 
 // ─── Main component ───────────────────────────────────────────────────────────
-export default function ProgramPage() {
+interface ProgramPageProps {
+  initialCategoria?: string | null;
+  initialData?: ApiProgram[];
+}
+
+export default function ProgramPage({ initialCategoria = null, initialData }: ProgramPageProps) {
   const router = useRouter();
   const programsRef = useRef<HTMLDivElement>(null);
 
-  const [categoria, setCategoria] = useState<string | null>(null);
+  const [categoria, setCategoria] = useState<string | null>(initialCategoria);
   const [filtroEdad, setFiltroEdad] = useState<string | null>(null);
   const [filtroArea, setFiltroArea] = useState<string | null>(null);
   const [filtroPais, setFiltroPais] = useState<string | null>(null);
@@ -349,6 +354,14 @@ export default function ProgramPage() {
         (!!endPointMap[categoria] || !!localCsvEndpoints[categoria]),
       getNextPageParam: (last) => last.nextKey ?? undefined,
       staleTime: 1000 * 60 * 60 * 12,
+      ...(initialData && categoria === initialCategoria
+        ? {
+            initialData: {
+              pages: [{ items: initialData, nextKey: null }],
+              pageParams: [null],
+            },
+          }
+        : {}),
     });
 
   useEffect(() => {
@@ -515,6 +528,8 @@ export default function ProgramPage() {
   const handleCategoriaSelect = (cat: string) => {
     if (cat.includes("Campamentos")) {
       router.push("/programs/camps");
+    } else if (cat === "Licenciaturas") {
+      router.push("/programs/bachelors");
     } else {
       setCategoria(cat);
     }
