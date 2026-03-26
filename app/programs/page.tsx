@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import ProgramPage from "@src/components/cale/ProgramPage";
-import UnderConstruction from "@src/components/UnderConstruction/UnderConstruction";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
