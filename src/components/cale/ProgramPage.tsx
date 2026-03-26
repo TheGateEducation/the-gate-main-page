@@ -316,9 +316,10 @@ function DestinoCard({
 // ─── Main component ───────────────────────────────────────────────────────────
 interface ProgramPageProps {
   initialCategoria?: string | null;
+  initialData?: ApiProgram[];
 }
 
-export default function ProgramPage({ initialCategoria = null }: ProgramPageProps) {
+export default function ProgramPage({ initialCategoria = null, initialData }: ProgramPageProps) {
   const router = useRouter();
   const programsRef = useRef<HTMLDivElement>(null);
 
@@ -353,6 +354,14 @@ export default function ProgramPage({ initialCategoria = null }: ProgramPageProp
         (!!endPointMap[categoria] || !!localCsvEndpoints[categoria]),
       getNextPageParam: (last) => last.nextKey ?? undefined,
       staleTime: 1000 * 60 * 60 * 12,
+      ...(initialData && categoria === initialCategoria
+        ? {
+            initialData: {
+              pages: [{ items: initialData, nextKey: null }],
+              pageParams: [null],
+            },
+          }
+        : {}),
     });
 
   useEffect(() => {
