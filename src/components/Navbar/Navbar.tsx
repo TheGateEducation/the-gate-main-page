@@ -20,6 +20,7 @@ const navbarData = {
   routes: [
     { label: "Programas", href: "/programs" },
     { label: "Servicios", href: "/services" },
+    { label: "Alianzas", href: "/alianzas" },
     { label: "Contacto", href: "/contact" },
   ],
 };
@@ -30,7 +31,7 @@ export default function Navbar() {
   const { brand, routes } = navbarData;
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-transparent">
+    <header className="w-full bg-transparent">
       {/* 1. Añadimos 'relative' para que sea el contenedor del menú absoluto */}
       <div
         className="relative flex items-center justify-between w-full
