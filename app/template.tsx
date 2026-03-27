@@ -11,7 +11,7 @@ export const metadata = {
 export default function template({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <div className="fixed inset-x-0 top-0 z-50 bg-transparent">
+            <div className="fixed inset-x-0 top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
                 <Navbar />
             </div>
             <main className="pt-[125px]">
