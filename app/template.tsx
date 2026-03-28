@@ -11,16 +11,14 @@ export const metadata = {
 export default function template({ children }: { children: React.ReactNode }) {
     return (
         <>
-            <div>
-                <Navbar />
-            </div>
-            <main>
+            <Navbar />
+            <div className="min-h-screen">
                 {children}
-                <footer>
-                    <Carousel />
-                    <Footer />
-                </footer>
-            </main>
+            </div>
+            <footer>
+                <Carousel />
+                <Footer />
+            </footer>
         </>
     )
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -11,8 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./components/sheet";
-import { buttonVariants } from "./components/button";
-import { ModeToggle } from "./components/mode-toggle";
 import Logo from "./components/Logo";
 
 const navbarData = {
@@ -28,82 +26,92 @@ const navbarData = {
 export default function Navbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const scrolledRef = useRef(false);
+  const headerRef = useRef<HTMLElement>(null);
   const { brand, routes } = navbarData;
 
+  /* Scroll listener — mutates classList directly, zero re-renders */
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const past = window.scrollY > 20;
+        if (past !== scrolledRef.current) {
+          scrolledRef.current = past;
+          header.classList.toggle("bg-white", past);
+          header.classList.toggle("shadow-sm", past);
+          header.classList.toggle("bg-transparent", !past);
+        }
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initial check
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="w-full bg-transparent">
-      {/* 1. Añadimos 'relative' para que sea el contenedor del menú absoluto */}
-      <div
-        className="relative flex items-center justify-between w-full
-                   h-[143px] px-4 sm:px-6 lg:px-8"
-      >
-        {/* === LADO IZQUIERDO === */}
-        <Link href={brand.href} aria-label={brand.name}>
-          <Logo className="w-[158px] h-auto" />
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 right-0 z-50 bg-transparent transition-[background-color,box-shadow] duration-300"
+    >
+      <div className="flex items-center justify-between w-full h-[72px] px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+        {/* Logo */}
+        <Link href={brand.href} aria-label={brand.name} className="shrink-0">
+          <Logo className="w-[120px] h-auto" />
         </Link>
 
-        {/* === CENTRO (POSICIONADO ABSOLUTAMENTE) === */}
-        {/* 2. Este div ahora se centra perfectamente en la página */}
-        <div
-          className="hidden lg:flex absolute top-1/2 left-1/2 
-                     -translate-x-1/2 -translate-y-1/2 
-                     items-center bg-white backdrop-blur-sm
-                     rounded-[30px] px-8 py-[13px] h-[60px]
-                     shadow-pill"
-        >
-          <ul className="flex gap-x-12">
+        {/* Desktop nav */}
+        <nav className="hidden lg:flex items-center">
+          <div className="flex items-center bg-white rounded-full px-1.5 py-1 shadow-sm border border-gray-100">
             {routes.map(({ href, label }) => {
               const active = pathname.startsWith(href);
               return (
-                <li key={label}>
-                  <Link
-                    href={href}
-                    onClick={() => {
-                      if (active) {
-                        window.dispatchEvent(new CustomEvent("reset-programs"));
-                      }
-                    }}
-                    className={`
-                      font-semibold text-[18px] underline transition whitespace-nowrap
-                      ${
-                        active
-                          ? "text-[#EDA74C] decoration-[#EDA74C]"
-                          : "text-black decoration-transparent hover:decoration-current"
-                      }
-                    `}
-                  >
-                    {label}
-                  </Link>
-                </li>
+                <Link
+                  key={label}
+                  href={href}
+                  onClick={() => {
+                    if (active) {
+                      window.dispatchEvent(new CustomEvent("reset-programs"));
+                    }
+                  }}
+                  className={`px-5 py-2 rounded-full text-[14px] font-semibold transition-colors duration-150 ${
+                    active
+                      ? "bg-[#EDA74C] text-white"
+                      : "text-gray-700 hover:text-[#5F338B] hover:bg-gray-50"
+                  }`}
+                >
+                  {label}
+                </Link>
               );
             })}
-          </ul>
-        </div>
+          </div>
+        </nav>
 
-        {/* === LADO DERECHO === */}
+        {/* CTA */}
         <Link
           href="https://calendly.com/thegateeducation/30min"
-          className="hidden lg:flex items-center justify-center
-                     bg-[#EDA74C] text-white font-semibold whitespace-nowrap
-                     w-[168px] h-[60px] rounded-[30px]
-                     hover:bg-[#d38f36] transition-shadow"
+          className="hidden lg:flex items-center justify-center bg-[#5F338B] text-white font-semibold text-sm px-6 h-[42px] rounded-full hover:bg-[#4b2870] transition-colors duration-150"
         >
           Agenda Ahora
         </Link>
 
-        {/* === MENÚ MÓVIL === */}
-        <div className="lg:hidden flex items-center gap-2">
-          <ModeToggle />
+        {/* Mobile */}
+        <div className="lg:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger className="p-2">
-              <Menu className="h-6 w-6" />
+            <SheetTrigger className="p-2 rounded-lg hover:bg-gray-100/80 transition-colors">
+              <Menu className="h-6 w-6 text-gray-700" />
             </SheetTrigger>
             <SheetContent side="left">
-              {/* ... (el contenido del menú móvil no cambia) ... */}
               <SheetHeader>
                 <SheetTitle className="font-bold text-xl">{brand.name}</SheetTitle>
               </SheetHeader>
-              <nav className="mt-6 flex flex-col gap-4">
+              <nav className="mt-6 flex flex-col gap-2">
                 {routes.map(({ href, label }) => (
                   <Link
                     key={label}
@@ -114,9 +122,11 @@ export default function Navbar() {
                         window.dispatchEvent(new CustomEvent("reset-programs"));
                       }
                     }}
-                    className={buttonVariants({
-                      variant: pathname.startsWith(href) ? "secondary" : "ghost",
-                    })}
+                    className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                      pathname.startsWith(href)
+                        ? "bg-[#EDA74C]/10 text-[#EDA74C] font-semibold"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
                   >
                     {label}
                   </Link>
@@ -124,7 +134,7 @@ export default function Navbar() {
                 <Link
                   href="https://calendly.com/thegateeducation/30min"
                   onClick={() => setOpen(false)}
-                  className="bg-[#EDA74C] text-white px-4 py-2 rounded-[30px] mt-2 text-center"
+                  className="bg-[#5F338B] text-white px-4 py-3 rounded-xl mt-4 text-center font-semibold"
                 >
                   Agenda Ahora
                 </Link>

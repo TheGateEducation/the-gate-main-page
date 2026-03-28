@@ -15,7 +15,7 @@ export default function Programs() {
     <main>
       <Hero
         title="Servicios personalizados para cada etapa del viaje educativo"
-        titileType="white"
+        titleType="white"
         subtitle="Elige tu perfil para conocer los servicios que tenemos para ti"
         subtitleColor="white"
         backgroundType="gradient"

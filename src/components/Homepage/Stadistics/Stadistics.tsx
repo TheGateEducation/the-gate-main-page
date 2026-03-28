@@ -1,78 +1,107 @@
 "use client";
 
-import React from 'react';
-import CountUp from 'react-countup';
+import React, { useEffect, useRef, useState } from "react";
+import CountUp from "react-countup";
+import { Globe, Building2, GraduationCap, Award } from "lucide-react";
+import { useReveal } from "@src/hooks/useReveal";
 
 type StatItem = {
-    end: number;
-    label: string;
-    prefix?: string;
-    suffix?: string;
+  end: number;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+  icon: React.ReactNode;
+  color: string;
 };
 
-// You can replace this with your actual data import
 const statsData: StatItem[] = [
-    {
-        prefix: '+',
-        end: 15,
-        label: 'países',
-    },
-    {
-        prefix: '+',
-        end: 300,
-        label: 'instituciones\neducativas',
-    },
-    {
-        prefix: '+',
-        end: 1000,
-        label: 'programas',
-    },
-    {
-        end: 98,
-        suffix: '%',
-        label: 'aceptación',
-    },
+  { prefix: "+", end: 15,   label: "Paises",                   icon: <Globe className="w-7 h-7" />,          color: "#EDA74C" },
+  { prefix: "+", end: 300,  label: "Instituciones educativas",  icon: <Building2 className="w-7 h-7" />,     color: "#D25C7A" },
+  { prefix: "+", end: 1000, label: "Programas",                 icon: <GraduationCap className="w-7 h-7" />, color: "#9747FF" },
+  { end: 98, suffix: "%",   label: "Aceptacion",                icon: <Award className="w-7 h-7" />,         color: "#5F338B" },
 ];
 
 const Statistics: React.FC = () => {
-    return (
-        <div className="bg-[#5F338B] w-full text-white">
-            {/* Header Section */}
-            <div className="flex flex-row justify-center items-center px-4 py-12 md:py-16 lg:py-22">
-                <h2 className="font-poppins font-semibold text-xl md:text-2xl lg:text-[32px] leading-tight md:leading-[48px] text-center max-w-[933px]">
-                    Estudiar en el extranjero es solo el comienzo.
-                    <br />
-                    En The GATE Education, te ayudamos a cruzar esa puerta.
-                </h2>
+  const containerRef = useReveal();
+  const countRef = useRef<HTMLDivElement>(null);
+  const [startCount, setStartCount] = useState(false);
+
+  /* Trigger CountUp when section enters viewport */
+  useEffect(() => {
+    const el = countRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStartCount(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={containerRef} className="relative py-20 md:py-28 bg-white overflow-hidden">
+      {/* Section header */}
+      <div className="max-w-5xl mx-auto px-4 text-center mb-14">
+        <div className="reveal fade-up" style={{ animationDuration: "600ms" }}>
+          <span className="inline-block px-4 py-1.5 bg-[#5F338B]/10 text-[#5F338B] text-sm font-semibold rounded-full mb-5">
+            Nuestro impacto
+          </span>
+          <h2 className="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-900 leading-tight">
+            Estudiar en el extranjero es{" "}
+            <span className="text-gradient">solo el comienzo</span>
+          </h2>
+          <p className="mt-4 text-lg text-gray-500 max-w-xl mx-auto">
+            En The GATE Education, te ayudamos a cruzar esa puerta.
+          </p>
+        </div>
+      </div>
+
+      {/* Stats grid */}
+      <div ref={countRef} className="max-w-5xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
+        {statsData.map(({ end, label, prefix = "", suffix = "", icon, color }, i) => (
+          <div
+            key={i}
+            className={`reveal scale-in delay-${i} group relative bg-gray-50 rounded-3xl p-6 md:p-8 text-center border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-200`}
+            style={{ animationDuration: "500ms" }}
+          >
+            {/* Top accent */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 rounded-b-full" style={{ backgroundColor: color }} />
+
+            {/* Icon */}
+            <div
+              className="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5"
+              style={{ backgroundColor: `${color}15`, color }}
+            >
+              {icon}
             </div>
 
-            {/* Statistics Section */}
-            <div className="flex flex-col md:flex-row justify-center items-start md:items-center gap-8 md:gap-12 lg:gap-12 px-4 md:px-20 lg:px-[137px] pb-12 md:pb-16 lg:pb-[60px]">
-                {statsData.map(({ end, label, prefix = '', suffix = '' }, index) => (
-                    <div 
-                        key={index} 
-                        className="flex flex-col items-center justify-center pt-6 gap-5 w-full md:w-auto"
-                    >
-                        {/* Number with CountUp */}
-                        <CountUp start={0} end={end} duration={2.5} delay={0}>
-                            {({ countUpRef }) => (
-                                <div className="font-poppins font-semibold text-7xl md:text-8xl lg:text-[90px] leading-[100%] tracking-[-0.02em] text-white text-center">
-                                    {prefix}
-                                    <span ref={countUpRef} />
-                                    {suffix}
-                                </div>
-                            )}
-                        </CountUp>
-                        
-                        {/* Label */}
-                        <p className="font-poppins font-normal text-base md:text-lg text-white text-center whitespace-pre-line">
-                            {label}
-                        </p>
-                    </div>
-                ))}
+            {/* Number */}
+            <div className="font-extrabold text-4xl md:text-5xl text-gray-900 leading-none mb-2">
+              {startCount ? (
+                <CountUp start={0} end={end} duration={2.5}>
+                  {({ countUpRef }) => (
+                    <span>
+                      {prefix}<span ref={countUpRef} />{suffix}
+                    </span>
+                  )}
+                </CountUp>
+              ) : (
+                <span>{prefix}0{suffix}</span>
+              )}
             </div>
-        </div>
-    );
+
+            {/* Label */}
+            <p className="font-medium text-sm text-gray-500 leading-snug">{label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 };
 
 export default Statistics;
