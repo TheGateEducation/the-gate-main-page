@@ -11,20 +11,20 @@ const poppins = Poppins({
 
 export const metadata = {
     title: 'The Gate Education',
-    description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 10 países y más de 100 instituciones educacionales.',
+    description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 15 países y más de 300 instituciones educacionales.',
     keywords: 'educación internacional, estudiar en el extranjero, programas educacionales, instituciones educacionales, suiza, canada, australia, becas, intercambio, campamento, viajes, anahuac, tec de monterrey, ibero, universidades alemania, universidades australia, universidades italia, nueva zelanda, curso de idiomas',
     openGraph: {
         title: 'Tu Plataforma de Educación Internacional',
-        description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 10 países y más de 100 instituciones educacionales.',
-        images: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRLArqt49pngG4Dpo29bskouB_YD8MSJ2krwGKhE6CwctyyTFEWp1BQk59TLOVBg3HegY&usqp=CAU',
-        url: 'URL_DE_TU_SITIO_WEB',
+        description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 15 países y más de 300 instituciones educacionales.',
+        images: 'https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/working.jpg',
+        url: 'https://the-gate-main-page.vercel.app',
         type: 'website',
     },
     twitter: {
         card: 'summary_large_image',
         title: 'Tu Plataforma de Educación Internacional',
-        description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 10 países y más de 100 instituciones educacionales.',
-        images: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRLArqt49pngG4Dpo29bskouB_YD8MSJ2krwGKhE6CwctyyTFEWp1BQk59TLOVBg3HegY&usqp=CAU',
+        description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 15 países y más de 300 instituciones educacionales.',
+        images: 'https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/working.jpg',
     },
 }
 
