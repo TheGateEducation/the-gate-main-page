@@ -1,6 +1,8 @@
 import React from "react";
 
 import Hero from "@src/components/Hero/Hero";
+import Destinations from "@src/components/Homepage/Destinations/Destinations";
+import Programs from "@src/components/Homepage/Programs/Programs";
 import Stadistics from "@src/components/Homepage/Stadistics/Stadistics";
 import MeetTeam from "@src/components/Homepage/MeetTeam/MeetTeam";
 import MissionVision from "@src/components/Homepage/MissionVision/missionvision";
@@ -16,6 +18,8 @@ export default function Page() {
         showCTA
         fullHeight
       />
+      <Destinations />
+      <Programs />
       <Stadistics />
       <MeetTeam />
       <MissionVision />

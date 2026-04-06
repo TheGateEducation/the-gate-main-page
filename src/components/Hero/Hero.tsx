@@ -18,15 +18,12 @@ interface HeroProps {
   fullHeight?: boolean;
 }
 
-/* ── Floating country cards data ─────────────────────────────────────────── */
-const countries = [
-  { flag: "\u{1F1E8}\u{1F1E6}", name: "Canada",   programs: "45+", top: "22%", left: "4%" },
-  { flag: "\u{1F1EC}\u{1F1E7}", name: "UK",        programs: "60+", top: "18%", right: "5%" },
-  { flag: "\u{1F1E6}\u{1F1FA}", name: "Australia", programs: "35+", bottom: "30%", left: "6%" },
-  { flag: "\u{1F1FA}\u{1F1F8}", name: "USA",       programs: "80+", top: "38%", right: "4%" },
-  { flag: "\u{1F1E9}\u{1F1EA}", name: "Alemania",  programs: "25+", bottom: "22%", right: "8%" },
-  { flag: "\u{1F1EB}\u{1F1F7}", name: "Francia",   programs: "20+", bottom: "38%", left: "14%" },
-];
+import { destinations } from "@src/data/destinations";
+
+/* ── Floating country cards (use first 6 destinations with positions) ────── */
+const floatingCards = destinations
+  .filter((d) => d.position)
+  .slice(0, 6);
 
 /**
  * Hook: tracks the mouse inside a container and applies a magnetic pull
@@ -193,16 +190,13 @@ const Hero: React.FC<HeroProps> = ({
 
       {/* ── Floating country cards (desktop, homepage only) ────────────────── */}
       {isHome &&
-        countries.map((c, i) => (
+        floatingCards.map((c, i) => (
           <div
             key={c.name}
             data-magnetic
             className={`absolute hidden xl:flex flex-col items-center bg-white/10 border border-white/20 rounded-2xl px-4 py-3 select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
             style={{
-              top: c.top,
-              left: c.left,
-              right: c.right,
-              bottom: c.bottom,
+              ...c.position,
               transitionDelay: `${400 + i * 150}ms`,
             }}
           >
