@@ -24,12 +24,20 @@ const statsData: StatItem[] = [
 const Statistics: React.FC = () => {
   const containerRef = useReveal();
   const countRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [startCount, setStartCount] = useState(false);
 
-  /* Trigger CountUp when section enters viewport */
+  /* Wait for client hydration before doing anything */
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  /* Trigger CountUp when section enters viewport (client only) */
+  useEffect(() => {
+    if (!mounted) return;
     const el = countRef.current;
     if (!el) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -37,11 +45,11 @@ const Statistics: React.FC = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.2 },
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [mounted]);
 
   return (
     <section ref={containerRef} className="relative py-20 md:py-28 bg-white overflow-hidden">
