@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import CountUp from "react-countup";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Globe, Building2, GraduationCap, Award } from "lucide-react";
 import { useReveal } from "@src/hooks/useReveal";
 
@@ -21,13 +20,55 @@ const statsData: StatItem[] = [
   { end: 98, suffix: "%",   label: "Aceptación",                icon: <Award className="w-7 h-7" />,         color: "#5F338B" },
 ];
 
-const Statistics: React.FC = () => {
-  const containerRef = useReveal();
-  const [mounted, setMounted] = useState(false);
+function useCountUp(end: number, duration: number, start: boolean) {
+  const [value, setValue] = useState(0);
+  const rafRef = useRef(0);
 
   useEffect(() => {
-    setMounted(true);
+    if (!start) return;
+    const startTime = performance.now();
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / (duration * 1000), 1);
+      // ease-out quad
+      const eased = 1 - (1 - progress) * (1 - progress);
+      setValue(Math.round(eased * end));
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [start, end, duration]);
+
+  return value;
+}
+
+function StatNumber({ end, prefix = "", suffix = "", startCounting }: {
+  end: number; prefix?: string; suffix?: string; startCounting: boolean;
+}) {
+  const value = useCountUp(end, 2.5, startCounting);
+  return <>{prefix}{value.toLocaleString()}{suffix}</>;
+}
+
+const Statistics: React.FC = () => {
+  const containerRef = useReveal();
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [startCounting, setStartCounting] = useState(false);
+
+  const onIntersect = useCallback((entries: IntersectionObserverEntry[]) => {
+    if (entries[0]?.isIntersecting) {
+      setStartCounting(true);
+    }
   }, []);
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(onIntersect, { threshold: 0.2 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [onIntersect]);
 
   return (
     <section ref={containerRef} className="relative py-20 md:py-28 bg-white overflow-hidden">
@@ -48,7 +89,7 @@ const Statistics: React.FC = () => {
       </div>
 
       {/* Stats grid */}
-      <div className="max-w-5xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div ref={gridRef} className="max-w-5xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
         {statsData.map(({ end, label, prefix = "", suffix = "", icon, color }, i) => (
           <div
             key={i}
@@ -68,19 +109,7 @@ const Statistics: React.FC = () => {
 
             {/* Number */}
             <div className="font-extrabold text-4xl md:text-5xl text-gray-900 leading-none mb-2">
-              {mounted ? (
-                <CountUp
-                  start={0}
-                  end={end}
-                  duration={2.5}
-                  prefix={prefix}
-                  suffix={suffix}
-                  enableScrollSpy
-                  scrollSpyOnce
-                />
-              ) : (
-                <span>{prefix}0{suffix}</span>
-              )}
+              <StatNumber end={end} prefix={prefix} suffix={suffix} startCounting={startCounting} />
             </div>
 
             {/* Label */}
