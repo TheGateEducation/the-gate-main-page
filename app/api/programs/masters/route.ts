@@ -5,6 +5,7 @@ import path from "path";
 const PAGE_SIZE = 30;
 
 const APPS_SCRIPT_URL =
+  process.env.GOOGLE_APPS_SCRIPT_URL ||
   "https://script.google.com/macros/s/AKfycbx-zfQQASyz2lOzLNaSzgXe-WejqvFQun7mkT2LuBQUTDbW9v0sH79aARigLEtyrjY/exec";
 
 // In-memory cache: re-fetch every 1 minute

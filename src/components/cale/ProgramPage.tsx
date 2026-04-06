@@ -243,7 +243,8 @@ const fetchPrograms = async (
   if (!endpoint)
     throw new Error(`No hay datos para esta categoría "${categoria}"`);
 
-  const base = `https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev/items/${endpoint}/crud`;
+  const apiBase = process.env.NEXT_PUBLIC_PROGRAMS_API_URL || "https://po89ew3l3m.execute-api.us-east-2.amazonaws.com/dev";
+  const base = `${apiBase}/items/${endpoint}/crud`;
   const url = pageParam === null ? base : `${base}?nextKey=${pageParam}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Error al cargar programas");
