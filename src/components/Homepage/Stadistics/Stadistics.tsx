@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import CountUp from "react-countup";
 import { Globe, Building2, GraduationCap, Award } from "lucide-react";
 import { useReveal } from "@src/hooks/useReveal";
@@ -23,33 +23,6 @@ const statsData: StatItem[] = [
 
 const Statistics: React.FC = () => {
   const containerRef = useReveal();
-  const countRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  const [startCount, setStartCount] = useState(false);
-
-  /* Wait for client hydration before doing anything */
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  /* Trigger CountUp when section enters viewport (client only) */
-  useEffect(() => {
-    if (!mounted) return;
-    const el = countRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setStartCount(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [mounted]);
 
   return (
     <section ref={containerRef} className="relative py-20 md:py-28 bg-white overflow-hidden">
@@ -70,7 +43,7 @@ const Statistics: React.FC = () => {
       </div>
 
       {/* Stats grid */}
-      <div ref={countRef} className="max-w-5xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="max-w-5xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-5">
         {statsData.map(({ end, label, prefix = "", suffix = "", icon, color }, i) => (
           <div
             key={i}
@@ -90,17 +63,16 @@ const Statistics: React.FC = () => {
 
             {/* Number */}
             <div className="font-extrabold text-4xl md:text-5xl text-gray-900 leading-none mb-2">
-              {startCount ? (
-                <CountUp start={0} end={end} duration={2.5}>
-                  {({ countUpRef }) => (
-                    <span>
-                      {prefix}<span ref={countUpRef} />{suffix}
-                    </span>
-                  )}
-                </CountUp>
-              ) : (
-                <span>{prefix}0{suffix}</span>
-              )}
+              <CountUp
+                start={0}
+                end={end}
+                duration={2.5}
+                prefix={prefix}
+                suffix={suffix}
+                enableScrollSpy
+                scrollSpyOnce
+                scrollSpyDelay={200}
+              />
             </div>
 
             {/* Label */}
