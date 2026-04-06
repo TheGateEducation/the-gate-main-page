@@ -16,10 +16,10 @@ const menu = [
 ];
 
 const offices = [
-  { label: "Monterrey", href: "#" },
+  { label: "Monterrey", href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8" },
   { label: "Saltillo", href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8" },
-  { label: "Estado de México", href: "https://maps.app.goo.gl/..." },
-  { label: "Panamá", href: "#" },
+  { label: "Estado de México", href: "/contact" },
+  { label: "Panamá", href: "/contact" },
 ];
 
 export const Footer = () => (
