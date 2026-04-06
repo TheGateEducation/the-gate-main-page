@@ -87,15 +87,21 @@ async function fetchData(): Promise<MasterRow[]> {
   } catch (err) {
     console.error("Failed to fetch from Apps Script, falling back to local CSV:", err);
 
-    // Fallback: local CSV
-    const csvPath = path.join(process.cwd(), "src", "lib", "Listado_Masters.csv");
-    const content = fs.readFileSync(csvPath, "utf-8").replace(/\r/g, "");
-    const lines = content.split("\n").filter((l) => l.trim());
-    return lines.slice(1).map((line) => {
-      const [pais, institucion, area, programa, ubicacion, fechas, duracion, costo, moneda, link] =
-        parseCSVLine(line);
-      return { pais, institucion, area, programa, ubicacion, fechas, duracion, costo, moneda, link };
-    });
+    // Fallback: local CSV (if it exists)
+    try {
+      const csvPath = path.join(process.cwd(), "src", "lib", "Listado_Masters.csv");
+      const content = fs.readFileSync(csvPath, "utf-8").replace(/\r/g, "");
+      const lines = content.split("\n").filter((l) => l.trim());
+      return lines.slice(1).map((line) => {
+        const [pais, institucion, area, programa, ubicacion, fechas, duracion, costo, moneda, link] =
+          parseCSVLine(line);
+        return { pais, institucion, area, programa, ubicacion, fechas, duracion, costo, moneda, link };
+      });
+    } catch (csvErr) {
+      console.error("Local CSV fallback also failed:", csvErr);
+      // Return cached data if available (even if stale), otherwise empty array
+      return cachedRows ?? [];
+    }
   }
 }
 
