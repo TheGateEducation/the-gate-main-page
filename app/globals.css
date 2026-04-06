@@ -2,80 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
     scroll-behavior: smooth;
 }
 
-.shadow {
-    position: absolute;
-    background: hsl(var(--primary) / 0%);
-    border-radius: 24px;
-    rotate: 35deg;
-
-    width: 260px;
-    top: 200px;
-    height: 400px;
-    filter: blur(150px);
-    animation: shadow-slide infinite 4s linear alternate;
+/* ── Gradient text utility ────────────────────────────────────────────────── */
+.text-gradient {
+    background: linear-gradient(135deg, #EDA74C 0%, #D25C7A 50%, #9747FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-@keyframes shadow-slide {
-    from {
-        background: hsl(var(--primary) / 20%);
-        right: 460px;
-    }
-
-    to {
-        background: hsl(var(--primary) / 80%);
-        right: 160px;
-    }
+/* ── Scroll-triggered animations (pure CSS, zero jank) ────────────────────── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(-32px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeRight {
+    from { opacity: 0; transform: translateX(32px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+@keyframes floatBounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
 }
 
-@media (max-width: 1024px) {
-    .shadow {
-        top: 70px;
-    }
+/* Elements waiting to animate */
+.reveal {
+    opacity: 0;
+}
+.reveal.visible {
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible.fade-up    { animation-name: fadeUp; }
+.reveal.visible.fade-left  { animation-name: fadeLeft; }
+.reveal.visible.fade-right { animation-name: fadeRight; }
+.reveal.visible.scale-in   { animation-name: scaleIn; }
 
-    @keyframes shadow-slide {
-        from {
-            background: hsl(var(--primary) / 20%);
-            right: 460px;
-        }
+/* Stagger delays */
+.delay-0 { animation-delay: 0ms; }
+.delay-1 { animation-delay: 100ms; }
+.delay-2 { animation-delay: 200ms; }
+.delay-3 { animation-delay: 300ms; }
+.delay-4 { animation-delay: 400ms; }
+.delay-5 { animation-delay: 500ms; }
 
-        to {
-            background: hsl(var(--primary) / 50%);
-            right: 160px;
-        }
-    }
+/* Float animation for decorative elements */
+.float {
+    animation: floatBounce 3s ease-in-out infinite;
+}
+.float-slow {
+    animation: floatBounce 4.5s ease-in-out infinite;
+}
+.float-delayed {
+    animation: floatBounce 3.5s ease-in-out 1s infinite;
 }
 
-@media (max-width: 768px) {
-    .shadow {
-        top: 70px;
-        width: 100px;
-        height: 350px;
-        filter: blur(60px);
-    }
-
-    @keyframes shadow-slide {
-        from {
-            background: hsl(var(--primary) / 20%);
-            right: 280px;
-        }
-
-        to {
-            background: hsl(var(--primary) / 30%);
-            right: 100px;
-        }
-    }
+/* ── Scroll indicator pulse ───────────────────────────────────────────────── */
+@keyframes scrollPulse {
+    0%, 100% { transform: translateY(0); opacity: 1; }
+    50%      { transform: translateY(6px); opacity: 0.4; }
+}
+.scroll-indicator {
+    animation: scrollPulse 1.8s ease-in-out infinite;
 }
 
 #image-container > * {
-    padding: 1%; /* Equivalente a p-5 en Tailwind CSS */
-  }
-  
+    padding: 1%;
+}
 
+/* ── Design tokens ────────────────────────────────────────────────────────── */
 @layer base {
     :root {
         --background: 0 0% 100%;

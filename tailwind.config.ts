@@ -55,6 +55,7 @@ module.exports = {
         "40": "10rem"
       },
       fontFamily: {
+        poppins: ["var(--font-poppins)", "Poppins", "sans-serif"],
         Montserrat: ["Montserrat", "sans-serif"],
       },
       animation: {
