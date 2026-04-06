@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { Globe, Building2, GraduationCap, Award } from "lucide-react";
 import { useReveal } from "@src/hooks/useReveal";
@@ -23,6 +23,11 @@ const statsData: StatItem[] = [
 
 const Statistics: React.FC = () => {
   const containerRef = useReveal();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section ref={containerRef} className="relative py-20 md:py-28 bg-white overflow-hidden">
@@ -63,16 +68,19 @@ const Statistics: React.FC = () => {
 
             {/* Number */}
             <div className="font-extrabold text-4xl md:text-5xl text-gray-900 leading-none mb-2">
-              <CountUp
-                start={0}
-                end={end}
-                duration={2.5}
-                prefix={prefix}
-                suffix={suffix}
-                enableScrollSpy
-                scrollSpyOnce
-                scrollSpyDelay={200}
-              />
+              {mounted ? (
+                <CountUp
+                  start={0}
+                  end={end}
+                  duration={2.5}
+                  prefix={prefix}
+                  suffix={suffix}
+                  enableScrollSpy
+                  scrollSpyOnce
+                />
+              ) : (
+                <span>{prefix}0{suffix}</span>
+              )}
             </div>
 
             {/* Label */}
