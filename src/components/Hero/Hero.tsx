@@ -30,7 +30,7 @@ const floatingCards = destinations
  * to every `[data-magnetic]` child. Pure DOM transforms, zero re-renders.
  */
 function useMagnetic(enabled: boolean) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const rafId = useRef(0);
   const mouse = useRef({ x: 0, y: 0, active: false });
   /* Current animated positions per element (for lerp smoothing) */
@@ -216,7 +216,7 @@ const Hero: React.FC<HeroProps> = ({
             style={{ transitionDelay: "100ms" }}
           >
             <span className="w-2 h-2 rounded-full bg-[#EDA74C] animate-pulse" />
-            Tu plataforma de educacion internacional
+            Tu plataforma de educación internacional
           </span>
         )}
 
@@ -247,7 +247,7 @@ const Hero: React.FC<HeroProps> = ({
               href="https://calendly.com/thegateeducation/30min"
               className="inline-flex items-center justify-center px-8 py-4 bg-white/10 border-2 border-white/40 text-white font-semibold text-base rounded-full hover:bg-white/20 transition-all duration-200 hover:-translate-y-0.5"
             >
-              Agenda tu Asesoria
+              Agenda tu Asesoría
             </Link>
           </div>
         )}
@@ -255,9 +255,9 @@ const Hero: React.FC<HeroProps> = ({
         {showCTA && (
           <div className="flex items-center gap-6 sm:gap-10 mt-8">
             {[
-              { val: "15+", lab: "Paises" },
+              { val: "15+", lab: "Países" },
               { val: "300+", lab: "Instituciones" },
-              { val: "98%", lab: "Aceptacion" },
+              { val: "98%", lab: "Aceptación" },
             ].map((t, i) => (
               <React.Fragment key={t.lab}>
                 {i > 0 && <div className="w-px h-8 bg-white/20" />}

@@ -79,15 +79,15 @@ const MissionVision = () => {
             Lo que nos mueve
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
-            Proposito y direccion
+            Propósito y dirección
           </h2>
         </div>
 
         {/* Cards */}
         <div className="flex flex-col gap-6 md:gap-8">
           <MissionVisionCard
-            title="Nuestra Mision"
-            content="En The GATE Education creemos que cada sueno merece una oportunidad. Acompanamos a estudiantes a abrir la puerta a una educacion internacional, guiandolos con experiencia y proposito."
+            title="Nuestra Misión"
+            content="En The GATE Education creemos que cada sueño merece una oportunidad. Acompañamos a estudiantes a abrir la puerta a una educación internacional, guiándolos con experiencia y propósito."
             bgColor="#FEF7EC"
             accentColor="#EDA74C"
             icon={<Target className="w-6 h-6" />}
@@ -95,8 +95,8 @@ const MissionVision = () => {
             delay="delay-1"
           />
           <MissionVisionCard
-            title="Nuestra Vision"
-            content="Ser la plataforma que conecta e inspira a estudiantes latinoamericanos a transformar su vida a traves de la educacion global, la diversidad y el impacto positivo."
+            title="Nuestra Visión"
+            content="Ser la plataforma que conecta e inspira a estudiantes latinoamericanos a transformar su vida a través de la educación global, la diversidad y el impacto positivo."
             bgColor="#F3EEFA"
             accentColor="#5F338B"
             icon={<Eye className="w-6 h-6" />}

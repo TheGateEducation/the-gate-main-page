@@ -8,7 +8,7 @@ import { destinations } from "@src/data/destinations";
 import { useReveal } from "@src/hooks/useReveal";
 
 const Destinations: React.FC = () => {
-  const revealRef = useReveal();
+  const revealRef = useReveal<HTMLDivElement>();
 
   return (
     <section className="relative py-20 md:py-28 bg-white overflow-hidden">
@@ -38,40 +38,39 @@ const Destinations: React.FC = () => {
             <Link
               key={dest.name}
               href={dest.href}
-              className={`group relative rounded-2xl overflow-hidden aspect-[4/3] reveal fade-up delay-${Math.min(i % 4, 5)}`}
+              className={`group relative flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ease-out hover:-translate-y-1 bg-white reveal fade-up delay-${Math.min(i % 4, 5)}`}
               style={{ animationDuration: "600ms" }}
             >
-              {/* Flag image background */}
-              <div className="absolute inset-0 bg-gray-200">
+              {/* Flag image — top portion */}
+              <div className="relative aspect-[3/2] overflow-hidden bg-gray-100">
                 <Image
                   src={dest.flagImage}
                   alt={`Bandera de ${dest.name}`}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 />
               </div>
 
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/80 group-hover:via-black/40" />
-
-              {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xl">{dest.flag}</span>
-                  <h3 className="text-white font-bold text-base md:text-lg">{dest.name}</h3>
+              {/* Info panel — bottom portion */}
+              <div className="flex flex-col gap-1 p-3 md:p-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg leading-none">{dest.flag}</span>
+                  <h3 className="text-gray-900 font-bold text-sm md:text-base leading-tight">
+                    {dest.name}
+                  </h3>
                 </div>
-                <p className="text-white/70 text-xs md:text-sm font-medium">
+                <p className="text-gray-500 text-xs font-medium">
                   {dest.programs} programas
                 </p>
-                {/* Description on hover */}
-                <p className="text-white/80 text-xs mt-2 leading-relaxed max-h-0 overflow-hidden transition-all duration-300 group-hover:max-h-20">
+                {/* Description — slides in on hover */}
+                <p className="text-gray-600 text-xs leading-relaxed mt-1 max-h-0 opacity-0 overflow-hidden transition-all duration-300 ease-out group-hover:max-h-24 group-hover:opacity-100">
                   {dest.description}
                 </p>
               </div>
 
-              {/* Hover accent border */}
-              <div className="absolute inset-0 rounded-2xl border-2 border-transparent transition-colors duration-300 group-hover:border-[#EDA74C]/50" />
+              {/* Accent bottom bar on hover */}
+              <div className="h-0.5 w-full bg-transparent transition-colors duration-300 group-hover:bg-[#EDA74C] mt-auto" />
             </Link>
           ))}
         </div>

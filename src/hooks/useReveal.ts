@@ -9,8 +9,8 @@ import { useEffect, useRef } from "react";
  *
  * Zero re-renders. Zero layout thrash. GPU-composited transforms only.
  */
-export function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
+export function useReveal<T extends HTMLElement = HTMLElement>() {
+  const ref = useRef<T>(null);
 
   useEffect(() => {
     const container = ref.current;

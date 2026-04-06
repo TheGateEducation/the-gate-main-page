@@ -8,7 +8,7 @@ import { programCategories } from "@src/data/programCategories";
 import { useReveal } from "@src/hooks/useReveal";
 
 const Programs: React.FC = () => {
-  const revealRef = useReveal();
+  const revealRef = useReveal<HTMLDivElement>();
 
   return (
     <section className="relative py-20 md:py-28 bg-[#FCFBF8] overflow-hidden">

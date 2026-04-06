@@ -15,10 +15,10 @@ type StatItem = {
 };
 
 const statsData: StatItem[] = [
-  { prefix: "+", end: 15,   label: "Paises",                   icon: <Globe className="w-7 h-7" />,          color: "#EDA74C" },
+  { prefix: "+", end: 15,   label: "Países",                    icon: <Globe className="w-7 h-7" />,          color: "#EDA74C" },
   { prefix: "+", end: 300,  label: "Instituciones educativas",  icon: <Building2 className="w-7 h-7" />,     color: "#D25C7A" },
   { prefix: "+", end: 1000, label: "Programas",                 icon: <GraduationCap className="w-7 h-7" />, color: "#9747FF" },
-  { end: 98, suffix: "%",   label: "Aceptacion",                icon: <Award className="w-7 h-7" />,         color: "#5F338B" },
+  { end: 98, suffix: "%",   label: "Aceptación",                icon: <Award className="w-7 h-7" />,         color: "#5F338B" },
 ];
 
 const Statistics: React.FC = () => {

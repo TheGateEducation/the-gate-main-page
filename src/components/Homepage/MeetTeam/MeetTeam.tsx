@@ -16,10 +16,10 @@ interface TeamMember {
 
 const data: TeamMember[] = [
   {
-    name: "Paulina Valdes",
+    name: "Paulina Valdés",
     position: "Founder",
     description:
-      "Mi mision es abrir puertas reales y acompanar a las personas a transformar su vida.",
+      "Mi misión es abrir puertas reales y acompañar a las personas a transformar su vida.",
     imageUrl:
       "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/pau.jpeg",
     socialNetwork: [
@@ -29,10 +29,10 @@ const data: TeamMember[] = [
     accentColor: "#5F338B",
   },
   {
-    name: "Alejandra Hernandez",
+    name: "Alejandra Hernández",
     position: "Co-Founder",
     description:
-      "Se lo que se siente salir de tu zona de confort. Hoy, quiero ayudarte a dar ese paso con seguridad.",
+      "Sé lo que se siente salir de tu zona de confort. Hoy, quiero ayudarte a dar ese paso con seguridad.",
     imageUrl:
       "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/alejandra.jpeg",
     socialNetwork: [
@@ -66,7 +66,7 @@ const MeetTeam = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
             Conoce a quienes alguna vez{" "}
             <br className="hidden sm:block" />
-            <span className="text-gradient">sonaron con cruzar la puerta</span>
+            <span className="text-gradient">soñaron con cruzar la puerta</span>
           </h2>
         </div>
 

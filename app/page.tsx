@@ -14,7 +14,7 @@ export default function Page() {
       <Hero
         title="Donde hay una puerta abierta, hay un mundo por descubrir"
         titleType="gradient"
-        subtitle="Te acompanamos a hacer realidad tu sueno de educacion internacional con asesoria personalizada y programas en mas de 15 paises."
+        subtitle="Te acompañamos a hacer realidad tu sueño de educación internacional con asesoría personalizada y programas en más de 15 países."
         showCTA
         fullHeight
       />

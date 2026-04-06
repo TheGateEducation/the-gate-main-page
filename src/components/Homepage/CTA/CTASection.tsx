@@ -28,24 +28,24 @@ const CTASection = () => {
         <div className="reveal fade-up flex flex-col items-center gap-6" style={{ animationDuration: "700ms" }}>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
             Tu siguiente aventura empieza con{" "}
-            <span className="text-[#EDA74C]">una conversacion</span>
+            <span className="text-[#EDA74C]">una conversación</span>
           </h2>
           <p className="text-lg md:text-xl text-white/70 font-medium max-w-xl">
-            Agenda una asesoria gratuita y descubre el programa ideal para ti.
+            Agenda una asesoría gratuita y descubre el programa ideal para ti.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             <Link
               href="https://calendly.com/thegateeducation/30min"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#EDA74C] text-white font-bold text-base rounded-full hover:bg-[#d99530] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5 group"
             >
-              Agenda tu Asesoria Gratis
+              Agenda tu Asesoría Gratis
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center px-8 py-4 border-2 border-white/30 text-white font-semibold text-base rounded-full hover:bg-white/10 transition-all duration-200"
             >
-              Contactanos
+              Contáctanos
             </Link>
           </div>
         </div>
