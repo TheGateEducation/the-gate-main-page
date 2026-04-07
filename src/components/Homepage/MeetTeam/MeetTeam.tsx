@@ -34,7 +34,7 @@ const data: TeamMember[] = [
     description:
       "Sé lo que se siente salir de tu zona de confort. Hoy, quiero ayudarte a dar ese paso con seguridad.",
     imageUrl:
-      "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/alejandra.jpeg",
+      "/images/alejandra.jpeg",
     socialNetwork: [
       { name: "Linkedin", url: "https://www.linkedin.com/in/alejandra-hernandezgarcia/" },
       { name: "Email",    url: "mailto:alejandra@thegate-education.com" },

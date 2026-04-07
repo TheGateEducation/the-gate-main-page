@@ -16,10 +16,8 @@ const menu = [
 ];
 
 const offices = [
-  { label: "Monterrey", href: "#" },
   { label: "Saltillo", href: "https://maps.app.goo.gl/H1LVJ4Udd6DScQUj8" },
-  { label: "Estado de México", href: "https://maps.app.goo.gl/..." },
-  { label: "Panamá", href: "#" },
+  { label: "Estado de México", href: "https://maps.google.com/?q=Comonfort+3,+Atizapan+Centro,+CP+52900,+Atizapán+de+Zaragoza,+Estado+de+México" },
 ];
 
 export const Footer = () => (
