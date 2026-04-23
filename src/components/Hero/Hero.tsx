@@ -188,31 +188,50 @@ const Hero: React.FC<HeroProps> = ({
         </div>
       )}
 
-      {/* ── Floating country cards (homepage only) ─────────────────────────── */}
+      {/* ── Floating country polaroid cards (homepage only) ───────────────── */}
       {isHome &&
-        floatingCards.map((c, i) => (
-          <div
-            key={c.name}
-            data-magnetic
-            className={`absolute hidden lg:flex flex-col items-center bg-white/10 border border-white/20 rounded-2xl px-3 py-2 xl:px-4 xl:py-3 select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
-            style={{
-              ...c.position,
-              transitionDelay: `${400 + i * 150}ms`,
-            }}
-          >
-            <span className="relative block w-8 h-6 xl:w-10 xl:h-7 mb-1 rounded-sm overflow-hidden shadow-sm">
-              <Image
-                src={c.flagImage}
-                alt={`Bandera de ${c.name}`}
-                fill
-                className="object-cover"
-                sizes="40px"
-              />
-            </span>
-            <span className="text-white text-[11px] xl:text-xs font-bold">{c.name}</span>
-            <span className="text-white/50 text-[10px] font-medium">{c.programs} programas</span>
-          </div>
-        ))}
+        floatingCards.map((c, i) => {
+          // Alternate tilt so the polaroids look hand-pinned
+          const tilt = i % 2 === 0 ? "-rotate-3" : "rotate-3";
+          return (
+            <div
+              key={c.name}
+              data-magnetic
+              className={`absolute hidden lg:block select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
+              style={{
+                ...c.position,
+                transitionDelay: `${400 + i * 150}ms`,
+              }}
+            >
+              {/* Purple shadow offset behind the card (polaroid look from the mockup) */}
+              <div className={`relative ${tilt}`}>
+                <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-[14px] bg-[#5F338B]/70" aria-hidden="true" />
+                <div className="relative bg-[#5F338B] p-1.5 rounded-[14px] shadow-xl">
+                  {/* Country photo */}
+                  <div className="relative w-[150px] h-[95px] xl:w-[170px] xl:h-[108px] overflow-hidden rounded-[10px]">
+                    <Image
+                      src={c.placeImage ?? c.flagImage}
+                      alt={`Foto de ${c.name}`}
+                      fill
+                      className="object-cover"
+                      sizes="170px"
+                    />
+                  </div>
+                  {/* Caption under the photo */}
+                  <div className="px-2 py-1.5 flex items-center gap-1.5">
+                    <span className="relative block w-4 h-3 rounded-sm overflow-hidden shrink-0 shadow-sm">
+                      <Image src={c.flagImage} alt="" fill className="object-cover" sizes="16px" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="text-white text-[11px] font-bold leading-tight truncate">{c.name}</div>
+                      <div className="text-white/60 text-[9px] font-medium leading-tight">{c.programs} programas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
 
       {/* ── Content ───────────────────────────────────────────────────────── */}
       <div

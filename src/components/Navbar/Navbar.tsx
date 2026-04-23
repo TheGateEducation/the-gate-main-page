@@ -62,9 +62,13 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 bg-transparent transition-[background-color,box-shadow] duration-300"
     >
       <div className="flex items-center justify-between w-full h-[72px] px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
-        {/* Logo */}
-        <Link href={brand.href} aria-label={brand.name} className="shrink-0">
-          <Logo className="w-[120px] h-auto" />
+        {/* Logo — wrapped in a white pill so it stays legible over hero images */}
+        <Link
+          href={brand.href}
+          aria-label={brand.name}
+          className="shrink-0 inline-flex items-center bg-white rounded-full px-4 py-1.5 shadow-sm border border-gray-100"
+        >
+          <Logo className="w-[110px] h-auto" />
         </Link>
 
         {/* Desktop nav */}
