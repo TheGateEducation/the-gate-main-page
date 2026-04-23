@@ -17,6 +17,7 @@ const navbarData = {
   brand: { name: "The Gate Education", href: "/" },
   routes: [
     { label: "Programas", href: "/programs" },
+    { label: "Destinos", href: "/destinos" },
     { label: "Servicios", href: "/services" },
     { label: "Alianzas", href: "/alianzas" },
     { label: "Contacto", href: "/contact" },

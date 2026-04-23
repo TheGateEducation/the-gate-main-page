@@ -2,10 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { MapPin } from "lucide-react";
 import { destinations } from "@src/data/destinations";
 import { useReveal } from "@src/hooks/useReveal";
+
+function PlacePhoto({ src, fallback, alt }: { src: string; fallback: string; alt: string }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={failed ? fallback : src}
+      alt={alt}
+      loading="lazy"
+      onError={() => !failed && setFailed(true)}
+      className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+    />
+  );
+}
 
 const Destinations: React.FC = () => {
   const revealRef = useReveal<HTMLDivElement>();
@@ -41,21 +55,27 @@ const Destinations: React.FC = () => {
               className={`group relative flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ease-out hover:-translate-y-1 bg-white reveal fade-up delay-${Math.min(i % 4, 5)}`}
               style={{ animationDuration: "600ms" }}
             >
-              {/* Flag image — top portion */}
+              {/* Place photo — top portion (falls back to flag when photo is missing) */}
               <div className="relative aspect-[3/2] overflow-hidden bg-gray-100">
-                <Image
-                  src={dest.flagImage}
-                  alt={`Bandera de ${dest.name}`}
-                  fill
-                  className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                <PlacePhoto
+                  src={dest.placeImage ?? dest.flagImage}
+                  fallback={dest.flagImage}
+                  alt={`Foto de ${dest.name}`}
                 />
               </div>
 
               {/* Info panel — bottom portion */}
               <div className="flex flex-col gap-1 p-3 md:p-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg leading-none">{dest.flag}</span>
+                  <span className="relative block w-6 h-4 shrink-0 rounded-sm overflow-hidden shadow-sm">
+                    <Image
+                      src={dest.flagImage}
+                      alt={`Bandera de ${dest.name}`}
+                      fill
+                      className="object-cover"
+                      sizes="24px"
+                    />
+                  </span>
                   <h3 className="text-gray-900 font-bold text-sm md:text-base leading-tight">
                     {dest.name}
                   </h3>

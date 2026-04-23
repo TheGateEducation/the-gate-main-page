@@ -188,20 +188,28 @@ const Hero: React.FC<HeroProps> = ({
         </div>
       )}
 
-      {/* ── Floating country cards (desktop, homepage only) ────────────────── */}
+      {/* ── Floating country cards (homepage only) ─────────────────────────── */}
       {isHome &&
         floatingCards.map((c, i) => (
           <div
             key={c.name}
             data-magnetic
-            className={`absolute hidden xl:flex flex-col items-center bg-white/10 border border-white/20 rounded-2xl px-4 py-3 select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
+            className={`absolute hidden lg:flex flex-col items-center bg-white/10 border border-white/20 rounded-2xl px-3 py-2 xl:px-4 xl:py-3 select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
             style={{
               ...c.position,
               transitionDelay: `${400 + i * 150}ms`,
             }}
           >
-            <span className="text-2xl mb-1">{c.flag}</span>
-            <span className="text-white text-xs font-bold">{c.name}</span>
+            <span className="relative block w-8 h-6 xl:w-10 xl:h-7 mb-1 rounded-sm overflow-hidden shadow-sm">
+              <Image
+                src={c.flagImage}
+                alt={`Bandera de ${c.name}`}
+                fill
+                className="object-cover"
+                sizes="40px"
+              />
+            </span>
+            <span className="text-white text-[11px] xl:text-xs font-bold">{c.name}</span>
             <span className="text-white/50 text-[10px] font-medium">{c.programs} programas</span>
           </div>
         ))}
@@ -221,8 +229,8 @@ const Hero: React.FC<HeroProps> = ({
         )}
 
         <h1
-          className={`font-extrabold leading-[1.05] tracking-tight
-            text-4xl sm:text-5xl md:text-6xl lg:text-[72px]
+          className={`font-extrabold leading-[1.1] tracking-tight
+            text-[clamp(2rem,5vw,3.75rem)]
             ${isHome || titleType === "white" ? "text-white" : "text-gradient"}
           `}
         >
