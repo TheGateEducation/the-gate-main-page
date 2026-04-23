@@ -61,15 +61,15 @@ export default function Navbar() {
       ref={headerRef}
       className="fixed top-0 left-0 right-0 z-50 bg-transparent transition-[background-color,box-shadow] duration-300"
     >
-      <div className="flex items-center justify-between w-full h-[72px] px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+      <div className="flex items-center justify-between w-full h-[88px] px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
         {/* Logo — wrapped in a white pill so it stays legible over hero images */}
         <Link
           href={brand.href}
           aria-label={brand.name}
           className="shrink-0 inline-flex items-center bg-[#5F338B] rounded-2xl p-1.5 shadow-md"
         >
-          <span className="inline-flex items-center bg-white rounded-xl px-4 py-1">
-            <Logo className="h-14 w-auto" />
+          <span className="inline-flex items-center bg-white rounded-xl px-5 py-1.5">
+            <Logo className="h-16 w-auto" />
           </span>
         </Link>
 
