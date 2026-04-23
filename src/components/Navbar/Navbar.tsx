@@ -66,9 +66,11 @@ export default function Navbar() {
         <Link
           href={brand.href}
           aria-label={brand.name}
-          className="shrink-0 inline-flex items-center bg-white rounded-full px-5 h-14 shadow-sm"
+          className="shrink-0 inline-flex items-center bg-[#5F338B] rounded-2xl p-1.5 shadow-md"
         >
-          <Logo className="h-12 w-auto" />
+          <span className="inline-flex items-center bg-white rounded-xl px-4 py-1.5">
+            <Logo className="h-10 w-auto" />
+          </span>
         </Link>
 
         {/* Desktop nav */}
