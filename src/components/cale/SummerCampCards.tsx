@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { programTypes, campDestinations, Destination } from "@src/data/summerCampsData";
+import { programTypes, campDestinations } from "@src/data/summerCampsData";
 import Link from "next/link";
-import Image from "next/image";
 
 const getBackgroundImage = (country: string) => {
   const images: { [key: string]: string } = {

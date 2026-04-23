@@ -1,4 +1,3 @@
-import React from "react";
 import SummerCampCards from "@src/components/cale/SummerCampCards";
 import Link from "next/link";
 
