@@ -130,6 +130,18 @@ export default function MaestriasPage() {
       </section>
 
       <div id="programas" className="relative z-10 -mt-20 md:-mt-32 scroll-mt-24">
+        <section className="px-4 max-w-[1200px] mx-auto pt-16 md:pt-24 pb-4 text-center">
+          <span className="text-[#5F338B] font-bold tracking-wider uppercase mb-4 block text-sm">
+            Encuentra tu programa
+          </span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
+            Maestrías
+          </h2>
+          <div className="w-24 h-2 bg-gradient-to-r from-[#5F338B] to-[#9747FF] mx-auto rounded-full mb-6"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Explora maestrías internacionales en las mejores universidades. Filtra por país, área de estudio y encuentra el programa perfecto para ti.
+          </p>
+        </section>
         <ProgramPage initialCategoria="Maestrías" skipHero />
       </div>
     </main>

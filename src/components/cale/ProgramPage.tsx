@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -321,7 +321,7 @@ interface ProgramPageProps {
   skipHero?: boolean;
 }
 
-export default function ProgramPage({ initialCategoria = null, initialData, skipHero = false }: ProgramPageProps) {
+export default function ProgramPage({ initialCategoria = null, initialData: _initialData, skipHero = false }: ProgramPageProps) {
   const router = useRouter();
   const programsRef = useRef<HTMLDivElement>(null);
 

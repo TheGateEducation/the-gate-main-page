@@ -133,6 +133,18 @@ export default function Bachelors() {
       </section>
 
       <div id="programas" className="relative z-10 -mt-20 md:-mt-32 scroll-mt-24">
+        <section className="px-4 max-w-[1200px] mx-auto pt-16 md:pt-24 pb-4 text-center">
+          <span className="text-[#5F338B] font-bold tracking-wider uppercase mb-4 block text-sm">
+            Encuentra tu programa
+          </span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
+            Licenciaturas
+          </h2>
+          <div className="w-24 h-2 bg-gradient-to-r from-[#5F338B] to-[#9747FF] mx-auto rounded-full mb-6"></div>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Descubre carreras universitarias en las mejores universidades del mundo. Filtra por país y elige la licenciatura que define tu futuro.
+          </p>
+        </section>
         <ProgramPage initialCategoria="Licenciaturas" initialData={programs} skipHero />
       </div>
     </main>
