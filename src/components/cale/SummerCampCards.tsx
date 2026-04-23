@@ -32,7 +32,7 @@ const SummerCampCards: React.FC = () => {
     <div className="flex flex-col gap-32 pb-24">
       
 
-      <section id="tipos-de-programas" className="px-4 max-w-[1200px] mx-auto pt-16">
+      <section id="tipos-de-programas" className="px-4 max-w-[1200px] mx-auto pt-40 md:pt-48 scroll-mt-24">
         <div className="text-center mb-20 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-full bg-gradient-to-r from-transparent via-gray-100/50 to-transparent -z-10 blur-3xl pointer-events-none"></div>
           
