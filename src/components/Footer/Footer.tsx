@@ -54,7 +54,7 @@ export const Footer = () => (
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#6c3ebd] underline"
+                    className="hover:text-[#5F338B] transition-colors"
                   >
                     {label}
                   </Link>
@@ -68,7 +68,7 @@ export const Footer = () => (
             <ul className="space-y-2">
               {menu.map(({ label, href }) => (
                 <li key={label}>
-                  <Link href={href} className="hover:text-[#6c3ebd] underline">
+                  <Link href={href} className="hover:text-[#5F338B] transition-colors">
                     {label}
                   </Link>
                 </li>
@@ -81,7 +81,7 @@ export const Footer = () => (
             <ul className="space-y-2">
               {offices.map(({ label, href }) => (
                 <li key={label}>
-                  <Link href={href} className="hover:text-[#6c3ebd] underline">
+                  <Link href={href} className="hover:text-[#5F338B] transition-colors">
                     {label}
                   </Link>
                 </li>
@@ -111,7 +111,7 @@ export const Footer = () => (
           </Link>
           . Todos los derechos reservados.{" "}
           
-          <Link href="/aviso-de-privacidad" className="hover:text-[#FA5939] transition-colors">
+          <Link href="/aviso-de-privacidad" className="hover:text-[#5F338B] transition-colors">
             Aviso de Privacidad
           </Link>
         </p>

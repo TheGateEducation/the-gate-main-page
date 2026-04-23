@@ -16,7 +16,7 @@ const Programs: React.FC = () => {
       <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
-          backgroundImage: "radial-gradient(circle, #662D91 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, #5F338B 1px, transparent 1px)",
           backgroundSize: "24px 24px",
         }}
       />
@@ -80,7 +80,7 @@ const Programs: React.FC = () => {
         <div className="text-center mt-10 reveal fade-up" style={{ animationDuration: "600ms" }}>
           <Link
             href="/programs"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#662D91] text-white font-bold rounded-full hover:bg-[#5F338B] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#5F338B] text-white font-bold rounded-full hover:bg-[#4b2870] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
             Explorar Todos los Programas
             <ArrowRight className="w-4 h-4" />

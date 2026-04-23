@@ -33,7 +33,7 @@ const Destinations: React.FC = () => {
       <div ref={revealRef} className="relative max-w-7xl mx-auto px-6">
         {/* Section header */}
         <div className="text-center mb-14 reveal fade-up" style={{ animationDuration: "700ms" }}>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#9747FF]/10 text-[#662D91] text-sm font-semibold rounded-full mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#5F338B]/10 text-[#5F338B] text-sm font-semibold rounded-full mb-4">
             <MapPin className="w-4 h-4" />
             Destinos Disponibles
           </span>
