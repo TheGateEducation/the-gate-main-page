@@ -16,9 +16,9 @@ export default function CampamentosPage() {
           <img
             src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             alt="Jóvenes disfrutando en un campamento de verano internacional"
-            className="w-full h-full object-cover scale-105 filter brightness-[0.85]"
+            className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0b3f4c]/90 via-[#1e798e]/75 to-[#3fa8bf]/50 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0b3f4c]/55 via-[#1e798e]/30 to-transparent"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

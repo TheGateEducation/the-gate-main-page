@@ -54,7 +54,7 @@ const SummerCampCards: React.FC = () => {
               className="group relative bg-white rounded-[2.5rem] shadow-xl hover:shadow-2xl hover:shadow-[#0b3f4c]/20 transition-all duration-500 flex flex-col h-full overflow-visible border border-gray-100 hover:border-[#1e798e]/30 hover:-translate-y-3"
             >
               <div
-                className="w-[90%] mx-auto h-64 relative -mt-8 rounded-[2rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-500 z-10 p-1 bg-white"
+                className="w-[calc(100%-1.5rem)] mx-auto mt-3 h-64 relative rounded-[2rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-500 z-10 p-1 bg-white"
                 style={{ border: "3px dashed #1e798e" }}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0b3f4c]/70 via-transparent to-transparent z-10 opacity-40 group-hover:opacity-20 transition-opacity duration-500"></div>
@@ -71,7 +71,7 @@ const SummerCampCards: React.FC = () => {
                  <div className="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1e798e] to-[#3fa8bf] z-20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </div>
 
-              <div className="p-8 pt-12 flex flex-col flex-grow relative bg-white rounded-b-[2.5rem] z-0">
+              <div className="p-8 pt-6 flex flex-col flex-grow relative bg-white rounded-b-[2.5rem] z-0">
                 <h3 className="text-2xl font-bold text-[#0b3f4c] mb-5 leading-tight group-hover:text-[#1e798e] transition-colors duration-300">
                   {programa.title}
                 </h3>

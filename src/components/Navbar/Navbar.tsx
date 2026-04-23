@@ -66,9 +66,9 @@ export default function Navbar() {
         <Link
           href={brand.href}
           aria-label={brand.name}
-          className="shrink-0 inline-flex items-center bg-white rounded-full px-4 py-1.5 shadow-sm border border-gray-100"
+          className="shrink-0 inline-flex items-center bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1"
         >
-          <Logo className="w-[110px] h-auto" />
+          <Logo className="w-[80px] h-auto" />
         </Link>
 
         {/* Desktop nav */}
