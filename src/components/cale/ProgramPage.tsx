@@ -318,9 +318,10 @@ function DestinoCard({
 interface ProgramPageProps {
   initialCategoria?: string | null;
   initialData?: ApiProgram[];
+  skipHero?: boolean;
 }
 
-export default function ProgramPage({ initialCategoria = null, initialData }: ProgramPageProps) {
+export default function ProgramPage({ initialCategoria = null, initialData, skipHero = false }: ProgramPageProps) {
   const router = useRouter();
   const programsRef = useRef<HTMLDivElement>(null);
 
@@ -560,7 +561,7 @@ export default function ProgramPage({ initialCategoria = null, initialData }: Pr
   // ── Render: program category ───────────────────────────────────────────────
   return (
     <main className="p-4 sm:p-8">
-      <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
+      {!skipHero && <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />}
 
       {/* ── DESTINOS DISPONIBLES ─────────────────────────────────────────── */}
       {paisesDisponibles.length > 0 && (

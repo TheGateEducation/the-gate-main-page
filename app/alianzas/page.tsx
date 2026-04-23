@@ -87,7 +87,7 @@ export default function Alianzas() {
                 rel="noopener noreferrer"
                 className="group flex flex-col items-center text-center bg-white rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow"
               >
-                <h3 className="text-xl font-bold text-[#6E44AD] group-hover:text-[#EDA74C] transition-colors mb-3">
+                <h3 className="text-xl font-bold text-[#5F338B] group-hover:text-[#EDA74C] transition-colors mb-3">
                   {aliado.name}
                 </h3>
                 <p className="text-sm text-black/60 leading-relaxed">
@@ -112,7 +112,7 @@ export default function Alianzas() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center bg-[#EDA74C] text-white font-semibold px-8 h-[60px] rounded-[30px] hover:bg-[#d38f36] transition-colors"
+            className="inline-flex items-center justify-center bg-[#EDA74C] text-white font-bold px-8 h-[60px] rounded-full hover:bg-[#d99530] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
             Contactar un asesor
           </Link>
