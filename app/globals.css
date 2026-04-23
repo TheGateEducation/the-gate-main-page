@@ -77,6 +77,18 @@ html {
     animation: scrollPulse 1.8s ease-in-out infinite;
 }
 
+/* ── Paper plane drifting across hero ─────────────────────────────────────── */
+@keyframes planeFly {
+    0%   { transform: translate(0, 0) rotate(-10deg); opacity: 0; }
+    8%   { opacity: 0.7; }
+    50%  { transform: translate(55vw, -40px) rotate(-5deg); }
+    92%  { opacity: 0.7; }
+    100% { transform: translate(110vw, 20px) rotate(-12deg); opacity: 0; }
+}
+.plane-fly {
+    animation: planeFly 22s ease-in-out infinite;
+}
+
 #image-container > * {
     padding: 1%;
 }
