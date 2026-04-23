@@ -133,7 +133,7 @@ export default function Bachelors() {
       </section>
 
       <div id="programas" className="relative z-10 -mt-20 md:-mt-32 scroll-mt-24">
-        <section className="px-4 max-w-[1200px] mx-auto pt-16 md:pt-24 pb-4 text-center">
+        <section className="px-4 max-w-[1200px] mx-auto pt-32 md:pt-48 pb-4 text-center">
           <span className="text-[#5F338B] font-bold tracking-wider uppercase mb-4 block text-sm">
             Encuentra tu programa
           </span>
