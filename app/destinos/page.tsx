@@ -26,7 +26,7 @@ export default function DestinosPage() {
             <Link
               key={d.slug}
               href={`#${d.slug}`}
-              className="shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-[#9747FF]/10 hover:text-[#662D91] text-sm font-semibold text-gray-700 transition-colors"
+              className="shrink-0 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-[#5F338B]/10 hover:text-[#5F338B] text-sm font-semibold text-gray-700 transition-colors"
             >
               <span className="relative block w-5 h-3.5 rounded-sm overflow-hidden shadow-sm">
                 <Image src={d.flagImage} alt="" fill className="object-cover" sizes="20px" />
