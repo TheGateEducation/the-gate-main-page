@@ -20,8 +20,7 @@ const data: TeamMember[] = [
     position: "Founder",
     description:
       "Mi misión es abrir puertas reales y acompañar a las personas a transformar su vida.",
-    imageUrl:
-      "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/pau.jpeg",
+    imageUrl: "/images/paulina.jpeg",
     socialNetwork: [
       { name: "Linkedin", url: "https://www.linkedin.com/in/paulina-vald%C3%A9s-roch%C3%ADn-272b294/" },
       { name: "Email",    url: "mailto:paulina@thegate-education.com" },
