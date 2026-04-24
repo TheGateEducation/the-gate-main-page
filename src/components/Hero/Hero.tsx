@@ -151,7 +151,7 @@ const Hero: React.FC<HeroProps> = ({
       className={`relative flex flex-col items-center justify-center overflow-hidden
         ${fullHeight ? "min-h-screen" : "min-h-[380px] md:min-h-[420px]"}
         ${isHome
-          ? "bg-gradient-to-br from-[#5F338B] via-[#7B4BAE] to-[#9747FF]"
+          ? "bg-gradient-to-br from-[#5F338B] via-[#6B3AA0] to-[#7B4BAE]"
           : backgroundType === "gradient"
             ? "bg-gradient-to-br from-[#EDA74C] via-[#D25C7A] to-[#9747FF]"
             : backgroundType === "none"
