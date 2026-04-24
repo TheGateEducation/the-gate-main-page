@@ -178,45 +178,9 @@ const Hero: React.FC<HeroProps> = ({
         </>
       )}
 
-      {/* ── Decorative shapes (homepage only) ─────────────────────────────── */}
-      {isHome && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#EDA74C]/10" />
-          <div className="absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full bg-[#D25C7A]/10" />
-
-          {/* Flight path dashed line */}
-          <svg
-            className="absolute inset-0 w-full h-full opacity-[0.15]"
-            viewBox="0 0 1440 800"
-            fill="none"
-            preserveAspectRatio="xMidYMid slice"
-            aria-hidden="true"
-          >
-            <path
-              d="M 80 400 Q 400 150 720 350 T 1360 300"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeDasharray="4 8"
-              strokeLinecap="round"
-            />
-          </svg>
-
-          {/* Paper plane flying across */}
-          <div className="absolute top-[22%] left-[-60px] text-white/70 plane-fly">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-            </svg>
-          </div>
-
-          <div
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
-              backgroundSize: "32px 32px",
-            }}
-          />
-        </div>
-      )}
+      {/* Decorative layers removed — white dots + white-stroked flight path
+          + orange/pink radial overlays rendered inconsistently across
+          browsers and created a visible whitish blob. */}
 
       {/* ── Floating country polaroid cards (homepage only) ───────────────── */}
       {isHome &&
