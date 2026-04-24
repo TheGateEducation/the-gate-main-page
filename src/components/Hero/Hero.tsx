@@ -152,7 +152,7 @@ const Hero: React.FC<HeroProps> = ({
               ? "bg-white"
               : ""
         }
-        pt-[88px] px-6 pb-14
+        pt-[80px] px-6 pb-14
         ${className}
       `}
     >
