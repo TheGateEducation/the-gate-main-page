@@ -29,7 +29,7 @@ const beneficios = [
   {
     icon: Globe2,
     title: "Presencia en México y LATAM",
-    description: "Expande tu reach con representación local en mercados estratégicos.",
+    description: "Expande tu alcance con representación local en mercados estratégicos.",
   },
   {
     icon: TrendingUp,

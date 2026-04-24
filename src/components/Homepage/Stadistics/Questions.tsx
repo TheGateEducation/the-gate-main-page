@@ -19,7 +19,7 @@ const Questions: React.FC = () => {
                     href="/contact"
                     className="inline-flex items-center justify-center px-8 py-4 bg-[#EDA74C] text-white font-bold text-lg rounded-full hover:bg-[#d99530] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
                 >
-                    Nosotros respuestas
+                    Tenemos las respuestas
                 </Link>
             </div>
         </div>

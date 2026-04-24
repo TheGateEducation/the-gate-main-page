@@ -119,7 +119,7 @@ export default function ProgramsPage() {
           </h2>
           <div className="w-24 h-2 bg-gradient-to-r from-[#5F338B] to-[#9747FF] mx-auto rounded-full mb-6"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Haz click en una categoría para ver todas las opciones disponibles, filtrar por país y encontrar tu programa perfecto.
+            Haz clic en una categoría para ver todas las opciones disponibles, filtrar por país y encontrar tu programa perfecto.
           </p>
         </section>
         <ProgramPage skipHero />

@@ -81,7 +81,7 @@ const ProgramCardsPorEdad: React.FC<ProgramCardsProps> = ({
               href="/contact"
               className="block mt-4 text-blue-600 underline hover:text-blue-800"
             >
-              <strong>Para más informacion de click aqui</strong>
+              <strong>Para más información, haz clic aquí</strong>
             </a>
           )}
         </div>

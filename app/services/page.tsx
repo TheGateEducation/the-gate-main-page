@@ -112,7 +112,7 @@ export default function ServicesPage() {
             Elige tu perfil
           </span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight leading-tight">
-            ¿Qué describe <span className="text-gradient">mejor a ti?</span>
+            ¿Qué <span className="text-gradient">te describe mejor?</span>
           </h2>
           <div className="w-24 h-2 bg-gradient-to-r from-[#5F338B] to-[#9747FF] mx-auto rounded-full mb-8"></div>
           <p className="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
