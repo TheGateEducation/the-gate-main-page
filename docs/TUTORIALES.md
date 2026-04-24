@@ -24,6 +24,7 @@ Recetas paso-a-paso para tareas comunes. Las que dicen **(staff)** las puede hac
 - [Rotar el URL del Apps Script de maestrías](#rotar-el-url-del-apps-script-de-maestrías)
 - [Actualizar el CSV fallback de maestrías](#actualizar-el-csv-fallback-de-maestrías)
 - [Migrar datos hardcoded a Google Sheets](#migrar-datos-hardcoded-a-google-sheets)
+- [Ejemplo trabajado: migrar destinos a Sheets (guía para futuros devs)](#ejemplo-trabajado-migrar-destinos-a-sheets-guía-para-futuros-devs)
 - [Subir una imagen nueva a S3](#subir-una-imagen-nueva-a-s3)
 - [Deploy de emergencia / rollback](#deploy-de-emergencia--rollback)
 
@@ -316,6 +317,234 @@ function MyList() {
 - **Rate limits**: Apps Script tiene límite de ejecuciones/día (~20,000 en cuenta gratuita). El caché de 1 min del API route es suficiente para el tráfico actual.
 - **CSV fallback**: opcional pero recomendado para datos críticos. Mantenerlo actualizado manualmente o con un cron que descargue el Sheet.
 - **Validación**: Apps Script no valida tipos — un precio mal escrito como `"tres mil"` llega como string. Agregar `Number(row.precio)` o similar en el API route.
+
+---
+
+## Ejemplo trabajado: migrar destinos a Sheets (guía para futuros devs)
+
+> **Estado**: no implementado aún. Este tutorial describe **cómo se haría** cuando el equipo decida ejecutarlo. Sirve como plantilla para migrar cualquier otro dataset (camps, precios, etc.) — solo cambia nombres.
+
+Migrar **destinos** del archivo TypeScript hardcoded `src/data/destinations.ts` al patrón Sheet. Después de esta migración, el staff podrá editar país, descripción, número de programas, sistema educativo y economía directamente en Google Sheets sin tocar código. Lo único que seguirá requiriendo dev será subir una imagen nueva a S3.
+
+**Tiempo estimado**: 2–3 horas.
+
+### Antes de empezar
+
+- Acceso de edición al Google Workspace de The Gate (para crear el Sheet y publicar el Apps Script).
+- Acceso de write al repo (para crear la API route y modificar el page).
+- Este tutorial abierto en paralelo con `app/api/programs/masters/route.ts` (lo vas a estar copiando y adaptando).
+
+### Paso 1 — Crear el Sheet
+
+1. Crear un nuevo Google Sheet. Si ya existe "TheGate Contenido" con el Sheet de maestrías, **agregar una pestaña nueva** llamada `destinos` en vez de crear un Sheet separado. Así el staff tiene todo en un solo link.
+2. En la fila 1, estos headers en este orden exacto:
+   ```
+   name | programs | flagImage | placeImage | description | educationSystem | economy
+   ```
+3. Copiar los datos actuales desde `src/data/destinations.ts`. Para imágenes, pegar las URLs de S3 tal cual están en el TS (ej. `https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/destinos/australia.jpg`).
+4. Dejar la columna `programs` como string (`"45+"`) — el componente la muestra así, no es un número que sume.
+5. Compartir el Sheet con el staff con permiso de edición.
+
+> **Nota sobre `position`**: el campo `position` (coordenadas CSS para los polaroids flotantes del Hero del home) **no se migra al Sheet**. Se queda hardcoded en código, en un archivo separado, para los primeros 6 destinos que aparecen como polaroids. Razón: es un detalle visual que el staff no debería tocar porque romper `position` rompe el layout.
+
+### Paso 2 — Crear el Apps Script
+
+1. En el Sheet: **Extensiones → Apps Script**.
+2. Reemplazar el contenido del editor con:
+   ```js
+   function doGet() {
+     const sheet = SpreadsheetApp
+       .getActiveSpreadsheet()
+       .getSheetByName("destinos");
+     const [headers, ...rows] = sheet.getDataRange().getValues();
+     const data = rows
+       .filter(row => row[0] !== "")
+       .map(row => Object.fromEntries(headers.map((h, i) => [h, row[i]])));
+     return ContentService
+       .createTextOutput(JSON.stringify(data))
+       .setMimeType(ContentService.MimeType.JSON);
+   }
+   ```
+   - `getSheetByName("destinos")` referencia la pestaña por nombre.
+   - `filter(row => row[0] !== "")` ignora filas vacías al final de la hoja.
+3. **Guardar** (Ctrl+S o el ícono de disco).
+4. **Deploy** → **New deployment** → tipo **Web app**:
+   - Execute as: **Me**.
+   - Who has access: **Anyone with the link**.
+   - Deploy.
+5. Copiar la URL resultante (algo como `https://script.google.com/macros/s/AKfycb.../exec`).
+6. Probar la URL en el navegador: debe devolver JSON con los destinos.
+
+### Paso 3 — Agregar env var (opcional pero recomendado)
+
+Si todavía no migraste los endpoints hardcoded a env vars, hazlo ahora para destinos:
+
+1. En `.env.local` (local dev) agrega:
+   ```env
+   DESTINATIONS_APPS_SCRIPT_URL=https://script.google.com/macros/s/AKfycb.../exec
+   ```
+2. En Vercel (Project Settings → Environment Variables) agregar la misma key en **Production** y **Preview** con el mismo valor.
+
+Si decides seguir con hardcoded (peor práctica pero aceptable si quieres ir rápido), usarás la URL directa en el siguiente paso.
+
+### Paso 4 — Crear la API route
+
+Crear el archivo `app/api/destinos/route.ts`:
+
+```ts
+import { NextResponse } from "next/server";
+import { readFileSync } from "fs";
+import path from "path";
+
+const APPS_SCRIPT_URL = process.env.DESTINATIONS_APPS_SCRIPT_URL ??
+  "https://script.google.com/macros/s/AKfycb.../exec"; // fallback si env var no está
+
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 min — destinos cambian menos que maestrías
+
+interface Destination {
+  name: string;
+  programs: string;
+  flagImage: string;
+  placeImage: string;
+  description: string;
+  educationSystem: string;
+  economy: string;
+}
+
+let cached: Destination[] | null = null;
+let cachedAt = 0;
+
+async function getDestinations(): Promise<Destination[]> {
+  if (cached && Date.now() - cachedAt < CACHE_TTL_MS) return cached;
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Apps Script ${res.status}`);
+    const data = (await res.json()) as Destination[];
+    if (!Array.isArray(data) || data.length === 0) {
+      throw new Error("empty response");
+    }
+    cached = data;
+    cachedAt = Date.now();
+    return cached;
+  } catch (err) {
+    console.error("[destinos API] Apps Script failed, using last cache", err);
+    // Opcional: leer un CSV fallback en src/lib/destinos-fallback.csv
+    return cached ?? [];
+  }
+}
+
+export async function GET() {
+  const items = await getDestinations();
+  return NextResponse.json({ items });
+}
+```
+
+Notar:
+- Caché de **5 minutos** en vez de 1 (maestrías cambian más seguido que destinos).
+- Fallback simplificado: si el Apps Script falla y no hay caché, devuelve array vacío. Se puede mejorar con un CSV fallback como el de maestrías.
+- La URL tiene fallback hardcoded **por seguridad** — si olvidas configurar la env var en Vercel, sigue funcionando.
+
+### Paso 5 — Actualizar el componente consumidor
+
+`/destinos` actualmente lee `src/data/destinations.ts` directamente. Cambiar para que consuma la API:
+
+**Opción A — Server component (más simple, recomendada)**:
+
+```tsx
+// app/destinos/page.tsx
+async function getDestinos() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
+  const res = await fetch(`${baseUrl}/api/destinos`, { next: { revalidate: 300 } });
+  const { items } = await res.json();
+  return items;
+}
+
+export default async function DestinosPage() {
+  const destinos = await getDestinos();
+  return <Destinations items={destinos} />; // pasar como prop
+}
+```
+
+**Opción B — Client component con React Query** (consistente con maestrías):
+
+```tsx
+"use client";
+import { useQuery } from "@tanstack/react-query";
+
+function DestinosList() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["destinos"],
+    queryFn: () => fetch("/api/destinos").then(r => r.json()),
+    staleTime: 5 * 60 * 1000,
+  });
+  if (isLoading) return <SkeletonGrid />;
+  return <Destinations items={data?.items ?? []} />;
+}
+```
+
+**Recomendación**: Opción A — destinos no necesita refetch en el cliente ni paginación, y rinde mejor en SEO.
+
+### Paso 6 — Polaroids del Hero del home
+
+El Hero del home usa `destinations.filter(d => d.position).slice(0, 6)` para los polaroids flotantes. Como `position` no se migra al Sheet, mantener un archivo separado:
+
+Crear `src/data/destinationsPolaroids.ts`:
+
+```ts
+// Solo datos visuales de los polaroids — no incluir aquí datos editables como descripción.
+// El `name` debe coincidir con el nombre en el Sheet para hacer lookup.
+export const polaroidPositions: Record<string, CSSProperties> = {
+  "Canadá":        { top: "18%", left: "4%" },
+  "Reino Unido":   { top: "10%", right: "4%" },
+  "Australia":     { top: "52%", left: "2%" },
+  "Francia":       { top: "42%", left: "14%" },
+  "Estados Unidos": { top: "28%", right: "3%" },
+  "Alemania":      { top: "60%", right: "3%" },
+};
+```
+
+Y en `src/components/Hero/Hero.tsx`, modificar `floatingCards` para combinar:
+
+```tsx
+import { polaroidPositions } from "@src/data/destinationsPolaroids";
+
+// En vez de importar destinations directo, recibir como prop o fetchear
+const floatingCards = destinations
+  .filter(d => polaroidPositions[d.name])
+  .map(d => ({ ...d, position: polaroidPositions[d.name] }))
+  .slice(0, 6);
+```
+
+> Esto hace el Hero del home un client component que fetchea destinos, o pasa los datos como props desde `app/page.tsx`.
+
+### Paso 7 — Cleanup
+
+1. **Borra** `src/data/destinations.ts` (si ya no lo consume nada más — verifica con `grep -r "destinations" src/ app/`).
+2. **Actualiza `docs/DATA.md`**: mueve "Destinos" de la sección "Candidatos para migrar a Sheets" a una sección nueva llamada "Destinos (Google Sheet + Apps Script)" con el mismo formato de la sección de maestrías.
+3. **Actualiza `docs/MANUAL_USUARIO.md`**: agrega una sección "Editar destinos" con los headers y reglas del Sheet.
+4. **Commit** en una rama `feat/migrate-destinations-to-sheets`.
+
+### Paso 8 — Testing en preview
+
+1. PR contra `development` → Vercel genera un preview.
+2. En el preview:
+   - Abrir `/destinos` y verificar que todos los países cargan con fotos y textos correctos.
+   - Editar una descripción en el Sheet → esperar 5 min → refresh preview → verificar cambio.
+   - Forzar un error (cambiar temporalmente `APPS_SCRIPT_URL` a basura en la env var de preview) → verificar que el fallback devuelve caché o array vacío sin crashear.
+3. Si todo OK, mergear a `development`.
+
+### Replicar para otros datasets
+
+Esta misma receta sirve para **camps**, **precios de `/estudiante`**, **logos de aliados**, etc. Solo cambian:
+
+- Nombre de la pestaña en el Sheet.
+- Headers de las columnas.
+- Shape del type TypeScript.
+- Ruta de la API route (`/api/camps`, `/api/precios`, etc.).
+- Componente que consume los datos.
+
+Lo demás (estructura del Apps Script, patrón de caché, fallback, env var) es idéntico.
 
 ---
 

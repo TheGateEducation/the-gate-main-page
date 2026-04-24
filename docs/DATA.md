@@ -227,6 +227,8 @@ Los envíos van a una tabla DynamoDB (inferido por la presencia de `@aws-sdk/cli
 
 ## Candidatos para migrar a Sheets
 
+> **Estado**: propuesta / roadmap para el futuro. Ninguno de los siguientes está implementado todavía. Cuando haya tiempo (o cuando el staff empiece a pedir muchos cambios de algún dataset concreto), se puede ejecutar siguiendo el [tutorial paso a paso en TUTORIALES.md](./TUTORIALES.md#ejemplo-trabajado-migrar-destinos-a-sheets-guía-para-futuros-devs).
+
 El patrón de "Google Sheet → Apps Script → API route → React Query" funciona bien para maestrías. Se puede replicar para cualquier otro dato tabular hardcodeado. Priorizado por impacto:
 
 ### 1. **Licenciaturas** — impacto alto, esfuerzo bajo
@@ -259,27 +261,17 @@ Si el equipo se queda en 2-3 personas, no vale la pena.
 
 ---
 
-### Receta genérica para migrar X a Sheets
+---
 
-Paso a paso, tomando maestrías como plantilla:
+### Resumen de decisión
 
-1. **Crear Sheet** con headers en fila 1. Los nombres deben coincidir con los que espera el parser.
-2. **Crear Apps Script** (Extensiones → Apps Script) que expone el Sheet como JSON. Ejemplo mínimo:
-   ```js
-   function doGet() {
-     const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Hoja1");
-     const [headers, ...rows] = sheet.getDataRange().getValues();
-     const data = rows.map(row =>
-       Object.fromEntries(headers.map((h, i) => [h, row[i]]))
-     );
-     return ContentService.createTextOutput(JSON.stringify(data))
-       .setMimeType(ContentService.MimeType.JSON);
-   }
-   ```
-3. **Deploy** el Apps Script como Web App ("Anyone with the link").
-4. **Crear API route** `app/api/programs/{recurso}/route.ts` copiando la estructura de `masters/route.ts`. Cambia: URL, tipo del item, headers esperados, CSV fallback opcional.
-5. **Actualizar página** `app/programs/{recurso}/page.tsx` o equivalente para consumir la nueva API con React Query.
-6. **Borrar el TS/JSON hardcoded** cuando la migración esté verificada en producción.
-7. **Documentar** en este archivo cómo editar el Sheet nuevo.
+- **Empezar por cualquiera depende de qué pida más el staff.** Si te están pidiendo cambios frecuentes de camps, empieza por ahí. Si piden precios, por ahí.
+- **Sugerencia consolidada**: un solo Google Sheet llamado por ejemplo "TheGate Contenido" con **varias pestañas** — una pestaña por dataset (`maestrias`, `licenciaturas`, `destinos`, `camps`, `precios`, etc.). El staff tiene un solo link que bookmarkean, en vez de N Sheets distintos. Cada pestaña se lee desde su propia API route.
+- **Cuándo NO migrar**: datos que casi nunca cambian (equipo con 2-3 personas, textos legales, aviso de privacidad). El costo de mantener otra pestaña supera el beneficio.
 
-Paso detallado en [TUTORIALES.md § Migrar datos hardcoded a Google Sheets](./TUTORIALES.md#migrar-datos-hardcoded-a-google-sheets).
+### Cómo se hace
+
+Dos tutoriales en [TUTORIALES.md](./TUTORIALES.md):
+
+- [Receta genérica](./TUTORIALES.md#migrar-datos-hardcoded-a-google-sheets) — los 5 pasos en abstracto.
+- [Ejemplo trabajado: migrar destinos](./TUTORIALES.md#ejemplo-trabajado-migrar-destinos-a-sheets-guía-para-futuros-devs) — seguimiento línea por línea de cómo se haría destinos. Úsalo como plantilla para replicar cualquier otro dataset.
