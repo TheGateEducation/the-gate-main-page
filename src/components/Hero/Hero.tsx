@@ -182,20 +182,7 @@ const Hero: React.FC<HeroProps> = ({
       {isHome && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#EDA74C]/10" />
-          <div className="absolute top-1/3 -left-32 w-[350px] h-[350px] rounded-full bg-white/[0.04]" />
           <div className="absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full bg-[#D25C7A]/10" />
-
-          {/* Subtle world map silhouette */}
-          <svg
-            className="absolute inset-0 w-full h-full opacity-[0.07] mix-blend-screen"
-            viewBox="0 0 1000 500"
-            fill="white"
-            preserveAspectRatio="xMidYMid slice"
-            aria-hidden="true"
-          >
-            <path d="M150 200c-5-15 10-35 25-30s20 15 10 25-30 20-35 5zm40-60c8-5 20 0 18 10s-15 12-22 5-4-10 4-15zm60 80c12-8 28-5 30 8s-10 22-25 18-15-20-5-26zm80 20c15-10 35 0 33 15s-20 25-38 18-10-25 5-33zm120-50c20-8 45 5 42 22s-28 28-48 18-14-32 6-40zm90 70c18-6 38 8 35 22s-24 25-42 17-11-33 7-39zm100-30c22-10 50 5 46 25s-32 32-54 20-14-35 8-45zm-430 120c25-5 50 10 45 28s-38 28-58 15-12-38 13-43zm150 40c22-8 48 5 46 22s-30 30-52 20-16-34 6-42zm140-20c28-10 60 8 55 30s-44 38-68 22-15-42 13-52z" />
-            <path d="M80 280c10-3 22 5 18 15s-22 10-25 2-3-14 7-17zm700-150c15-5 30 8 25 20s-30 15-35 5-5-20 10-25zm100 120c20-8 45 5 40 22s-38 22-50 10-10-24 10-32z" />
-          </svg>
 
           {/* Flight path dashed line */}
           <svg
