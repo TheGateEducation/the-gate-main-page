@@ -130,8 +130,14 @@ const Hero: React.FC<HeroProps> = ({
   const isHome = fullHeight && backgroundType === "none";
   const magneticRef = useMagnetic(isHome);
 
+  /* Auto-white title/subtitle when background is colorful (gradient or image).
+     Pages don't need to remember to pass titleType="white" — prevents
+     invisible-title regressions on any page with a non-white background. */
+  const hasColorfulBg = backgroundType === "gradient" || backgroundType === "image" || isHome;
+  const useWhiteTitle = hasColorfulBg || titleType === "white";
+
   const subColor =
-    subtitleColor === "white" || backgroundType === "image"
+    subtitleColor === "white" || hasColorfulBg
       ? "text-white/80"
       : subtitleColor === "black"
         ? "text-gray-600"
@@ -287,7 +293,7 @@ const Hero: React.FC<HeroProps> = ({
         <h1
           className={`font-extrabold leading-[1.1] tracking-tight
             text-[clamp(2rem,5vw,3.75rem)]
-            ${isHome || titleType === "white" ? "text-white" : "text-gradient"}
+            ${useWhiteTitle ? "text-white drop-shadow-sm" : "text-gradient"}
           `}
         >
           {title}
