@@ -33,7 +33,8 @@ export const Footer = () => {
     if (prev) prev.remove();
     const script = document.createElement("script");
     script.id = "icef-badge-script";
-    script.src = "https://www-cdn.icef.com/scripts/iasbadgeid.js";
+    /* Cache-bust so the browser re-executes the IIFE on every mount. */
+    script.src = `https://www-cdn.icef.com/scripts/iasbadgeid.js?v=${Date.now()}`;
     script.async = true;
     document.body.appendChild(script);
   }, []);

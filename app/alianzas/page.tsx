@@ -133,7 +133,7 @@ export default function Alianzas() {
 
       {/* ── Intro ───────────────────────────────────────────────────────────── */}
       <section className="relative z-10 -mt-20 md:-mt-32 pb-4">
-        <div className="max-w-[900px] mx-auto px-6 pt-16 md:pt-24 text-center">
+        <div className="max-w-[900px] mx-auto px-6 pt-32 md:pt-48 text-center">
           <span className="text-[#5F338B] font-bold tracking-wider uppercase mb-4 block text-sm">
             Cómo funciona
           </span>
