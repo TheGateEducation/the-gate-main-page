@@ -69,7 +69,7 @@ export default function Navbar() {
           className="shrink-0 inline-flex items-center bg-[#5F338B] rounded-2xl p-0.5 shadow-md"
         >
           <span className="inline-flex items-center justify-center bg-white rounded-[calc(1rem-2px)] px-3 h-[56px] overflow-hidden">
-            <Logo className="h-[84px] w-auto shrink-0" />
+            <Logo className="h-[96px] w-auto shrink-0" />
           </span>
         </Link>
 
