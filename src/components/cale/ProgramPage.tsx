@@ -535,10 +535,12 @@ export default function ProgramPage({ initialCategoria = null, initialData: _ini
   if (!categoria) {
     return (
       <main className="p-8">
-        <Hero
-          title="Explora todos los caminos que puedes tomar"
-          subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
-        />
+        {!skipHero && (
+          <Hero
+            title="Explora todos los caminos que puedes tomar"
+            subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
+          />
+        )}
         <CategoriaGrid
           categorias={ordenDeCategorias}
           onCategoriaSelect={handleCategoriaSelect}
@@ -552,7 +554,7 @@ export default function ProgramPage({ initialCategoria = null, initialData: _ini
   if (categoriaPorTexto.includes(categoria)) {
     return (
       <main className="p-8">
-        <Hero title={categoria} subtitle={textoSolo ?? ""} />
+        {!skipHero && <Hero title={categoria} subtitle={textoSolo ?? ""} />}
         <GeneralButtons onBack={() => setCategoria(null)} />
       </main>
     );
