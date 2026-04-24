@@ -22,7 +22,7 @@ export default function DestinosPage() {
             alt="Mapa mundial con destinos educativos"
             className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#5F338B]/85 via-[#7B4BAE]/60 to-[#9747FF]/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#5F338B]/70 via-[#5F338B]/45 to-[#5F338B]/15"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

@@ -16,11 +16,11 @@ export default function MaestriasPage() {
       <section className="relative pt-24 pb-32 md:pt-32 md:pb-48 flex items-center overflow-hidden min-h-[60vh]">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=2070&q=80"
-            alt="Estudiantes de maestría en ceremonia de graduación"
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2070&q=80"
+            alt="Estudiantes de maestría colaborando en campus"
             className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#5F338B]/85 via-[#5F338B]/60 to-[#5F338B]/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#5F338B]/70 via-[#5F338B]/45 to-[#5F338B]/15"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
