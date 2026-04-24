@@ -25,11 +25,11 @@ const CardCTA: React.FC<Props> = ({
     // Contenedor principal de la tarjeta
     <div
       className={[
-        "flex flex-col md:grid md:grid-cols-[325px,1fr]", // Stack en móvil, grid en desktop
-        "bg-white w-full max-w-5xl mx-auto",             // Centrado y con ancho máximo
-        "border-[5px] border-[#6E44AD] rounded-2xl",     // Borde y redondeo como en Figma
-        "shadow-lg overflow-hidden",                     // Sombra sutil y overflow para la imagen
-        "transition-transform duration-300 hover:scale-[1.02]", // Efecto hover sutil
+        "flex flex-col md:grid md:grid-cols-[325px,1fr]",
+        "bg-white w-full max-w-5xl mx-auto",
+        "rounded-[2rem] border border-gray-100",
+        "shadow-lg hover:shadow-2xl hover:shadow-[#5F338B]/10 overflow-hidden",
+        "transition-all duration-300 hover:-translate-y-1 hover:border-[#5F338B]/20",
         className,
       ].join(" ")}
     >
@@ -60,14 +60,7 @@ const CardCTA: React.FC<Props> = ({
         <div>
           <Link
             href={linkTo}
-            className="
-              inline-block
-              bg-[#6E44AD] text-white
-              font-semibold text-base sm:text-lg
-              px-6 py-3 rounded-xl
-              transition hover:bg-purple-800 hover:shadow-md
-              transform active:scale-95
-            "
+            className="inline-flex items-center justify-center self-start bg-[#5F338B] text-white font-bold text-base sm:text-lg px-8 py-4 rounded-full hover:bg-[#4b2870] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
           >
             {buttonLabel}
           </Link>

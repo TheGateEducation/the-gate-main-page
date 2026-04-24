@@ -69,11 +69,11 @@ export const campDestinations: Destination[] = [
     id: "canada",
     country: "Canadá",
     subtitle: "Vive el verano en Canadá mientras perfeccionas tu inglés",
-    description: "Descubre Canadá a través de programas que combinan aprendizaje de idiomas, liderazgo y experiencias inolvidables en entornos urbanos y naturales. Desde la vibrante ciudad de Toronto hasta un tradicional campamento canadiese junto al lago, los estudiantes desarrollan habilidades académicas, sociales y personales en un ambiente internacional y seguro.",
+    description: "Descubre Canadá a través de programas que combinan aprendizaje de idiomas, liderazgo y experiencias inolvidables en entornos urbanos y naturales. Desde la vibrante ciudad de Toronto hasta un tradicional campamento canadiense junto al lago, los estudiantes desarrollan habilidades académicas, sociales y personales en un ambiente internacional y seguro.",
     flagImage: "/images/canada flag.png",
     programas: [
       { title: "Clases de inglés", description: "Programas de Inglés General y opciones académicas especializadas en un entorno internacional." },
-      { title: "Programas académicos especializados", description: "Liderazgo Global, Futuros Emprendedores y Preparación Académica paга estudiantes que buscan un enfoque más desafiante." },
+      { title: "Programas académicos especializados", description: "Liderazgo Global, Futuros Emprendedores y Preparación Académica para estudiantes que buscan un enfoque más desafiante." },
       { title: "French Camp", description: "Programa de inmersión en francés que combina aprendizaje del idioma con actividades culturales y recreativas en un entorno francófono." },
       { title: "Campamento canadiense tradicional", description: "Experiencia en entorno natural con enfoque en liderazgo, actividades al aire libre y vida en comunidad." }
     ],
@@ -265,7 +265,7 @@ export const campDestinations: Destination[] = [
     description: "Brasil es sinónimo de talento, técnica y pasión por el fútbol. Este programa está diseñado para estudiantes que desean entrenar como atletas profesionales mientras viven una experiencia cultural única en uno de los entornos deportivos más icónicos del mundo.",
     flagImage: "/images/BrazilFlag.png",
     programas: [
-      { title: "Futbol de alto rendimiento", description: "Entrenamiento técnico, táctico y físico en academias reconocidas internacionalmente, con metodología profesional y enfoque competitivo." }
+      { title: "Fútbol de alto rendimiento", description: "Entrenamiento técnico, táctico y físico en academias reconocidas internacionalmente, con metodología profesional y enfoque competitivo." }
     ],
     incluye: [
       "Desarrollo integral del atleta (disciplina, liderazgo y mentalidad competitiva)",

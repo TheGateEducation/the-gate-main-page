@@ -6,11 +6,11 @@ import UnderConstruction from "@src/components/UnderConstruction/UnderConstructi
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Contactanos - The Gate Education",
+  title: "Contáctanos - The Gate Education",
   description:
     "Aquí inicia el proceso para irte de intercambio, estudiar en el extranjero o simplemente viajar por el mundo. Contáctanos y te ayudaremos a hacerlo posible.",
   keywords:
-    "viajar por el mundo, educacion internacional, asesoria, acompañamiento, visa, aceptacion",
+    "viajar por el mundo, educación internacional, asesoría, acompañamiento, visa, aceptación",
 };
 
 export default function ContactUs() {

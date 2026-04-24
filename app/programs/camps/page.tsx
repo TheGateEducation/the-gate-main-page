@@ -1,4 +1,3 @@
-import React from "react";
 import SummerCampCards from "@src/components/cale/SummerCampCards";
 import Link from "next/link";
 
@@ -16,9 +15,9 @@ export default function CampamentosPage() {
           <img
             src="https://images.unsplash.com/photo-1526976668912-1a811878dd37?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             alt="Jóvenes disfrutando en un campamento de verano internacional"
-            className="w-full h-full object-cover scale-105 filter brightness-[0.85]"
+            className="w-full h-full object-cover scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1a2b4c]/95 via-[#1a2b4c]/80 to-[#FA5939]/60 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0b3f4c]/55 via-[#1e798e]/30 to-transparent"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -38,7 +37,7 @@ export default function CampamentosPage() {
             <div className="lg:col-span-7 text-white">
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-tight tracking-tight">
                 Tu mejor verano <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FA5939] to-orange-300">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#EDA74C] to-[#f9cf8c]">
                   empieza aquí.
                 </span>
               </h1>
@@ -48,7 +47,7 @@ export default function CampamentosPage() {
               <div className="flex flex-wrap gap-4">
                 <a 
                   href="#tipos-de-programas" 
-                  className="bg-[#FA5939] hover:bg-[#e04f32] text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-[#FA5939]/40 hover:-translate-y-1 flex items-center gap-2"
+                  className="bg-[#1e798e] hover:bg-[#17627a] text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-lg hover:shadow-[#1e798e]/40 hover:-translate-y-1 flex items-center gap-2"
                 >
                   Ver Programas
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -65,11 +64,11 @@ export default function CampamentosPage() {
             </div>
 
             <div className="lg:col-span-5 bg-white/10 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] border border-white/20 shadow-2xl relative overflow-hidden group hover:border-white/30 transition-all duration-500">
-              <div className="absolute top-0 right-0 -mt-20 -mr-20 w-48 h-48 bg-[#FA5939]/30 rounded-full blur-[60px] group-hover:bg-[#FA5939]/40 transition-all duration-700"></div>
-              <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-48 h-48 bg-[#1a2b4c]/40 rounded-full blur-[60px] group-hover:bg-[#1a2b4c]/50 transition-all duration-700"></div>
+              <div className="absolute top-0 right-0 -mt-20 -mr-20 w-48 h-48 bg-[#1e798e]/30 rounded-full blur-[60px] group-hover:bg-[#1e798e]/40 transition-all duration-700"></div>
+              <div className="absolute bottom-0 left-0 -mb-20 -ml-20 w-48 h-48 bg-[#0b3f4c]/40 rounded-full blur-[60px] group-hover:bg-[#0b3f4c]/50 transition-all duration-700"></div>
 
               <h3 className="text-3xl font-bold mb-10 text-white flex items-center gap-4 relative z-10">
-                <span className="bg-white/20 p-3 rounded-2xl shadow-inner">🚀</span> 
+                <span className="bg-white/20 p-3 rounded-2xl shadow-inner">🚀</span>
                 Datos Rápidos
               </h3>
               

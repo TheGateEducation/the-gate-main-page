@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useInfiniteQuery, type InfiniteData } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
@@ -318,9 +318,10 @@ function DestinoCard({
 interface ProgramPageProps {
   initialCategoria?: string | null;
   initialData?: ApiProgram[];
+  skipHero?: boolean;
 }
 
-export default function ProgramPage({ initialCategoria = null, initialData }: ProgramPageProps) {
+export default function ProgramPage({ initialCategoria = null, initialData: _initialData, skipHero = false }: ProgramPageProps) {
   const router = useRouter();
   const programsRef = useRef<HTMLDivElement>(null);
 
@@ -534,10 +535,12 @@ export default function ProgramPage({ initialCategoria = null, initialData }: Pr
   if (!categoria) {
     return (
       <main className="p-8">
-        <Hero
-          title="Explora todos los caminos que puedes tomar"
-          subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
-        />
+        {!skipHero && (
+          <Hero
+            title="Explora todos los caminos que puedes tomar"
+            subtitle="Desde campamentos hasta doctorados, descubre el programa ideal para tu siguiente aventura internacional."
+          />
+        )}
         <CategoriaGrid
           categorias={ordenDeCategorias}
           onCategoriaSelect={handleCategoriaSelect}
@@ -551,7 +554,7 @@ export default function ProgramPage({ initialCategoria = null, initialData }: Pr
   if (categoriaPorTexto.includes(categoria)) {
     return (
       <main className="p-8">
-        <Hero title={categoria} subtitle={textoSolo ?? ""} />
+        {!skipHero && <Hero title={categoria} subtitle={textoSolo ?? ""} />}
         <GeneralButtons onBack={() => setCategoria(null)} />
       </main>
     );
@@ -560,7 +563,7 @@ export default function ProgramPage({ initialCategoria = null, initialData }: Pr
   // ── Render: program category ───────────────────────────────────────────────
   return (
     <main className="p-4 sm:p-8">
-      <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />
+      {!skipHero && <Hero title={categoria} subtitle={heroCopy[categoria] ?? ""} />}
 
       {/* ── DESTINOS DISPONIBLES ─────────────────────────────────────────── */}
       {paisesDisponibles.length > 0 && (

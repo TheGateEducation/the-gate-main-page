@@ -13,7 +13,7 @@
         },
         {
             "end": 300,
-            "label": "Instituciones educacionales",
+            "label": "Instituciones educativas",
             "prefix": "+",
             "isPercentage": false
         },
@@ -37,7 +37,7 @@
         "steps": [
             {
                 "h2": "01.",
-                "p": "Contactanos",
+                "p": "Contáctanos",
                 "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/telecommuting.png",
                 "alt": "telecommuting"
             },

@@ -16,9 +16,9 @@ module.exports = {
         border: "hsl(var(--border))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        customOrange: '#FAA533',
-        customOrangeHover: '#D18A28',
-        customPurple: '#662D91',
+        customOrange: '#EDA74C',
+        customOrangeHover: '#d99530',
+        customPurple: '#5F338B',
         customMint: '#699984',
         whiteNotWhite: '#FCFBF8',
         whiteNotWhiteHover: '#F0EFEA',
@@ -60,12 +60,18 @@ module.exports = {
       },
       animation: {
         'infinite-scroll': 'infinite-scroll 70s linear infinite',
+        'img-cycle': 'img-cycle 4.5s ease-in-out infinite',
       },
       keyframes: {
         'infinite-scroll': {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-20%)' },
-        }
+        },
+        'img-cycle': {
+          '0%, 28%': { opacity: '1' },
+          '33%, 95%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       boxShadow: {
         pill:'0 4px 4px rgba(0,0,0,0.25)',

@@ -3,17 +3,23 @@ import Link from 'next/link';
 
 const Questions: React.FC = () => {
     return (
-        <div className="bg-[#6a3392] py-20 text-white text-center">
-            <div className="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-8 py-[40px]">
-                <div className="flex flex-col items-center md:items-start">
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 text-center md:text-left">
-                        ¿Tienes preguntas?
-                    </h1>
-                </div>
-                <Link href="/contact">
-                <button style={{ fontSize: '20px' }} className="bg-customOrange text-white py-3 px-4 rounded-3xl hover:bg-customOrangeHover">
-                    Nosotros respuestas
-                </button>
+        <div className="relative bg-gradient-to-br from-[#5F338B] via-[#7B4BAE] to-[#9747FF] py-20 text-white text-center overflow-hidden">
+            <div
+                className="absolute inset-0 opacity-[0.06] pointer-events-none"
+                style={{
+                    backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
+                    backgroundSize: "32px 32px",
+                }}
+            />
+            <div className="relative flex flex-col md:flex-row justify-center items-center gap-6 md:gap-10 py-[40px] px-6">
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-center md:text-left leading-tight">
+                    ¿Tienes preguntas?
+                </h2>
+                <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-[#EDA74C] text-white font-bold text-lg rounded-full hover:bg-[#d99530] hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+                >
+                    Tenemos las respuestas
                 </Link>
             </div>
         </div>

@@ -130,8 +130,14 @@ const Hero: React.FC<HeroProps> = ({
   const isHome = fullHeight && backgroundType === "none";
   const magneticRef = useMagnetic(isHome);
 
+  /* Auto-white title/subtitle when background is colorful (gradient or image).
+     Pages don't need to remember to pass titleType="white" — prevents
+     invisible-title regressions on any page with a non-white background. */
+  const hasColorfulBg = backgroundType === "gradient" || backgroundType === "image" || isHome;
+  const useWhiteTitle = hasColorfulBg || titleType === "white";
+
   const subColor =
-    subtitleColor === "white" || backgroundType === "image"
+    subtitleColor === "white" || hasColorfulBg
       ? "text-white/80"
       : subtitleColor === "black"
         ? "text-gray-600"
@@ -152,7 +158,7 @@ const Hero: React.FC<HeroProps> = ({
               ? "bg-white"
               : ""
         }
-        pt-[72px] px-6 pb-14
+        pt-[80px] px-6 pb-14
         ${className}
       `}
     >
@@ -174,10 +180,47 @@ const Hero: React.FC<HeroProps> = ({
 
       {/* ── Decorative shapes (homepage only) ─────────────────────────────── */}
       {isHome && (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#EDA74C]/10" />
           <div className="absolute top-1/3 -left-32 w-[350px] h-[350px] rounded-full bg-white/[0.04]" />
           <div className="absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full bg-[#D25C7A]/10" />
+
+          {/* Subtle world map silhouette */}
+          <svg
+            className="absolute inset-0 w-full h-full opacity-[0.07] mix-blend-screen"
+            viewBox="0 0 1000 500"
+            fill="white"
+            preserveAspectRatio="xMidYMid slice"
+            aria-hidden="true"
+          >
+            <path d="M150 200c-5-15 10-35 25-30s20 15 10 25-30 20-35 5zm40-60c8-5 20 0 18 10s-15 12-22 5-4-10 4-15zm60 80c12-8 28-5 30 8s-10 22-25 18-15-20-5-26zm80 20c15-10 35 0 33 15s-20 25-38 18-10-25 5-33zm120-50c20-8 45 5 42 22s-28 28-48 18-14-32 6-40zm90 70c18-6 38 8 35 22s-24 25-42 17-11-33 7-39zm100-30c22-10 50 5 46 25s-32 32-54 20-14-35 8-45zm-430 120c25-5 50 10 45 28s-38 28-58 15-12-38 13-43zm150 40c22-8 48 5 46 22s-30 30-52 20-16-34 6-42zm140-20c28-10 60 8 55 30s-44 38-68 22-15-42 13-52z" />
+            <path d="M80 280c10-3 22 5 18 15s-22 10-25 2-3-14 7-17zm700-150c15-5 30 8 25 20s-30 15-35 5-5-20 10-25zm100 120c20-8 45 5 40 22s-38 22-50 10-10-24 10-32z" />
+          </svg>
+
+          {/* Flight path dashed line */}
+          <svg
+            className="absolute inset-0 w-full h-full opacity-[0.15]"
+            viewBox="0 0 1440 800"
+            fill="none"
+            preserveAspectRatio="xMidYMid slice"
+            aria-hidden="true"
+          >
+            <path
+              d="M 80 400 Q 400 150 720 350 T 1360 300"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeDasharray="4 8"
+              strokeLinecap="round"
+            />
+          </svg>
+
+          {/* Paper plane flying across */}
+          <div className="absolute top-[22%] left-[-60px] text-white/70 plane-fly">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </div>
+
           <div
             className="absolute inset-0 opacity-[0.06]"
             style={{
@@ -188,31 +231,50 @@ const Hero: React.FC<HeroProps> = ({
         </div>
       )}
 
-      {/* ── Floating country cards (homepage only) ─────────────────────────── */}
+      {/* ── Floating country polaroid cards (homepage only) ───────────────── */}
       {isHome &&
-        floatingCards.map((c, i) => (
-          <div
-            key={c.name}
-            data-magnetic
-            className={`absolute hidden lg:flex flex-col items-center bg-white/10 border border-white/20 rounded-2xl px-3 py-2 xl:px-4 xl:py-3 select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
-            style={{
-              ...c.position,
-              transitionDelay: `${400 + i * 150}ms`,
-            }}
-          >
-            <span className="relative block w-8 h-6 xl:w-10 xl:h-7 mb-1 rounded-sm overflow-hidden shadow-sm">
-              <Image
-                src={c.flagImage}
-                alt={`Bandera de ${c.name}`}
-                fill
-                className="object-cover"
-                sizes="40px"
-              />
-            </span>
-            <span className="text-white text-[11px] xl:text-xs font-bold">{c.name}</span>
-            <span className="text-white/50 text-[10px] font-medium">{c.programs} programas</span>
-          </div>
-        ))}
+        floatingCards.map((c, i) => {
+          // Alternate tilt so the polaroids look hand-pinned
+          const tilt = i % 2 === 0 ? "-rotate-3" : "rotate-3";
+          return (
+            <div
+              key={c.name}
+              data-magnetic
+              className={`absolute hidden lg:block select-none pointer-events-none transition-opacity duration-700 will-change-transform ${loaded ? "opacity-100" : "opacity-0"}`}
+              style={{
+                ...c.position,
+                transitionDelay: `${400 + i * 150}ms`,
+              }}
+            >
+              {/* Purple shadow offset behind the card (polaroid look from the mockup) */}
+              <div className={`relative ${tilt}`}>
+                <div className="absolute inset-0 translate-x-2 translate-y-2 rounded-[14px] bg-[#5F338B]/70" aria-hidden="true" />
+                <div className="relative bg-[#5F338B] p-1.5 rounded-[14px] shadow-xl">
+                  {/* Country photo */}
+                  <div className="relative w-[150px] h-[95px] xl:w-[170px] xl:h-[108px] overflow-hidden rounded-[10px]">
+                    <Image
+                      src={c.placeImage ?? c.flagImage}
+                      alt={`Foto de ${c.name}`}
+                      fill
+                      className="object-cover"
+                      sizes="170px"
+                    />
+                  </div>
+                  {/* Caption under the photo */}
+                  <div className="px-2 py-1.5 flex items-center gap-1.5">
+                    <span className="relative block w-4 h-3 rounded-sm overflow-hidden shrink-0 shadow-sm">
+                      <Image src={c.flagImage} alt="" fill className="object-cover" sizes="16px" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="text-white text-[11px] font-bold leading-tight truncate">{c.name}</div>
+                      <div className="text-white/60 text-[9px] font-medium leading-tight">{c.programs} programas</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
 
       {/* ── Content ───────────────────────────────────────────────────────── */}
       <div
@@ -231,7 +293,7 @@ const Hero: React.FC<HeroProps> = ({
         <h1
           className={`font-extrabold leading-[1.1] tracking-tight
             text-[clamp(2rem,5vw,3.75rem)]
-            ${isHome || titleType === "white" ? "text-white" : "text-gradient"}
+            ${useWhiteTitle ? "text-white drop-shadow-sm" : "text-gradient"}
           `}
         >
           {title}

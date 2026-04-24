@@ -10,16 +10,10 @@ interface InfoCardProps {
 const InfoCard: React.FC<InfoCardProps> = ({ title, borderColor }) => {
   return (
     <div
-      className="
-        flex w-full items-center rounded-2xl border-4 
-        bg-white px-6 py-10 shadow-md transition-transform duration-300 hover:scale-105
-        min-h-[120px] 
-      "
-      // El estilo para el borde dinámico se mantiene igual, ¡esto ya estaba bien!
-      style={{ borderColor: borderColor }} 
+      className="flex w-full items-center rounded-2xl border-l-[6px] border-y border-r border-gray-100 bg-white px-6 py-8 shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 min-h-[100px]"
+      style={{ borderLeftColor: borderColor }}
     >
-      {/* Título de la tarjeta (cambiamos a texto oscuro) */}
-      <h3 className="font-poppins text-2xl font-bold text-black">
+      <h3 className="font-poppins text-lg md:text-xl font-bold text-gray-900 leading-snug">
         {title}
       </h3>
     </div>

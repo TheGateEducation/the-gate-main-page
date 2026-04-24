@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { programTypes, campDestinations, Destination } from "@src/data/summerCampsData";
+import { programTypes, campDestinations } from "@src/data/summerCampsData";
 import Link from "next/link";
-import Image from "next/image";
 
 const getBackgroundImage = (country: string) => {
   const images: { [key: string]: string } = {
@@ -33,15 +32,15 @@ const SummerCampCards: React.FC = () => {
     <div className="flex flex-col gap-32 pb-24">
       
 
-      <section id="tipos-de-programas" className="px-4 max-w-[1200px] mx-auto pt-16">
+      <section id="tipos-de-programas" className="px-4 max-w-[1200px] mx-auto pt-40 md:pt-48 scroll-mt-24">
         <div className="text-center mb-20 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-full bg-gradient-to-r from-transparent via-gray-100/50 to-transparent -z-10 blur-3xl pointer-events-none"></div>
           
-          <span className="text-[#FA5939] font-bold tracking-wider uppercase mb-4 block text-sm">Descubre tu camino ideal</span>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-[#1a2b4c] mb-8 tracking-tight leading-tight">
+          <span className="text-[#1e798e] font-bold tracking-wider uppercase mb-4 block text-sm">Descubre tu camino ideal</span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-[#0b3f4c] mb-8 tracking-tight leading-tight">
             Tipos de Programas
           </h2>
-          <div className="w-24 h-2 bg-gradient-to-r from-[#FA5939] to-orange-400 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-2 bg-gradient-to-r from-[#1e798e] to-[#3fa8bf] mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
             No todos los estudiantes buscan la misma experiencia. Hemos diseñado diferentes caminos para que encuentres el que mejor se adapte a tus objetivos y personalidad.
           </p>
@@ -51,25 +50,28 @@ const SummerCampCards: React.FC = () => {
           {programTypes.map((programa) => (
             <div
               key={programa.id}
-              className="group relative bg-white rounded-[2.5rem] shadow-xl hover:shadow-2xl hover:shadow-[#1a2b4c]/20 transition-all duration-500 flex flex-col h-full overflow-visible border border-gray-100 hover:border-[#FA5939]/30 hover:-translate-y-3"
+              className="group relative bg-white rounded-[2.5rem] shadow-xl hover:shadow-2xl hover:shadow-[#0b3f4c]/20 transition-all duration-500 flex flex-col h-full overflow-visible border border-gray-100 hover:border-[#1e798e]/30 hover:-translate-y-3"
             >
-              <div className="w-[90%] mx-auto h-64 relative -mt-8 rounded-[2rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-500 z-10">
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a2b4c]/70 via-transparent to-transparent z-10 opacity-40 group-hover:opacity-20 transition-opacity duration-500"></div>
+              <div
+                className="w-[calc(100%-1.5rem)] mx-auto mt-3 h-64 relative rounded-[2rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-500 z-10 p-1 bg-white"
+                style={{ border: "3px dashed #1e798e" }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b3f4c]/70 via-transparent to-transparent z-10 opacity-40 group-hover:opacity-20 transition-opacity duration-500"></div>
                 <img
                   src={programa.image}
                   alt={programa.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform origin-center"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 transform origin-center rounded-[1.6rem]"
                 />
                 {programa.ages && (
-                   <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md text-[#1a2b4c] pl-3 pr-4 py-2 rounded-full text-sm font-bold shadow-sm flex items-center gap-2 border border-white/50">
+                   <div className="absolute top-4 right-4 z-20 bg-white/95 backdrop-blur-md text-[#0b3f4c] pl-3 pr-4 py-2 rounded-full text-sm font-bold shadow-sm flex items-center gap-2 border border-white/50">
                      <span className="text-lg">👥</span> {programa.ages}
                    </div>
                 )}
-                 <div className="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#FA5939] to-orange-400 z-20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                 <div className="absolute bottom-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#1e798e] to-[#3fa8bf] z-20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
               </div>
 
-              <div className="p-8 pt-12 flex flex-col flex-grow relative bg-white rounded-b-[2.5rem] z-0">
-                <h3 className="text-2xl font-bold text-[#1a2b4c] mb-5 leading-tight group-hover:text-[#FA5939] transition-colors duration-300">
+              <div className="p-8 pt-6 flex flex-col flex-grow relative bg-white rounded-b-[2.5rem] z-0">
+                <h3 className="text-2xl font-bold text-[#0b3f4c] mb-5 leading-tight group-hover:text-[#1e798e] transition-colors duration-300">
                   {programa.title}
                 </h3>
                 <p className="text-lg text-gray-600 mb-10 flex-grow leading-relaxed lg:line-clamp-4 lg:group-hover:line-clamp-none transition-all duration-500 ease-in-out relative z-10">
@@ -78,7 +80,7 @@ const SummerCampCards: React.FC = () => {
                 </p>
                 <Link
                   href="/contact"
-                  className="mt-auto w-full text-center bg-[#1a2b4c] text-white py-4 px-6 rounded-2xl font-bold text-lg hover:bg-[#FA5939] transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-[#FA5939]/30 flex items-center justify-center gap-3 group/btn relative overflow-hidden"
+                  className="mt-auto w-full text-center bg-[#0b3f4c] text-white py-4 px-6 rounded-2xl font-bold text-lg hover:bg-[#1e798e] transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-[#1e798e]/30 flex items-center justify-center gap-3 group/btn relative overflow-hidden"
                 >
                   <span className="relative z-10">Cotizar ahora</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 transform transition-transform duration-300 group-hover/btn:translate-x-1 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,11 +99,11 @@ const SummerCampCards: React.FC = () => {
 
       <section id="elige-tu-destino" className="px-4">
         <div className="text-center mb-20 max-w-[1200px] mx-auto">
-          <span className="text-[#FA5939] font-bold tracking-wider uppercase mb-4 block text-sm">El mundo te espera</span>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-[#1a2b4c] mb-8 tracking-tight leading-tight">
+          <span className="text-[#1e798e] font-bold tracking-wider uppercase mb-4 block text-sm">El mundo te espera</span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-[#0b3f4c] mb-8 tracking-tight leading-tight">
             Elige tu Destino
           </h2>
-          <div className="w-24 h-2 bg-gradient-to-r from-[#FA5939] to-orange-400 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-2 bg-gradient-to-r from-[#1e798e] to-[#3fa8bf] mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-medium">
             Desde ciudades cosmopolitas hasta paisajes naturales impresionantes. Hemos seleccionado los mejores escenarios para tu aventura internacional.
           </p>
@@ -119,12 +121,35 @@ const SummerCampCards: React.FC = () => {
               >
              
                 <div className="absolute inset-0 z-0">
+                  {/* Base image — always visible, fades out on hover */}
                   <img
                     src={bgImage}
                     alt={`Paisaje representativo de ${destino.country}`}
-                    className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110 scale-105 filter saturate-[1.1]"
+                    className="absolute inset-0 w-full h-full object-cover transition-[opacity,transform] duration-700 ease-out scale-105 group-hover:scale-110 group-hover:opacity-0 filter saturate-[1.1]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a]/95 via-[#0f172a]/70 to-[#0f172a]/40 lg:via-[#0f172a]/50 lg:to-[#0f172a]/30 mix-blend-multiply"></div>
+                  {/* Hover cycle: camp life → graduation → landmark, each visible ~1.5s */}
+                  <img
+                    src="/images/campamentoverano.jpg"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:animate-img-cycle"
+                    style={{ animationDelay: "0s" }}
+                  />
+                  <img
+                    src="/images/graduacion.jpg"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:animate-img-cycle"
+                    style={{ animationDelay: "-1.5s" }}
+                  />
+                  <img
+                    src={bgImage}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 scale-110 group-hover:animate-img-cycle"
+                    style={{ animationDelay: "-3s" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0b3f4c]/95 via-[#0b3f4c]/70 to-[#0b3f4c]/40 lg:via-[#0b3f4c]/50 lg:to-[#0b3f4c]/30 mix-blend-multiply"></div>
                 </div>
 
                
@@ -133,11 +158,16 @@ const SummerCampCards: React.FC = () => {
                  
                   <div className="flex-[0.8] text-white flex flex-col justify-center text-center lg:text-left">
                     <div className="flex flex-col lg:flex-row items-center lg:items-end justify-center lg:justify-start gap-6 mb-8">
-                      <div className="w-24 h-16 rounded-2xl shadow-2xl overflow-hidden border-[3px] border-white/30 transform -rotate-6 group-hover:rotate-0 transition-all duration-500">
+                      <div
+                        className="w-24 h-16 rounded-2xl shadow-2xl overflow-hidden transform -rotate-6 group-hover:rotate-0 transition-all duration-500 bg-white/10 p-1"
+                        style={{
+                          border: "3px dashed #EDA74C",
+                        }}
+                      >
                         <img
                           src={destino.flagImage}
                           alt={`Bandera de ${destino.country}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover rounded-xl"
                         />
                       </div>
                       <h3 className="text-5xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-300 leading-none drop-shadow-sm">
@@ -145,7 +175,7 @@ const SummerCampCards: React.FC = () => {
                       </h3>
                     </div>
 
-                    <h4 className="text-2xl md:text-3xl font-bold text-[#FA5939] mb-8 leading-tight">
+                    <h4 className="text-2xl md:text-3xl font-bold text-[#1e798e] mb-8 leading-tight">
                       {destino.subtitle}
                     </h4>
                     <p className="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed font-medium drop-shadow-sm">
@@ -155,7 +185,7 @@ const SummerCampCards: React.FC = () => {
                     <div className="mt-auto flex flex-col sm:flex-row gap-5 justify-center lg:justify-start w-full lg:w-auto">
                       <Link
                         href="/contact"
-                        className="bg-gradient-to-r from-[#FA5939] to-orange-500 text-white py-5 px-12 rounded-full font-bold text-xl hover:to-[#FA5939] hover:-translate-y-1 transition-all duration-300 shadow-xl hover:shadow-[#FA5939]/30 flex items-center justify-center gap-3 group/btn"
+                        className="bg-gradient-to-r from-[#1e798e] to-[#3fa8bf] text-white py-5 px-12 rounded-full font-bold text-xl hover:to-[#1e798e] hover:-translate-y-1 transition-all duration-300 shadow-xl hover:shadow-[#1e798e]/30 flex items-center justify-center gap-3 group/btn"
                       >
                         Solicitar información
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 transform transition-transform duration-300 group-hover/btn:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
@@ -187,13 +217,13 @@ const SummerCampCards: React.FC = () => {
                
                     <div className="relative z-10 w-full">
                       <h5 className="text-3xl font-bold mb-8 text-white flex items-center gap-4 border-b border-white/20 pb-4">
-                        <span className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#1a2b4c]/80 backdrop-blur-md text-white text-2xl shadow-lg border border-white/10">🎓</span>
+                        <span className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#0b3f4c]/80 backdrop-blur-md text-white text-2xl shadow-lg border border-white/10">🎓</span>
                         Elige tu programa
                       </h5>
                       <div className="space-y-6">
                         {destino.programas.map((prog, idx) => (
                           <div key={idx} className="bg-white/5 hover:bg-white/10 p-5 rounded-2xl border border-white/10 transition-colors">
-                            <strong className="text-[#FA5939] block text-xl mb-2 font-bold tracking-tight">{prog.title}</strong>
+                            <strong className="text-[#1e798e] block text-xl mb-2 font-bold tracking-tight">{prog.title}</strong>
                             {prog.description && <p className="text-white/90 text-lg leading-relaxed">{prog.description}</p>}
                           </div>
                         ))}
@@ -204,13 +234,13 @@ const SummerCampCards: React.FC = () => {
                     {destino.incluye.length > 0 && (
                       <div className="relative z-10 w-full">
                         <h5 className="text-3xl font-bold mb-8 text-white flex items-center gap-4 border-b border-white/20 pb-4">
-                          <span className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#FA5939] text-white text-2xl shadow-lg shadow-[#FA5939]/20">✓</span>
+                          <span className="flex items-center justify-center w-12 h-12 rounded-2xl bg-[#1e798e] text-white text-2xl shadow-lg shadow-[#1e798e]/20">✓</span>
                           ¿Qué incluye la experiencia?
                         </h5>
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           {destino.incluye.map((item, idx) => (
                             <li key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors">
-                              <div className="w-3 h-3 bg-[#FA5939] rounded-full mt-2.5 flex-shrink-0 shadow-[0_0_10px_rgba(250,89,57,0.8)]"></div>
+                              <div className="w-3 h-3 bg-[#1e798e] rounded-full mt-2.5 flex-shrink-0 shadow-[0_0_10px_rgba(30,121,142,0.8)]"></div>
                               <span className="text-white/90 text-lg font-medium">{item}</span>
                             </li>
                           ))}

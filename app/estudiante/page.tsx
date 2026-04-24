@@ -41,7 +41,7 @@ const allServices: Service[] = [
     category: "Gratuitos",
     title: "Asesoría Inicial",
     description:
-      "En una sesión de hasta 45 minutos, revisaremos tu perfil e intereses para explorar opciones de destinos y programas que se adapten a ti.Puedes reprogramar solo una vez con al menos 24 horas de anticipación. Si no asistes, no se podrá reagendar.",
+      "En una sesión de hasta 45 minutos, revisaremos tu perfil e intereses para explorar opciones de destinos y programas que se adapten a ti. Puedes reprogramar solo una vez con al menos 24 horas de anticipación. Si no asistes, no se podrá reagendar.",
     price: 0,
     borderColor: "#5F338B",
   },
@@ -79,7 +79,7 @@ const allServices: Service[] = [
     category: "Servicios por Separado",
     title: "Revisión de CV",
     description:
-      "Corrección en máximo 5 días, incluye hasta 2 revisiones.Enfocado en claridad y estructura.No incluye redacción desde cero ni asesoría 1:1.",
+      "Corrección en máximo 5 días, incluye hasta 2 revisiones. Enfocado en claridad y estructura. No incluye redacción desde cero ni asesoría 1:1.",
     price: 5,
     borderColor: "#5F338B",
   },
@@ -88,7 +88,7 @@ const allServices: Service[] = [
     category: "Servicios por Separado",
     title: "Revisión de Motivation Letter",
     description:
-      "Corrección en máximo 5 días, con hasta 3 versiones por texto (1 feedback completo + 2 ajustes).Enfoque en claridad, estructura y mensaje.Para quienes ya tienen un borrador.No incluye redacción desde cero ni asesoría 1:1. Máx. 2 páginas. Aplicación a un programa específico.",
+      "Corrección en máximo 5 días, con hasta 3 versiones por texto (1 feedback completo + 2 ajustes). Enfoque en claridad, estructura y mensaje. Para quienes ya tienen un borrador. No incluye redacción desde cero ni asesoría 1:1. Máx. 2 páginas. Aplicación a un programa específico.",
     price: 15,
     borderColor: "#5F338B",
   },
@@ -97,7 +97,7 @@ const allServices: Service[] = [
     category: "Servicios por Separado",
     title: "Preparación para entrevista de admisión",
     description:
-      "Simulación de entrevista con retroalimentación detallada y segunda ronda para reforzar.Incluye tips clave para destacar en tu aplicación.",
+      "Simulación de entrevista con retroalimentación detallada y segunda ronda para reforzar. Incluye tips clave para destacar en tu aplicación.",
     price: 15,
     borderColor: "#5F338B",
   },
@@ -106,7 +106,7 @@ const allServices: Service[] = [
     category: "Servicios por Separado",
     title: "Revisión de ensayo para beca",
     description:
-      "Corrección en máximo 5 días, con hasta 3 versiones por texto (1 feedback completo + 2 ajustes).Enfoque en claridad, estructura y mensaje alineado al perfil y beca específica.Para quienes ya tienen un texto o borrador.No incluye redacción desde cero ni asesoría 1:1. Máx. 2 páginas.",
+      "Corrección en máximo 5 días, con hasta 3 versiones por texto (1 feedback completo + 2 ajustes). Enfoque en claridad, estructura y mensaje alineado al perfil y beca específica. Para quienes ya tienen un texto o borrador. No incluye redacción desde cero ni asesoría 1:1. Máx. 2 páginas.",
     price: 15,
     borderColor: "#5F338B",
   },
@@ -115,7 +115,7 @@ const allServices: Service[] = [
     category: "Servicios por Separado",
     title: "Apoyo para aplicación de visa",
     description:
-      "Incluye indicaciones previas, revisión de documentos y llenado conjunto del formulario.Máx. 2 sesiones de 60 minutos.El estudiante debe contar con toda información y documentos listos.Tiempo adicional se cobra por separado.",
+      "Incluye indicaciones previas, revisión de documentos y llenado conjunto del formulario. Máx. 2 sesiones de 60 minutos. El estudiante debe contar con toda información y documentos listos. Tiempo adicional se cobra por separado.",
     price: 47,
     borderColor: "#5F338B",
   },
@@ -124,7 +124,7 @@ const allServices: Service[] = [
     category: "Servicios por Separado",
     title: "Orientación de housing y plan de viaje",
     description:
-      "Te guiamos en la búsqueda de alojamiento, transporte y logística previa a tu llegada.Incluye recomendaciones, plataformas confiables y tips clave para organizar tu traslado y estadía.",
+      "Te guiamos en la búsqueda de alojamiento, transporte y logística previa a tu llegada. Incluye recomendaciones, plataformas confiables y tips clave para organizar tu traslado y estadía.",
     price: 10,
     borderColor: "#5F338B",
   },
