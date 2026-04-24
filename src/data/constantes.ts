@@ -83,7 +83,7 @@ export const areaMapping: Record<string, Record<string, string>> = {
     "Política y Relaciones Internacionales": "politics, international relations",
     "Psicología": "psychology",
     "Psicología y Servicios Humanos": "psychology and human services",
-    "Recursos Humanos": "human resourse",
+    "Recursos Humanos": "human resources",
     "Salud": "health",
     "Salud Comunitaria y Salud Mental": "health and community services, psycology and mental health",
     "Seguridad, Inteligencia y Criminología": "security, intelligence and criminology",
