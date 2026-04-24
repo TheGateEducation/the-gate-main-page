@@ -148,7 +148,7 @@ export default function Alianzas() {
       </section>
 
       {/* ── Aliados ─────────────────────────────────────────────────────────── */}
-      <section id="aliados" className="py-20 md:py-28 scroll-mt-24">
+      <section id="aliados" className="py-16 md:py-20 scroll-mt-24">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-14">
             <span className="text-[#EDA74C] font-bold tracking-wider uppercase mb-4 block text-sm">
@@ -192,7 +192,7 @@ export default function Alianzas() {
       </section>
 
       {/* ── CTA final ───────────────────────────────────────────────────────── */}
-      <section className="relative py-20 md:py-28 overflow-hidden">
+      <section className="relative pt-10 pb-6 md:pt-16 md:pb-10 overflow-hidden">
         <div className="relative max-w-[1000px] mx-auto px-6">
           <div className="relative bg-gradient-to-br from-[#5F338B] via-[#7B4BAE] to-[#9747FF] rounded-[2.5rem] p-10 md:p-16 text-center text-white overflow-hidden shadow-2xl">
             <div
