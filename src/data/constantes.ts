@@ -186,7 +186,7 @@ export const logos = {
     ciencias: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/ciencias.png",
     ciss: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/ciss.png",
     constructor: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/constructor.png",
-    curtini: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/curtini.png",
+    curtini: "/images/curtin_uni.jpeg",
     deakin: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/deakin.png",
     dublin : "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/difc.png",
     ecole: "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logo/EMA_paris.png",
