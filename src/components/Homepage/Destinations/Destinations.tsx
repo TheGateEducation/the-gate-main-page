@@ -94,6 +94,35 @@ const Destinations: React.FC = () => {
             </Link>
           ))}
         </div>
+
+        {/* Any-country closing note */}
+        <div className="mt-10 reveal fade-up" style={{ animationDuration: "700ms" }}>
+          <div className="relative rounded-2xl border border-[#5F338B]/15 bg-gradient-to-r from-[#5F338B]/[0.04] via-white to-[#EDA74C]/[0.05] px-6 py-6 md:px-10 md:py-7 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center sm:text-left shadow-sm">
+            <span className="text-4xl select-none">🌍</span>
+            <div className="flex-1">
+              <p className="text-gray-800 font-semibold text-base md:text-lg leading-snug">
+                ¡Y cualquier otro país del mundo que puedas imaginar!
+              </p>
+              <p className="mt-1 text-gray-500 text-sm md:text-base">
+                Contamos con más sedes y destinos disponibles.{" "}
+                <Link
+                  href="/destinos"
+                  className="text-[#5F338B] font-semibold hover:text-[#EDA74C] underline underline-offset-2 transition-colors duration-200"
+                >
+                  Consulta todas nuestras sedes
+                </Link>{" "}
+                o{" "}
+                <Link
+                  href="/contacto"
+                  className="text-[#5F338B] font-semibold hover:text-[#EDA74C] underline underline-offset-2 transition-colors duration-200"
+                >
+                  contáctanos
+                </Link>{" "}
+                para conocer más destinos disponibles para ti.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
