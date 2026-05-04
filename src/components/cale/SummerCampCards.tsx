@@ -207,7 +207,7 @@ const SummerCampCards: React.FC = () => {
 
                   
                   <div
-                    className={`flex-[1.2] w-full lg:w-auto bg-white/10 backdrop-blur-[20px] saturate-[1.8] rounded-[2.5rem] border-2 border-white/10 p-8 lg:p-10 transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-2xl relative overflow-hidden flex-col gap-10
+                    className={`flex-[1.2] w-full lg:w-auto bg-white/10 backdrop-blur-[20px] saturate-[1.8] rounded-[2.5rem] border-2 border-white/10 p-8 lg:p-10 transition-all duration-700 ease-in-out shadow-2xl relative overflow-hidden flex-col gap-10
                       ${isOpen ? 'max-h-[2500px] opacity-100 scale-100 mt-10 lg:mt-0 flex' : 'max-h-0 opacity-0 scale-95 p-0 m-0 border-none lg:max-h-none lg:opacity-100 lg:scale-100 lg:p-10 lg:border-2 lg:mt-0 lg:flex'}
                       group/card
                     `}
