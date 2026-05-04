@@ -7,7 +7,7 @@ import { logos } from "@src/data/constantes";
 const logoPairs = Object.entries(logos);
 const allLogos = [...logoPairs, ...logoPairs]; // duplicate for seamless loop
 
-const SPEED = 0.6; // px per frame (~36 px/s at 60 fps)
+const SPEED = 4; // px per frame (~36 px/s at 60 fps)
 
 export const Carousel = () => {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -59,11 +59,12 @@ export const Carousel = () => {
             <div
               ref={trackRef}
               className="flex cursor-grab active:cursor-grabbing select-none"
-              style={{ overflow: "hidden" }}
+              style={{ overflow: "hidden", touchAction: "pan-y" }}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
               onPointerLeave={onPointerUp}
+              onPointerCancel={onPointerUp}
             >
               {allLogos.map(([name, url], i) => (
                 <div key={i} className="flex-shrink-0 mx-8 flex items-center">
