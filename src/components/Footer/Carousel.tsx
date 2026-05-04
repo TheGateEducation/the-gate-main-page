@@ -7,7 +7,7 @@ import { logos } from "@src/data/constantes";
 const logoPairs = Object.entries(logos);
 const allLogos = [...logoPairs, ...logoPairs]; // duplicate for seamless loop
 
-const SPEED = 0.6; // px per frame (~36 px/s at 60 fps)
+const SPEED = 4; // px per frame (~36 px/s at 60 fps)
 
 export const Carousel = () => {
   const trackRef = useRef<HTMLDivElement>(null);
