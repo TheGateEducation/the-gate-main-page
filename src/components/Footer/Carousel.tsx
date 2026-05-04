@@ -59,11 +59,12 @@ export const Carousel = () => {
             <div
               ref={trackRef}
               className="flex cursor-grab active:cursor-grabbing select-none"
-              style={{ overflow: "hidden" }}
+              style={{ overflow: "hidden", touchAction: "pan-y" }}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={onPointerUp}
               onPointerLeave={onPointerUp}
+              onPointerCancel={onPointerUp}
             >
               {allLogos.map(([name, url], i) => (
                 <div key={i} className="flex-shrink-0 mx-8 flex items-center">
