@@ -110,7 +110,7 @@ Para agregar licenciaturas se edita el CSV en el repo y se hace PR. No es editab
     description: string;
     educationSystem: string;
     economy: string;
-    position?: CSSProperties; // para polaroids del Hero home
+    position?: { top?: string; left?: string; right?: string; bottom?: string }; // para polaroids del Hero home
   }
   ```
 - **Consumidores**: `/destinos`, polaroids del Hero del home, dropdowns en el formulario de contacto.
@@ -204,7 +204,7 @@ Permisos que requiere el objeto: `s3:GetObject` para `*`.
   1. Limpia el contenedor.
   2. Elimina el `<script>` previo si existe.
   3. Inyecta el script con query param de cache-bust (`?v=${Date.now()}`) para re-ejecutar el script en cada navegación SPA.
-- **Div anchor**: `<div id="ias_badge" ref={badgeRef} />`.
+- **Div anchor**: `<div id="iasBadge" ref={badgeRef} />`.
 
 Si el badge desaparece:
 

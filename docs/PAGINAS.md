@@ -104,7 +104,7 @@ Referencia de cada ruta del sitio: qué muestra, qué data consume, qué compone
   description: string;
   educationSystem: string;
   economy: string;
-  position?: CSSProperties;  // solo los 6 primeros, para polaroids del Hero home
+  position?: { top?: string; left?: string; right?: string; bottom?: string }; // solo los 6 primeros, para polaroids del Hero home
 }
 ```
 
