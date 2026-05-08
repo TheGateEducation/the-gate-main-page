@@ -14,7 +14,7 @@ Recetas paso-a-paso para tareas comunes. Las que dicen **(staff)** las puede hac
 - [Actualizar miembros del equipo](#actualizar-miembros-del-equipo)
 - [Agregar o editar un destino](#agregar-o-editar-un-destino)
 - [Cambiar un precio en /estudiante](#cambiar-un-precio-en-estudiante)
-- [Agregar un logo nuevo al carrusel de aliados](#agregar-un-logo-nuevo-al-carrusel-de-aliados)
+- [Agregar o quitar un logo del carrusel de aliados](#agregar-o-quitar-un-logo-del-carrusel-de-aliados)
 - [Actualizar el catálogo de licenciaturas](#actualizar-el-catálogo-de-licenciaturas)
 - [Actualizar summer camps](#actualizar-summer-camps)
 - [Activar la sección de noticias](#activar-la-sección-de-noticias)
@@ -116,15 +116,16 @@ Problemas comunes → ver [MANUAL_USUARIO.md § Si algo se rompe](./MANUAL_USUAR
 
 ---
 
-## Agregar un logo nuevo al carrusel de aliados
+## Agregar o quitar un logo del carrusel de aliados
 
-1. Sube el PNG (fondo transparente) al bucket S3 en `public/logos/` (ver [Subir una imagen nueva a S3](#subir-una-imagen-nueva-a-s3)).
-2. Abre `src/data/constantes.ts`, busca el export `logos` (objeto).
-3. Agrega una entrada:
-   ```ts
-   "Nombre Institución": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/logos/nuevo.png",
-   ```
-4. Commit `feat: add {institución} logo to partners carousel` y PR.
+1. **Para agregar un logo**:
+   - Sube el PNG (fondo transparente) al bucket S3 en `public/logos/` (ver [Subir una imagen nueva a S3](#subir-una-imagen-nueva-a-s3)).
+   - Abre `src/data/constantes.ts`, busca el export `logos` (objeto).
+   - Agrega una entrada: `"nombre": "https://url-del-logo.png",`
+2. **Para quitar un logo**:
+   - Abre `src/data/constantes.ts`, busca el export `logos`.
+   - Elimina la línea completa del partner que deseas quitar.
+3. Commit `feat: update partners carousel (add/remove {nombre})` y PR.
 
 ---
 
