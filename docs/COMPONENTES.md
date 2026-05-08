@@ -82,7 +82,7 @@ Footer global, incluido desde el layout. Contiene:
 - Links de navegación secundaria.
 - Información de contacto (oficinas).
 - Redes sociales.
-- **Badge de ICEF** — `<div id="ias_badge">` con script inyectado vía `useEffect` y cache-busted (ver [DATA.md § ICEF badge](./DATA.md#icef-badge)).
+- **Badge de ICEF** — `<div id="iasBadge">` con script inyectado vía `useEffect` y cache-busted (ver [DATA.md § ICEF badge](./DATA.md#icef-badge)).
 - Carrusel de aliados (`<Carousel>`).
 
 ### Client component porque:
