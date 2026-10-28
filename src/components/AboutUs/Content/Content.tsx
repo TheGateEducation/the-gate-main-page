@@ -8,7 +8,7 @@ const Content = () => {
             <div className="md:w-1/2 ">
                 <Image
                     className="rounded-3xl shadow-lg w-full h-full object-cover"
-                    src="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/groupwoman.jpg"
+                    src="/images/aws/home/groupwoman.jpg"
                     alt="working" 
                     width={700}
                     height={500}

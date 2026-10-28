@@ -38,25 +38,25 @@
             {
                 "h2": "01.",
                 "p": "Contáctanos",
-                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/telecommuting.png",
+                "src": "/images/aws/home/telecommuting.png",
                 "alt": "telecommuting"
             },
             {
                 "h2": "02.",
                 "p": "Encuentra todas las opciones para tus estudios",
-                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/options.png",
+                "src": "/images/aws/home/options.png",
                 "alt": "options"
             },
             {
                 "h2": "03.",
                 "p": "Selecciona tu programa y aplica",
-                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/flags.png",
+                "src": "/images/aws/home/flags.png",
                 "alt": "flags"
             },
             {
                 "h2": "04.",
                 "p": "¡Viaja!",
-                "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/fly.png",
+                "src": "/images/aws/home/fly.png",
                 "alt": "fly"
             }
         ]
@@ -67,7 +67,7 @@
         "ctaLabel": "Agenda una consulta gratis",
         "ctaHref": "/contact",
         "image": {
-            "src": "https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/woman.jpg",
+            "src": "/images/aws/home/woman.jpg",
             "alt": "working"
         }
     }

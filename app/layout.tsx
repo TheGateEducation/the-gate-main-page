@@ -16,7 +16,7 @@ export const metadata = {
     openGraph: {
         title: 'Tu Plataforma de Educación Internacional',
         description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 15 países y más de 300 instituciones educativas.',
-        images: 'https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/working.jpg',
+        images: 'https://www.thegate-education.com/images/aws/home/working.jpg',
         url: 'https://the-gate-main-page.vercel.app',
         type: 'website',
     },
@@ -24,7 +24,7 @@ export const metadata = {
         card: 'summary_large_image',
         title: 'Tu Plataforma de Educación Internacional',
         description: 'Haz realidad tu sueño de educación internacional con nosotros. Ofrecemos programas en más de 15 países y más de 300 instituciones educativas.',
-        images: 'https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/working.jpg',
+        images: 'https://www.thegate-education.com/images/aws/home/working.jpg',
     },
 }
 
