@@ -9,7 +9,7 @@ const About = () => {
                 <div className="md:w-1/2 ">
                     <Image
                         className="rounded-3xl shadow-lg w-full h-full object-cover"
-                        src="https://images-bucket-landing-page.s3.us-east-2.amazonaws.com/public/home/working.jpg"
+                        src="/images/aws/home/working.jpg"
                         alt="working"
                         width={500}
                         height={475}

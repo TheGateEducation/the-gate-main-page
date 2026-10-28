@@ -5,10 +5,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images-bucket-landing-page.s3.us-east-2.amazonaws.com',
-      },
-      {
-        protocol: 'https',
         hostname: 'images.pexels.com',
       },
       {
