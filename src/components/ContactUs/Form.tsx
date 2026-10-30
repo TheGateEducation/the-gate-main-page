@@ -20,10 +20,13 @@ const ContactUsForm = () => {
     const [successMessage, setSuccessMessage] = React.useState("");
 
     const sendForm = async () => {
+        if (!name.trim() || !email.trim()) {
+            toast.error("Por favor escribe tu nombre y tu correo.");
+            return;
+        }
+
         const studentsRecordsService = new StudentsRecordsService();
         const data = {
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
             name,
             email,
             phone,
@@ -31,36 +34,10 @@ const ContactUsForm = () => {
             destinationCountry,
             program,
             howDidYouHearAboutUs,
-            counsellor: "",
-            areaOfInterest: "",
-            firstContact: "",
-            levelOfEducation: "",
-            levelOfInterest: "",
-            institution: "",
-            intake: "",
-            information: "",
-            documents: "",
-            application: "",
-            offerLetter: "",
-            scholarship: "",
-            acceptance: "",
-            payment: "",
-            coe: "",
-            visa: "",
-            invoice: "",
-            status: "",
-            visaResolutionTime: "",
-            notes: "",
-            currency: "",
-            totalTuition: "",
-            yearlyTuition: "",
-            commission: "",
-            tge: "",
-            salesPax: "",
         };
 
         try {
-            const response = await studentsRecordsService.createStudentRecord(data);
+            await studentsRecordsService.createStudentRecord(data);
             toast.success("Registro exitoso. ¡Gracias por contactarnos!. Nos pondremos en contacto contigo pronto.");
             setIsSubmitted(true);
         } catch (error) {
@@ -94,7 +71,7 @@ const ContactUsForm = () => {
                 <label className="block mb-4">
                     <span className="block text-lg font-medium text-gray-700">País de origen</span>
                     <select
-                        onChange={(e) => setCountry(e.target.value)}
+                        onChange={(e) => setCountry(e.target.value && e.target.selectedOptions[0].text)}
                         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-purple-900 
                             focus:ring-2 focus:ring-customPurple"
                     >
@@ -349,7 +326,7 @@ const ContactUsForm = () => {
                 <label className="block mb-4">
                     <span className="block text-lg font-medium text-gray-700">País de destino</span>
                     <select
-                        onChange={(e) => setDestinationCountry(e.target.value)}
+                        onChange={(e) => setDestinationCountry(e.target.value && e.target.selectedOptions[0].text)}
                         className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-purple-900 
                             focus:ring-2 focus:ring-customPurple"
                     >
